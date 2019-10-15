@@ -7,6 +7,10 @@
     "eject": "react-scripts eject",
     "precommit": "pretty-quick --staged"
   },
+  "engines": {
+    "npm": "6.9.0",
+    "node": "12.4.0"
+  },
   "devDependencies": {
     "prettier": "1.18.2",
     "react-scripts": "^3.2.0"
