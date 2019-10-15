@@ -1,7 +1,9 @@
 {
   "private": true,
   "scripts": {
+    "deploy": "now && now alias",
     "start": "react-scripts start",
+    "now-start": "serve -s ./build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -30,5 +32,3 @@
     "not op_mini all"
   ]
 }
-
-//test
