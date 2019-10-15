@@ -11,7 +11,7 @@
   },
   "engines": {
     "npm": "6.9.0",
-    "node": "12.4.0"
+    "node": "10.16.3"
   },
   "devDependencies": {
     "prettier": "1.18.2",
