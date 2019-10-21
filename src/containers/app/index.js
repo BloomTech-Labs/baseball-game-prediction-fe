@@ -3,7 +3,7 @@ import { Route, Link } from "react-router-dom";
 import Home from "../home";
 import About from "../about";
 import Nav from "../nav/index";
-import DateSelector from "../schedule/dateSelector";
+import DateSelector from "../dateSelector";
 
 const App = () => (
   <div>
