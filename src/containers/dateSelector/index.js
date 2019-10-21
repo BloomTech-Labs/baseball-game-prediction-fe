@@ -1,30 +1,34 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-import "date-fns";
 import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
+import MomentUtils from "@date-io/moment";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker
 } from "@material-ui/pickers";
 
+import moment from "moment";
+
 const DateSelector = () => {
   const [games, setGames] = useState([]);
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = date => {
     setSelectedDate(date);
   };
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/games/date/2019-05-03").then(res => {
-      setGames(res.data);
-    });
-  }, []);
+    axios
+      .get(
+        `http://localhost:5000/api/games/date/${moment(selectedDate).format(
+          "YYYY-MM-DD"
+        )}`
+      )
+      .then(res => {
+        setGames(res.data);
+      });
+  }, [selectedDate]);
 
   let schedule = <div />;
 
@@ -40,13 +44,15 @@ const DateSelector = () => {
 
   return (
     <div>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
         <Grid container justify="space-around">
           <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="MM/DD/YYYY"
             margin="normal"
-            id="date-picker-dialog"
-            label="Date picker dialog"
-            format="MM/dd/yyyy"
+            id="date-picker-inline"
+            label="Date picker inline"
             value={selectedDate}
             onChange={handleDateChange}
             KeyboardButtonProps={{
