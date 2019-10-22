@@ -4,14 +4,17 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {connect} from 'react-redux'
 import {login} from '../../actions/index'
 import { Link } from 'react-router-dom'
-
+import Loader from 'react-loader-spinner';
+import '../formstyle/index.css'
 
 class Login extends Component {
     constructor(props){
         super(props);
-        this.state={
-        username:'',
-        password:''
+        this.state= {
+          credentials: {
+            username: '',
+            password: ''
+          }
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,14 +22,22 @@ class Login extends Component {
 
       
         handleChange(e) { 
-            
-           this.setState( {value: e.target.value} );
+          this.setState({
+            credentials: {
+              ...this.state.credentials,
+              [e.target.name]: e.target.value
+            }
+          });
         }
        
   
        handleSubmit(e) {
-            e.preventDefault();
-         this.props.login(this.state.username, this.state.password);
+        e.preventDefault();
+        this.props.login(this.state.credentials).then(res => {
+          if (res) {
+            this.props.history.push('/protected');
+          }
+        });
        }
 
   render(props) {
@@ -41,7 +52,7 @@ class Login extends Component {
                     id="username" 
                     placeholder="User Name" 
                     onChange={this.handleChange} 
-                    value={this.state.username}  
+                    value={this.state.credentials.username}  
                     />
             </FormGroup>
             <FormGroup>
@@ -52,10 +63,14 @@ class Login extends Component {
                     id="password" 
                     placeholder="Password" 
                     onChange={this.handleChange} 
-                    value={this.state.password}  
+                    value={this.state.credentials.password}  
                     />
             </FormGroup>
-            <Button value="submit">Submit</Button>
+            <Button value="submit">{this.props.loginError ? (
+              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+            ) : (
+              'Log in'
+            )}</Button>
             <br/>
 
           
@@ -72,6 +87,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
+      error: state.error,
       loginError: state.loginError
     }
   }

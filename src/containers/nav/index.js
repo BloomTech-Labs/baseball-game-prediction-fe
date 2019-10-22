@@ -105,6 +105,11 @@ export default function PrimarySearchAppBar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLogOut = e => {
+        e.preventDefault()
+        this.props.logout()
+      };
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -118,7 +123,8 @@ export default function PrimarySearchAppBar() {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-           <Link to="/login"> <MenuItem onClick={handleMenuClose}>Login</MenuItem></Link>
+            <Link to="/login"> <MenuItem onClick={handleMenuClose}>Login</MenuItem></Link>
+            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
         </Menu>
     );
 

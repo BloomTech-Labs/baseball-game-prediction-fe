@@ -4,6 +4,8 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {connect} from 'react-redux'
 import {register, clearErrors, passwordMismatch} from '../../actions/index'
 import { Link } from 'react-router-dom';
+import '../formstyle/index.css'
+
 
 
 class Register extends Component {
@@ -13,10 +15,9 @@ class Register extends Component {
         id: '',
         email: '',
         username:'',
-        password:''
+        password:'',
+        confirm: ''
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
        }
 
       
@@ -24,7 +25,7 @@ class Register extends Component {
         this.props.clearErrors()
       }
     
-      handleChange = (e, { name, value }) => this.setState({ [name]: value })
+      handleChange = (e) => this.setState({ value: e.target.value })
     
       handlePasswordMismatch = () => {
         this.props.passwordMismatch()
@@ -53,7 +54,7 @@ class Register extends Component {
                     id="email" 
                     placeholder="User E-mail" 
                     onChange={this.handleChange} 
-                    value={this.state.email}  
+                    value={this.email}  
                     />
             </FormGroup>
             <FormGroup>
@@ -64,7 +65,7 @@ class Register extends Component {
                     id="username" 
                     placeholder="User Name" 
                     onChange={this.handleChange} 
-                    value={this.state.username}  
+                    value={this.username}  
                     />
             </FormGroup>
             <FormGroup>
@@ -75,7 +76,18 @@ class Register extends Component {
                     id="password" 
                     placeholder="Password" 
                     onChange={this.handleChange} 
-                    value={this.state.password}  
+                    value={this.password}  
+                    />
+            </FormGroup>
+            <FormGroup>
+                <Label for="confirmPassword">Confirm Password</Label>
+                <Input 
+                    type="password" 
+                    name="confirm" 
+                    id="confirm" 
+                    placeholder="Confirm Password" 
+                    onChange={this.handleChange} 
+                    value={this.confirm}  
                     />
             </FormGroup>
             <Button value="submit">Submit</Button>

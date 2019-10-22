@@ -10,6 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'sanitize.css/sanitize.css'
 import './index.css'
 
+
+
+
+
 const target = document.querySelector('#root')
 
 render(
