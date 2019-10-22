@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   login,
   register,
   logout,
   ensureLoggedIn
 } from "../../Redux/actions/index";
-import { withRouter } from "react-router-dom";
+
 import Nav from "../nav/index";
-import Schedules from "../schedules";
-import Home from "../home";
-import About from "../about";
 
 class App extends Component {
   render() {

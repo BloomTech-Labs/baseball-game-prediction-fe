@@ -18,6 +18,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import Login from "../login/index";
 import Register from "../register/index";
 import Schedule from "../schedules";
+import Profile from "../profile";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -244,6 +245,7 @@ export default function PrimarySearchAppBar() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/schedule" component={Schedule} />
+        <Route exact path="/profile" component={Profile} />
       </main>
     </div>
   );
