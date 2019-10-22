@@ -8,6 +8,7 @@ import {
   passwordMismatch
 } from "../../Redux/actions/index";
 import { Link } from "react-router-dom";
+import "../formstyle/index.css";
 
 class Register extends Component {
   constructor(props) {
@@ -16,26 +17,30 @@ class Register extends Component {
       id: "",
       email: "",
       username: "",
-      password: ""
+      password: "",
+      confirm: ""
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillUnmount() {
     this.props.clearErrors();
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+  handleChange = e => this.setState({ value: e.target.value });
 
   handlePasswordMismatch = () => {
     this.props.passwordMismatch();
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.clearErrors();
     if (this.state.password === this.state.confirm) {
-      this.props.register(this.state.username, this.state.password);
+      const user = {
+        username: this.state.username,
+        password: this.state.password
+      };
+      this.props.register(user);
     } else {
       // this.props.clearErrors()
       this.handlePasswordMismatch();
@@ -45,7 +50,7 @@ class Register extends Component {
   render(props) {
     return (
       <div className="RegisterForm">
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={e => this.handleSubmit(e)}>
           <FormGroup>
             <Label for="email">Email</Label>
             <Input
@@ -54,7 +59,7 @@ class Register extends Component {
               id="email"
               placeholder="User E-mail"
               onChange={this.handleChange}
-              value={this.state.email}
+              value={this.email}
             />
           </FormGroup>
           <FormGroup>
@@ -65,7 +70,7 @@ class Register extends Component {
               id="username"
               placeholder="User Name"
               onChange={this.handleChange}
-              value={this.state.username}
+              value={this.username}
             />
           </FormGroup>
           <FormGroup>
@@ -76,7 +81,18 @@ class Register extends Component {
               id="password"
               placeholder="Password"
               onChange={this.handleChange}
-              value={this.state.password}
+              value={this.password}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="confirmPassword">Confirm Password</Label>
+            <Input
+              type="password"
+              name="confirm"
+              id="confirm"
+              placeholder="Confirm Password"
+              onChange={this.handleChange}
+              value={this.confirm}
             />
           </FormGroup>
           <Button value="submit">Submit</Button>

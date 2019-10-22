@@ -1,16 +1,10 @@
 import axios from "axios";
-import axiosWithAuth from "../../utils/axiosAuth";
 
-export const ALREADY_LOGGED_IN = "ALREADY_LOGGED_IN";
-export const SEARCH_SUCCESS = "LOGGING_IN";
+import { axiosWithAuth } from "../../utils/axiosAuth";
+
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
-export const LOGGING_IN = "LOGGING_IN";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const REGISTERING = "REGISTERING";
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const PASSWORD_MISMATCH = "PASSWORD_MISMATCH";
+export const ALREADY_LOGGED_IN = "ALREADY_LOGGED_IN";
 export const LOGOUT = "LOGOUT";
 
 export const passwordMismatch = () => dispatch => {
@@ -37,23 +31,21 @@ export const logout = () => dispatch => {
   });
 };
 
-export const login = (user, pass) => dispatch => {
-  dispatch({
-    type: LOGGING_IN
-  });
-  axios
-    .post("https://bw-spotify-backend.herokuapp.com/api/login", {
-      username: user,
-      password: pass
-    })
+export const LOGIN_START = "LOGIN_START";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+
+export const login = creds => dispatch => {
+  dispatch({ type: LOGIN_START });
+  return axiosWithAuth()
+    .post("/api/profiles/login", creds)
     .then(res => {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data
-      });
+      localStorage.setItem("token", res.data.payload);
+      dispatch({ type: LOGIN_SUCCESS });
+      return true;
     })
     .catch(err => {
-      console.log("error", err);
+      console.log(err.response);
       dispatch({
         type: LOGIN_FAILURE,
         payload: err
@@ -61,26 +53,41 @@ export const login = (user, pass) => dispatch => {
     });
 };
 
-export const register = (user, pass) => dispatch => {
-  dispatch({
-    type: REGISTERING
-  });
-  axios
-    .post("https://bw-spotify-backend.herokuapp.com/api/register", {
-      username: user,
-      password: pass
-    })
+export const REGISTER = "REGISTER";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAILURE = "REGISTER_FAILURE";
+
+export const register = creds => dispatch => {
+  console.log(creds);
+  dispatch({ type: REGISTER });
+  return axiosWithAuth()
+    .post("/api/profiles/create", creds)
     .then(res => {
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data
-      });
+      localStorage.setItem("token", res.data.payload);
+      dispatch({ type: REGISTER_SUCCESS });
+      return true;
     })
     .catch(err => {
-      console.log("err", err);
+      console.log(err.response);
       dispatch({
         type: REGISTER_FAILURE,
         payload: err
       });
+    });
+};
+
+export const FETCH_DATA_START = "FETCH_DATA_START";
+export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
+export const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
+export const getData = () => dispatch => {
+  dispatch({ type: FETCH_DATA_START });
+  axiosWithAuth()
+    .get("/data")
+    .then(res => {
+      dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data.data });
+    })
+    .catch(err => {
+      console.log(err.response);
+      dispatch({ type: FETCH_DATA_FAILURE, payload: err.response.data.error });
     });
 };
