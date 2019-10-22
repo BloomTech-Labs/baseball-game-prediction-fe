@@ -18,49 +18,81 @@ const useStyles = makeStyles(theme => ({
   const  Profile = () => {
   const classes = useStyles();
   const [profile, setProfile] = useState([])
+  const [favorite, setFavorite] = useState([])
+  const [teams, setTeams] = useState([])
+
+  useEffect(() => {
+    Axios
+    .get('https://bgp-be-staging.herokuapp.com/api/teams')
+    .then(res => {
+      console.log("teams", res.data)
+      setTeams(res.data)
+    })
+    .catch(error => {
+      console.log("error", error)
+    })
+  }, [])
+
+  useEffect(() => {
+    Axios
+    .get('https://bgp-be-staging.herokuapp.com/api/favoriteTeams/1')
+    .then(res => {
+      console.log("Favorite", res.data)
+      setFavorite(res.data)
+    })
+    .catch(error => {
+      console.log('error', error)
+    })
+  }, [])
 
   useEffect(() => {
     Axios
     .get('https://bgp-be-staging.herokuapp.com/api/profiles')
     .then(res => {
       setProfile(res.data)
-      console.log(setProfile)
+      console.log("setProfile", res.data)
     })
     .catch(error => {
       console.log('error', error)
     })
   }, [])
+
+  const submit = e => {
+    e.preventDefault()
+    Axios
+    .post('https://bgp-be-staging.herokuapp.com/api/favoriteTeams', favorite.team_name)
+    .then(res => {
+
+    })
+    .catch(error => {
+      console.log("error", error)
+    })
+  }
     
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}></Paper>
+          {profile.map(user => { return<Paper key={user.profile_id} className={classes.paper}>Welcome {user.username}!</Paper>})}
         </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
+        <Grid item xs={4}>
+          <button><Paper className={classes.paper}>Add More Favorite Teams To Follow</Paper></button>
+        </Grid> 
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>Your Favorite Teams </Paper>
+        </Grid>        
+        <Grid item xs={12}>
+        {favorite.map(favorite => {return<Paper className={classes.paper}>{favorite.team_name}</Paper>})}
         </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-      </Grid>
-      
-      
+        <Grid item xs={9}>
+        {teams.map(team => {return<button onClick={submit}><Paper className={classes.paper}>ADD {team.team_name}</Paper></button>})}
+        </Grid>        
+      </Grid>          
     </div>
   );
 }
 
-export default Profile
  
+
+export default Profile
+
