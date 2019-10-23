@@ -1,6 +1,5 @@
 // Render Prop
-import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   register,
@@ -10,102 +9,123 @@ import {
 import { Link } from "react-router-dom";
 import "../formstyle/index.css";
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: "",
-      email: "",
-      username: "",
-      password: "",
-      confirm: ""
-    };
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  dense: {
+    marginTop: theme.spacing(2)
+  },
+  menu: {
+    width: 200
+  },
+  button: {
+    margin: theme.spacing(1)
+  },
+  input: {
+    display: "none"
   }
+}));
 
-  componentWillUnmount() {
-    this.props.clearErrors();
-  }
+const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
+  const classes = useStyles();
+  const [values, setValues] = React.useState({
+    username: "",
+    password: "",
+    confPassword: ""
+  });
 
-  handleChange = e => this.setState({ value: e.target.value });
+  useEffect(() => {
+    clearErrors();
+  }, []);
 
-  handlePasswordMismatch = () => {
-    this.props.passwordMismatch();
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.clearErrors();
-    if (this.state.password === this.state.confirm) {
+    // this.props.clearErrors();
+
+    if (values.password === values.confPassword) {
       const user = {
-        username: this.state.username,
-        password: this.state.password
+        username: values.username,
+        password: values.password
       };
-      this.props.register(user);
+      register(user);
     } else {
       // this.props.clearErrors()
-      this.handlePasswordMismatch();
+      passwordMismatch();
     }
   };
 
-  render(props) {
-    return (
-      <div className="RegisterForm">
-        <Form onSubmit={e => this.handleSubmit(e)}>
-          <FormGroup>
-            <Label for="email">Email</Label>
-            <Input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="User E-mail"
-              onChange={this.handleChange}
-              value={this.email}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="userName">Username</Label>
-            <Input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="User Name"
-              onChange={this.handleChange}
-              value={this.username}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="userPassword">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              onChange={this.handleChange}
-              value={this.password}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="confirmPassword">Confirm Password</Label>
-            <Input
-              type="password"
-              name="confirm"
-              id="confirm"
-              placeholder="Confirm Password"
-              onChange={this.handleChange}
-              value={this.confirm}
-            />
-          </FormGroup>
-          <Button value="submit">Submit</Button>
-          <br />
+  return (
+    <div className="RegisterForm">
+      <form
+        onSubmit={e => this.handleSubmit(e)}
+        className={classes.container}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="username"
+          label="Username"
+          className={classes.textField}
+          value={values.username}
+          onChange={handleChange("username")}
+          margin="normal"
+          variant="outlined"
+          fullWidth
+        />
+        <TextField
+          id="password"
+          label="Password"
+          type="password"
+          className={classes.textField}
+          value={values.password}
+          onChange={handleChange("password")}
+          margin="normal"
+          variant="outlined"
+          fullWidth
+        />
+        <TextField
+          id="confPassword"
+          label="Confirm Password"
+          type="password"
+          className={classes.textField}
+          value={values.confPassword}
+          onChange={handleChange("confPassword")}
+          margin="normal"
+          variant="outlined"
+          fullWidth
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          className={classes.button}
+          onClick={e => handleSubmit(e)}
+        >
+          Create Account
+        </Button>
+        <br />
 
-          <span>
-            Already have a account? <Link to="/login">Login</Link>
-          </span>
-        </Form>
-      </div>
-    );
-  }
-}
+        <span>
+          Already have a account? <Link to="/login">Login</Link>
+        </span>
+      </form>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {
@@ -117,4 +137,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { register, clearErrors, passwordMismatch }
-)(Register);
+)(RegisterForm);

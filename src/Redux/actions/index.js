@@ -58,7 +58,6 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
 
 export const register = creds => dispatch => {
-  console.log(creds);
   dispatch({ type: REGISTER });
   return axiosWithAuth()
     .post("/api/profiles/create", creds)
