@@ -76,8 +76,14 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       display: "none"
     }
+  },
+  link: {
+    textDecoration: "none",
+    color: "black"
   }
 }));
+
+const token = localStorage.getItem("token");
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
@@ -120,13 +126,27 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <Link to="/login">
-        {" "}
-        <MenuItem onClick={handleMenuClose}>Login</MenuItem>
-      </Link>
-      <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+      {token ? (
+        <div>
+          <Link to="/profile" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          </Link>
+          <Link to="/schedule" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Schedule</MenuItem>
+          </Link>
+          <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+        </div>
+      ) : (
+        <div>
+          <Link to="/login" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+          </Link>
+          <Link to="/register" className={classes.link}>
+            {" "}
+            <MenuItem onClick={handleMenuClose}>Register</MenuItem>
+          </Link>
+        </div>
+      )}
     </Menu>
   );
 
