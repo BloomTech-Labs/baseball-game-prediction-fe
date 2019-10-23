@@ -16,6 +16,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import Home from "../home";
 import Login from "../login/index";
 import Register from "../register/index";
 import Schedule from "../schedules/index";
@@ -261,6 +262,7 @@ const PrimarySearchAppBar = ({ logout }) => {
       {renderMenu}
 
       <main>
+        <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/schedule" component={Schedule} />
