@@ -7,7 +7,7 @@ export const axiosWithAuth = () => {
     headers: {
       Authorization: token
     },
-    // baseURL: 'http://bgp-be-staging.herokuapp.com'
-    baseURL: "http://localhost:5000"
+    baseURL: "http://bgp-be-staging.herokuapp.com"
+    // baseURL: "http://localhost:5000"
   });
 };
