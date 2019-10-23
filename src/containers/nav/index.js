@@ -22,6 +22,7 @@ import Register from "../register/index";
 import Schedule from "../schedules/index";
 import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
+import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -265,8 +266,8 @@ const PrimarySearchAppBar = ({ logout }) => {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/schedule" component={Schedule} />
-        <Route exact path="/profile" component={Profile} />
+        <ProtectedRoute path="/schedule" component={Schedule} />
+        <ProtectedRoute path="/profile" component={Profile} />
       </main>
     </div>
   );
