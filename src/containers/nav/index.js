@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -19,6 +20,7 @@ import Login from "../login/index";
 import Register from "../register/index";
 import Schedule from "../schedules/index";
 import Profile from "../profile/index";
+import { logout } from "../../Redux/actions";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -85,7 +87,7 @@ const useStyles = makeStyles(theme => ({
 
 const token = localStorage.getItem("token");
 
-export default function PrimarySearchAppBar() {
+const PrimarySearchAppBar = ({ logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -112,7 +114,7 @@ export default function PrimarySearchAppBar() {
 
   const handleLogOut = e => {
     e.preventDefault();
-    this.props.logout();
+    logout();
   };
 
   const menuId = "primary-search-account-menu";
@@ -266,4 +268,11 @@ export default function PrimarySearchAppBar() {
       </main>
     </div>
   );
-}
+};
+
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  { logout }
+)(PrimarySearchAppBar);

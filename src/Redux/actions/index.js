@@ -27,6 +27,8 @@ export const clearErrors = () => dispatch => {
 };
 
 export const logout = () => dispatch => {
+  localStorage.removeItem("token");
+  window.location.href = "/";
   dispatch({
     type: LOGOUT
   });
