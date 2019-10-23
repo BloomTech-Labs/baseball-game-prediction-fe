@@ -17,8 +17,8 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Login from "../login/index";
 import Register from "../register/index";
-import Schedule from "../schedules";
-import Profile from "../profile";
+import Schedule from "../schedules/index";
+import Profile from "../profile/index";
 
 const useStyles = makeStyles(theme => ({
   grow: {
