@@ -1,78 +1,111 @@
 // Render Prop
-import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login } from "../../Redux/actions/index";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import "../formstyle/index.css";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  dense: {
+    marginTop: theme.spacing(2)
+  },
+  menu: {
+    width: 200
+  },
+  button: {
+    margin: theme.spacing(1)
+  },
+  input: {
+    display: "none"
   }
+}));
 
-  handleChange(e) {
-    this.setState({ value: e.target.value });
-  }
+const LoginForm = ({ login }) => {
+  const classes = useStyles();
+  const [values, setValues] = useState({
+    username: "",
+    password: ""
+  });
 
-  handleSubmit(e) {
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.login(this.state.username, this.state.password);
-  }
 
-  render(props) {
-    return (
-      <div className="LoginForm">
-        <Form
-          error={this.props.loginError ? true : false}
-          size="large"
-          onSubmit={this.handleSubmit}
+    login(values);
+  };
+
+  return (
+    <div className="RegisterForm">
+      <form
+        onSubmit={e => this.handleSubmit(e)}
+        className={classes.container}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="username"
+          label="Username"
+          className={classes.textField}
+          value={values.username}
+          onChange={handleChange("username")}
+          margin="normal"
+          variant="outlined"
+          fullWidth
+        />
+        <TextField
+          id="password"
+          label="Password"
+          type="password"
+          className={classes.textField}
+          value={values.password}
+          onChange={handleChange("password")}
+          margin="normal"
+          variant="outlined"
+          fullWidth
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          className={classes.button}
+          onClick={e => handleSubmit(e)}
         >
-          <FormGroup>
-            <Label for="userName">userName</Label>
-            <Input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="User Name"
-              onChange={this.handleChange}
-              value={this.state.username}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="userPassword">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
-          </FormGroup>
-          <Button value="submit">Submit</Button>
-          <br />
+          Login
+        </Button>
+        <br />
 
-          <span>
-            New to us? <Link to="/register">Register</Link>
-          </span>
-        </Form>
-      </div>
-    );
-  }
-}
+        <span>
+          Don't have an account yet? <Link to="/register">Register</Link>
+        </span>
+      </form>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {
+    error: state.error,
     loginError: state.loginError
   };
 };
 export default connect(
   mapStateToProps,
   { login }
-)(Login);
+)(LoginForm);

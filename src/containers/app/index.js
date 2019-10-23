@@ -1,21 +1,37 @@
-import React from "react";
-import { Route, Link } from "react-router-dom";
-import Profile from "../profile/index.js"
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import {
+  login,
+  register,
+  logout,
+  ensureLoggedIn
+} from "../../Redux/actions/index";
+
 import Nav from "../nav/index";
-import Schedules from "../schedules";
-import Home from "../home";
-import About from "../about";
 
-const App = () => (
-  <div>
-    <Nav />
-    <main>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/about-us" component={About} />
-      <Route exact path="/schedules" component={Schedules} />
-      <Route exact path="/profile" component={Profile} />
-    </main>
-  </div>
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Nav loggedIn={this.props.loggedIn} logout={this.props.logout} />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    loggingIn: state.loggingIn,
+    loggedIn: state.loggedIn,
+    error: state.error
+  };
+};
+
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { login, register, logout, ensureLoggedIn }
+  )(App)
 );
-
-export default App;
