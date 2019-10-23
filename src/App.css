@@ -28,6 +28,11 @@
   justify-content: center;
 }
 
+a {
+  text-decoration: none;
+  color: #282c34;
+}
+
 @media screen and (max-width: 500px) {
   .schedule-list-container {
     flex-flow: column nowrap;
