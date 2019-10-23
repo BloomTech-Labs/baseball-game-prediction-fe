@@ -10,7 +10,7 @@ import {
 
 import Nav from "../nav/index";
 
-console.log(process.env.NODE_ENV);
+console.log(process.env.ENVIRONMENT);
 console.log("TEST");
 
 class App extends Component {
