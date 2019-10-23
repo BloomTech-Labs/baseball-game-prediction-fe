@@ -10,8 +10,7 @@ import {
 
 import Nav from "../nav/index";
 
-console.log(process.env.ENVIRONMENT);
-console.log("TEST");
+console.log(process.env.HEROKU_ENV);
 
 class App extends Component {
   render() {
