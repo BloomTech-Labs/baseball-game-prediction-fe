@@ -12,11 +12,14 @@ class Register extends Component {
     constructor(props){
         super(props);
         this.state={
-        id: '',
-        email: '',
-        username:'',
-        password:'',
-        confirm: ''
+          signup:{
+            id: '',
+            email: '',
+            username:'',
+            password:'',
+            confirm: ''
+          }
+        
         }
        }
 
@@ -25,13 +28,23 @@ class Register extends Component {
         this.props.clearErrors()
       }
     
-      handleChange = (e) => this.setState({ value: e.target.value })
+      handleChange = (e) => this.setState({ 
+        signup:{
+          id: '',
+          email: '',
+          username:'',
+          password:'',
+          confirm: '',
+          value: e.target.value
+         }  
+        });
     
       handlePasswordMismatch = () => {
         this.props.passwordMismatch()
       }
     
-      handleSubmit = () => {
+      handleSubmit = (e) => {
+        e.preventDefault();
         this.props.clearErrors()
         if(this.state.password === this.state.confirm) {
           this.props.register(this.state.username, this.state.password)

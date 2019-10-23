@@ -40,10 +40,13 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 
-export const login = creds => dispatch => {
+export const login = (user, pass) => dispatch => {
   dispatch({ type: LOGIN_START });
   return axiosWithAuth()
-    .post('/api/profiles/login', creds)
+    .post('/api/profiles/login', {
+      username: user,
+      password: pass
+    })
     .then(res => {
       localStorage.setItem('token', res.data.payload);
       dispatch({ type: LOGIN_SUCCESS });
@@ -63,10 +66,13 @@ export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
-export const register = creds => dispatch => {
+export const register = (user, pass) => dispatch => {
   dispatch({ type: REGISTER });
   return axiosWithAuth()
-    .post('/api/profiles/create', creds)
+    .post('/api/profiles/create', {
+      username: user,
+      password: pass
+    })
     .then(res => {
       localStorage.setItem('token', res.data.payload);
       dispatch({ type: REGISTER_SUCCESS });
