@@ -207,9 +207,11 @@ const PrimarySearchAppBar = ({ logout }) => {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography className={classes.title} variant="h6" noWrap>
-            Baseball Game Prediction
-          </Typography>
+          <Link to="/" className={classes.link} style={{ color: "white" }}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Baseball Game Prediction
+            </Typography>
+          </Link>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

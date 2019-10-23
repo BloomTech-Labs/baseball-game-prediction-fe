@@ -10,6 +10,9 @@ import {
 
 import Nav from "../nav/index";
 
+console.log(process.env.NODE_ENV);
+console.log("TEST");
+
 class App extends Component {
   render() {
     return (
@@ -27,7 +30,6 @@ const mapStateToProps = state => {
     error: state.error
   };
 };
-
 
 export default withRouter(
   connect(
