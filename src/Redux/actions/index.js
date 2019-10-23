@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 import { axiosWithAuth } from "../../utils/axiosAuth";
 
@@ -42,6 +43,7 @@ export const login = creds => dispatch => {
     .then(res => {
       localStorage.setItem("token", res.data.token);
       dispatch({ type: LOGIN_SUCCESS });
+      window.location.href = "/profile";
       return true;
     })
     .catch(err => {
