@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     username: "",
     password: "",
     confPassword: ""
