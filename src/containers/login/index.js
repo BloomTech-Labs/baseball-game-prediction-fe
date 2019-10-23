@@ -9,6 +9,7 @@ import "../formstyle/index.css";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -30,6 +31,11 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     display: "none"
+  },
+  text: {
+    width: "100%",
+    maxWidth: 500,
+    margin: "auto"
   }
 }));
 
@@ -52,6 +58,11 @@ const LoginForm = ({ login }) => {
 
   return (
     <div className="RegisterForm">
+      <div className={classes.text}>
+        <Typography variant="h4" gutterBottom align="center">
+          Login
+        </Typography>
+      </div>
       <form
         onSubmit={e => this.handleSubmit(e)}
         className={classes.container}
@@ -91,9 +102,11 @@ const LoginForm = ({ login }) => {
         </Button>
         <br />
 
-        <span>
-          Don't have an account yet? <Link to="/register">Register</Link>
-        </span>
+        <div className={classes.text}>
+          <Typography variant="body1" gutterBottom align="center">
+            Already have a account? <Link to="/login">Login</Link>
+          </Typography>
+        </div>
       </form>
     </div>
   );

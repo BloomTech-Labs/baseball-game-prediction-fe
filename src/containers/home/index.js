@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +20,8 @@ const Home = () => {
         Welcome to the Baseball Game Prediction App!
       </Typography>
       <Typography variant="body1" gutterBottom align="center">
-        Please login or register
+        Please <Link to="/login">Login</Link> or{" "}
+        <Link to="/register">Register</Link>
       </Typography>
     </div>
   );
