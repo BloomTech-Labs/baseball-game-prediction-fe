@@ -26,10 +26,11 @@ export default function SimpleList(props) {
       <List 
       component="nav" 
       aria-label="list"
+      className="division-list"
       subheader={
         <ListSubheader component="div" id="list-subheader">
           {`${props.division[0].league} ${props.division[0].division}`}
-      </ListSubheader>}>
+        </ListSubheader>}>
         {props.division.map(team => {
             return (
                 <ListItem button key={`${team.team_id}`}>

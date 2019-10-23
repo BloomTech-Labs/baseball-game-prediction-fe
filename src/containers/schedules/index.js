@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { axiosWithAuthMSF } from '../../utils/axiosWithAuthMSF';
+// import { axiosWithAuthMSF } from '../../utils/axiosWithAuthMSF';
 import SimpleList from './SimpleList';
+
+//CSS
+import '../../App.css';
 
 export default function SchedulesPage() {
     const [teams, setTeams] = useState([]);
@@ -46,7 +49,7 @@ export default function SchedulesPage() {
 
     if (teams.length > 1){
     return (
-        <div className="list-container">
+        <div className="schedule-list-container">
             <SimpleList division={nlWTeams()}/>
             <SimpleList division={nlETeams()}/>
             <SimpleList division={nlCTeams()}/>

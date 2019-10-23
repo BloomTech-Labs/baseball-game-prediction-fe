@@ -20,3 +20,45 @@
 .App-link {
   color: #09d3ac;
 }
+
+.schedule-list-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-around;
+  justify-content: center;
+}
+
+@media screen and (max-width: 500px) {
+  .schedule-list-container {
+    flex-flow: column nowrap;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .makeStyles-root-154 {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    justify-content: space-around;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .division-list {
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+  #list-subheader {
+    position: relative;
+    margin: 0 auto;
+  }
+  .MuiListItem-root {
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
