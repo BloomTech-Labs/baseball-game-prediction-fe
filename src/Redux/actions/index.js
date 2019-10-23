@@ -40,7 +40,7 @@ export const login = creds => dispatch => {
   return axiosWithAuth()
     .post("/api/profiles/login", creds)
     .then(res => {
-      localStorage.setItem("token", res.data.payload);
+      localStorage.setItem("token", res.data.token);
       dispatch({ type: LOGIN_SUCCESS });
       return true;
     })
@@ -62,9 +62,7 @@ export const register = creds => dispatch => {
   return axiosWithAuth()
     .post("/api/profiles/create", creds)
     .then(res => {
-      localStorage.setItem("token", res.data.payload);
       dispatch({ type: REGISTER_SUCCESS });
-      return true;
     })
     .catch(err => {
       console.log(err.response);
