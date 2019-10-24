@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login } from "../../Redux/actions/index";
 import { Link, Redirect } from "react-router-dom";
-import Loader from "react-loader-spinner";
+//import Loader from "react-loader-spinner";
 import "../formstyle/index.css";
 
 import { makeStyles } from "@material-ui/core/styles";

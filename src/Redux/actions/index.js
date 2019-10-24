@@ -43,6 +43,7 @@ export const login = creds => dispatch => {
   return axiosWithAuth()
     .post("/api/profiles/login", creds)
     .then(res => {
+      console.log('res', res)
       localStorage.setItem("token", res.data.token);
       dispatch({ type: LOGIN_SUCCESS });
       window.location.href = "/profile";
