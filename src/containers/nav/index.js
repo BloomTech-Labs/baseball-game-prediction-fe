@@ -22,7 +22,7 @@ import Register from "../register/index";
 import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
 import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
-
+import AddTeam from "../profile/AddTeamView.js"
 import Schedules from "../schedules/DivisionListView";
 import TeamSchedule from "../schedules/TeamScheduleView";
 
@@ -268,6 +268,7 @@ const PrimarySearchAppBar = ({ logout }) => {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <ProtectedRoute path="/profile" component={Profile} />
+        <ProtectedRoute path ='/addTeam' component={AddTeam}/>
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>

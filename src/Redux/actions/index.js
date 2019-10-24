@@ -2,6 +2,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 import { axiosWithAuth } from "../../utils/axiosAuth";
+import { BottomNavigationAction } from "@material-ui/core";
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const PASSWORD_MISMATCH = "PASSWORD_MISMATCH";
@@ -46,7 +47,8 @@ export const login = creds => dispatch => {
       console.log('res', res)
       localStorage.setItem("token", res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });      
-      window.location.href = "/profile";      
+      //window.location.href = "/profile"; 
+      console.log("dispatch", res.data.id)     
     })
     .catch(err => {
       console.log(err.response);

@@ -22,8 +22,7 @@ const initialState = {
   profile_id: null
 };
 
-const reducer = (state = initialState, action) => {
-  console.log("state", state)
+const reducer = (state = initialState, action) => {  
   switch (action.type) {
     case PASSWORD_MISMATCH:
       return {
@@ -51,15 +50,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        loggingIn: true
+        loggingIn: true,
+        profile_id: action.payload
       };
     case LOGIN_SUCCESS:
       console.log('payload', action.payload)
+      console.log('state', state)
       return {
         ...state,
         loggingIn: false,
         error: '',
-        profile_id: "testing"        
+        profile_id: action.payload        
       };
       case LOGIN_FAILURE:
       return {

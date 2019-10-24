@@ -6,6 +6,7 @@ import {axiosWithAuth} from '../../utils/axiosAuth.js';
 import Axios from 'axios'
 import { connect } from "react-redux";
 import { login } from "../../Redux/actions/index";
+import {Link} from 'react-router-dom'
 
 const token = localStorage.getItem('token')
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    marginTop: 6
   },
 }));
 
@@ -26,25 +28,10 @@ const useStyles = makeStyles(theme => ({
   const [favorite, setFavorite] = useState([])
   const [teams, setTeams] = useState([])
   
-
   useEffect(() => {
     axiosWithAuth()
-    .get('https://bgp-be-staging.herokuapp.com/api/teams')
-    .then(res => {
-      console.log("teams", res.data)
-      
-      setTeams(res.data)
-    })
-    .catch(error => {
-      console.log("error", error)
-    })
-  }, []) 
-
-  useEffect(() => {
-    axiosWithAuth()
-    .get('https://bgp-be-staging.herokuapp.com/api/favoriteTeams/1')
-    .then(res => {
-      
+    .get(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams/${props.id}`)
+    .then(res => {      
       console.log("Favorite", res.data)
       setFavorite(res.data)
     })
@@ -57,9 +44,9 @@ const useStyles = makeStyles(theme => ({
   
   useEffect(() => {
     axiosWithAuth()
-    .get(`http://localhost:5000/api/profiles/1`)
+    .get(`http://localhost:5000/api/profiles`)
     .then(res => {
-      localStorage.getItem('token')
+      //localStorage.getItem('token')
       console.log("token", token)            
       setProfile(res.data)
       console.log("setProfile", res.data)
@@ -74,9 +61,10 @@ const useStyles = makeStyles(theme => ({
   const submit = e => {
     e.preventDefault()
     axiosWithAuth()
-    .post('https://bgp-be-staging.herokuapp.com/api/favoriteTeams', favorite.team_name)
+    .post(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams/${props.profile_id}`, favorite.team_name)
     .then(res => {
       localStorage.setItem('token', res.data.payload)
+      console.log(res)
     })
     .catch(error => {
       console.log("error", error)
@@ -99,11 +87,8 @@ const useStyles = makeStyles(theme => ({
         {favorite.map(favorite => {return<Paper className={classes.paper}>{favorite.team_name}</Paper>})}
         </Grid>
         <Grid item xs={4}>
-          <button><Paper className={classes.paper}>Add More Favorite Teams To Follow</Paper></button>
-        </Grid>
-        <Grid item xs={9}>
-        {teams.map(team => {return<button onClick={submit}><Paper className={classes.paper}>ADD {team.team_name}</Paper></button>})}
-        </Grid>                    
+          <Link to="/addTeam"><button><Paper className={classes.paper}>Add More Favorite Teams To Follow</Paper></button></Link>
+        </Grid>                           
       </Grid>          
     </div>
   );
