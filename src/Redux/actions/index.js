@@ -45,9 +45,8 @@ export const login = creds => dispatch => {
     .then(res => {
       console.log('res', res)
       localStorage.setItem("token", res.data.token);
-      dispatch({ type: LOGIN_SUCCESS });
-      window.location.href = "/profile";
-      return true;
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });      
+      window.location.href = "/profile";      
     })
     .catch(err => {
       console.log(err.response);

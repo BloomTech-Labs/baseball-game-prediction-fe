@@ -4,7 +4,10 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {axiosWithAuth} from '../../utils/axiosAuth.js';
 import Axios from 'axios'
+import { connect } from "react-redux";
+import { login } from "../../Redux/actions/index";
 
+const token = localStorage.getItem('token')
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,17 +20,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-  const  Profile = () => {
+  const  Profile = (props) => {
   const classes = useStyles();
   const [profile, setProfile] = useState([])
   const [favorite, setFavorite] = useState([])
   const [teams, setTeams] = useState([])
+  
 
   useEffect(() => {
     axiosWithAuth()
     .get('https://bgp-be-staging.herokuapp.com/api/teams')
     .then(res => {
       console.log("teams", res.data)
+      
       setTeams(res.data)
     })
     .catch(error => {
@@ -39,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     axiosWithAuth()
     .get('https://bgp-be-staging.herokuapp.com/api/favoriteTeams/1')
     .then(res => {
+      
       console.log("Favorite", res.data)
       setFavorite(res.data)
     })
@@ -47,18 +53,23 @@ const useStyles = makeStyles(theme => ({
     })
   }, [])
 
+  //const profile_id = token.id
+  
   useEffect(() => {
     axiosWithAuth()
-    .get(`https://bgp-be-staging.herokuapp.com/api/profiles/1`)
+    .get(`http://localhost:5000/api/profiles/1`)
     .then(res => {
-      localStorage.setItem('token', res.data.payload)
+      localStorage.getItem('token')
+      console.log("token", token)            
       setProfile(res.data)
       console.log("setProfile", res.data)
+      
     })
     .catch(error => {
       console.log('error', error)
     })
   }, [])
+  //console.log("id", profile_id)
 
   const submit = e => {
     e.preventDefault()
@@ -71,6 +82,9 @@ const useStyles = makeStyles(theme => ({
       console.log("error", error)
     })
   }
+  useEffect(() => {
+    console.log("props2", props)
+  })
     
   return (
     <div className={classes.root}>
@@ -95,7 +109,19 @@ const useStyles = makeStyles(theme => ({
   );
 }
 
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    id: state.profile_id
+  }
+}
+export default connect(
+  mapStateToProps,
+  {}
+)(Profile);
+
+
  
 
-export default Profile
+
 

@@ -18,10 +18,12 @@ const initialState = {
   error: '',
   fetchingData: false,
   loggingIn: false,
-  gasPrices: []
+  gasPrices: [],
+  profile_id: null
 };
 
 const reducer = (state = initialState, action) => {
+  console.log("state", state)
   switch (action.type) {
     case PASSWORD_MISMATCH:
       return {
@@ -52,10 +54,12 @@ const reducer = (state = initialState, action) => {
         loggingIn: true
       };
     case LOGIN_SUCCESS:
+      console.log('payload', action.payload)
       return {
         ...state,
         loggingIn: false,
-        error: ''
+        error: '',
+        profile_id: "testing"        
       };
       case LOGIN_FAILURE:
       return {
