@@ -1,64 +1,68 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
-import * as moment from 'moment';
+import getLogo from '../../utils/getLogo';
 
-const useStyles = makeStyles({
-    card: {
-      minWidth: 275,
-      width: '100%',
-      display: 'flex',
-      flexFlow: 'row nowrap',
-      justifyContent: 'space-evenly',
-      alignContent: 'space-evenly'
-    },
-    title: {
-      fontSize: 14,
-    },
-    smallDivs: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignContent: 'center'
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  });
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 500,
+    margin: "75px auto 25px"
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary
+  }
+}));
 
 export default function GameCard(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
-      <CardContent className={classes.card}>
-        <div className={classes.smallDivs}>
-        <Typography className={classes.title} gutterBottom>
-          {props.away_team}
-          <br/>
-          {props.away_score}
-          <br/>
-          {(props.away_score > props.home_score) ? "W" : (props.away_score == props.home_score) ? "T" : "L"}
-        </Typography>
-        </div>
-        <div className={classes.smallDivs}>
-        <Typography variant="h5" component="h2">
-          @
-          <br/>
-          {moment(props.date).format('LLL')}
-        </Typography>
-        </div>
-        <div className={classes.smallDivs}>
-        <Typography className={classes.title} gutterBottom>
-          {props.home_team}
-          <br/>
-          {props.home_score}
-          <br/>
-          {(props.home_score > props.away_score) ? "W" : (props.home_score == props.away_score) ? "T" : "L"}
-        </Typography>
-        </div>
-      </CardContent>
-    </Card>
+    <Grid container justify="center" style={{ margin: "20px auto auto" }}>
+          <Grid
+            item
+            xs={10}
+            sm={12}
+            style={{ paddingBottom: 12 }}
+          >
+            <Paper className={classes.paper} elevation={5}>
+              <Grid container>
+                <Grid
+                  item
+                  xs={4}
+                  style={
+                    props.home_score > props.away_score
+                      ? {
+                          border: "4px solid lightgreen"
+                        }
+                      : null
+                  }
+                >
+                  <img src={getLogo(props.home_team)} width="50px" />
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography variant="h6">{`${props.home_score} : ${props.away_score}`}</Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={4}
+                  style={
+                    props.home_score < props.away_score
+                      ? {
+                          border: "4px solid lightgreen"
+                        }
+                      : null
+                  }
+                >
+                  <img src={getLogo(props.away_team)} width="50px" />
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+      </Grid>
   );
 }
