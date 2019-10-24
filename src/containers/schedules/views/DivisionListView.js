@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TeamList from "./TeamList";
+import TeamList from "../components/TeamList";
 
 //CSS
 import "../../App.css";

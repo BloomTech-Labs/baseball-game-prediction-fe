@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { axiosWithAuthMSF } from '../../utils/axiosWithAuthMSF';
-import GameCard from './GameCard';
+import { axiosWithAuthMSF } from '../../../utils/axiosWithAuthMSF';
+import GameCard from '../components/GameCard';
 import Grid from "@material-ui/core/Grid";
 import MomentUtils from "@date-io/moment";
 import {
