@@ -72,10 +72,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+    display: "flex"
   },
   sectionMobile: {
     display: "flex",
@@ -250,7 +247,7 @@ const PrimarySearchAppBar = ({ logout }) => {
               <AccountCircle />
             </IconButton>
           </div>
-          <div className={classes.sectionMobile}>
+          {/* <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -260,7 +257,7 @@ const PrimarySearchAppBar = ({ logout }) => {
             >
               <MoreIcon />
             </IconButton>
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
