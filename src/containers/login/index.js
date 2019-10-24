@@ -52,7 +52,6 @@ const LoginForm = ({ login }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     login(values);
   };
 
@@ -104,7 +103,7 @@ const LoginForm = ({ login }) => {
 
         <div className={classes.text}>
           <Typography variant="body1" gutterBottom align="center">
-            Already have a account? <Link to="/login">Login</Link>
+            Don't have an account yet? <Link to="/register">Register</Link>
           </Typography>
         </div>
       </form>

@@ -19,10 +19,12 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import Home from "../home";
 import Login from "../login/index";
 import Register from "../register/index";
-import Schedule from "../schedules/index";
 import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
 import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
+
+import Schedules from "../schedules/DivisionListView";
+import TeamSchedule from "../schedules/TeamScheduleView";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -70,10 +72,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+    display: "flex"
   },
   sectionMobile: {
     display: "flex",
@@ -135,7 +134,7 @@ const PrimarySearchAppBar = ({ logout }) => {
           <Link to="/profile" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           </Link>
-          <Link to="/schedule" className={classes.link}>
+          <Link to="/schedules" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Schedule</MenuItem>
           </Link>
           <MenuItem onClick={handleLogOut}>Logout</MenuItem>
@@ -197,7 +196,7 @@ const PrimarySearchAppBar = ({ logout }) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -207,9 +206,11 @@ const PrimarySearchAppBar = ({ logout }) => {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography className={classes.title} variant="h6" noWrap>
-            Baseball Game Prediction
-          </Typography>
+          <Link to="/" className={classes.link} style={{ color: "white" }}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Baseball Game Prediction
+            </Typography>
+          </Link>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -246,7 +247,7 @@ const PrimarySearchAppBar = ({ logout }) => {
               <AccountCircle />
             </IconButton>
           </div>
-          <div className={classes.sectionMobile}>
+          {/* <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -256,7 +257,7 @@ const PrimarySearchAppBar = ({ logout }) => {
             >
               <MoreIcon />
             </IconButton>
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -266,8 +267,9 @@ const PrimarySearchAppBar = ({ logout }) => {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <ProtectedRoute path="/schedule" component={Schedule} />
         <ProtectedRoute path="/profile" component={Profile} />
+        <Route exact path="/schedules" component={Schedules} />
+        <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>
     </div>
   );
