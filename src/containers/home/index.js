@@ -7,6 +7,14 @@ import { Link } from "react-router-dom";
 import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
 import { axiosWithAuth } from "../../utils/axiosAuth";
 
+import MomentUtils from "@date-io/moment";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
+
+import moment from "moment";
+
 import ARI from "../../logos/ARI.png";
 import ATL from "../../logos/ATL.png";
 import BAL from "../../logos/BAL.png";
@@ -42,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     maxWidth: 500,
-    margin: "15px auto"
+    margin: "75px auto 25px"
   },
   paper: {
     padding: theme.spacing(2),
@@ -59,7 +67,9 @@ const Home = () => {
   useEffect(() => {
     axiosWithAuthMSF()
       .get(
-        `https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/date/${date}/games.json`
+        `https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/date/${moment(
+          date
+        ).format("YYYYMMDD")}/games.json`
       )
       .then(res => {
         console.log(res.data);
@@ -76,15 +86,43 @@ const Home = () => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [date]);
+
+  const handleDateChange = newDate => {
+    console.log(newDate);
+    setDate(newDate);
+  };
 
   console.log(games);
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <Grid container justify="space-around">
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="MM/DD/YYYY"
+            margin="normal"
+            id="date-picker-inline"
+            label="Date picker inline"
+            value={date}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              "aria-label": "change date"
+            }}
+          />
+        </Grid>
+      </MuiPickersUtilsProvider>
+      <Grid container justify="center" style={{ margin: "20px auto auto" }}>
         {games.map((game, i) => (
-          <Grid item xs={12} key={`scheduleGame#${i}`}>
+          <Grid
+            item
+            xs={10}
+            sm={12}
+            key={`scheduleGame#${i}`}
+            style={{ paddingBottom: 12 }}
+          >
             <Paper className={classes.paper} elevation={5}>
               <Grid container>
                 <Grid
