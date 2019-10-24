@@ -10,11 +10,6 @@ import {
 
 import Nav from "../nav/index";
 
-var getUrl = window.location;
-var baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
-
-console.log(baseUrl);
-
 class App extends Component {
   render() {
     return (
