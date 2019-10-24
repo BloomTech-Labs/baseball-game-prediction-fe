@@ -3,7 +3,7 @@ import axios from "axios";
 import TeamList from "../components/TeamList";
 
 //CSS
-import "../../App.css";
+import "../../../App.css";
 
 export default function DivisionListView() {
   const [teams, setTeams] = useState([]);
