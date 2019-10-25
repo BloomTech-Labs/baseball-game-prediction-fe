@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TeamList from "./TeamList";
+import TeamList from "../components/TeamList";
 
 //CSS
-import "../../App.css";
+import "../../../App.css";
 
 export default function DivisionListView() {
   const [teams, setTeams] = useState([]);
@@ -59,7 +59,7 @@ export default function DivisionListView() {
 
   if (teams.length > 1) {
     return (
-      <div className="schedule-list-container">
+      <div className="schedule-list-container" style={{marginTop: "75px"}}>
         <TeamList division={nlWTeams()} />
         <TeamList division={nlETeams()} />
         <TeamList division={nlCTeams()} />
