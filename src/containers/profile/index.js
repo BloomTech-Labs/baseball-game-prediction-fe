@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   
   useEffect(() => {
     axiosWithAuth()
-    .get(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams/${props.id}`)
+    .get(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams/1`)
     .then(res => {      
       console.log("Favorite", res.data)
       setFavorite(res.data)
@@ -56,23 +56,13 @@ const useStyles = makeStyles(theme => ({
       console.log('error', error)
     })
   }, [])
+
+  useEffect(() => {
+    console.log("props2", props)    
+  })
   //console.log("id", profile_id)
 
-  const submit = e => {
-    e.preventDefault()
-    axiosWithAuth()
-    .post(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams/${props.profile_id}`, favorite.team_name)
-    .then(res => {
-      localStorage.setItem('token', res.data.payload)
-      console.log(res)
-    })
-    .catch(error => {
-      console.log("error", error)
-    })
-  }
-  useEffect(() => {
-    console.log("props2", props)
-  })
+ 
     
   return (
     <div className={classes.root}>

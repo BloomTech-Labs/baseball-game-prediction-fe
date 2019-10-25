@@ -18,6 +18,8 @@ export default function DivisionListView() {
         console.log(err);
       });
   }, []);
+
+  
   
 
   // Divisional filters

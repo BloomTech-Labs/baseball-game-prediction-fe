@@ -50,19 +50,19 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        loggingIn: true,
-        profile_id: action.payload
+        loggingIn: true,        
       };
     case LOGIN_SUCCESS:
       console.log('payload', action.payload)
-      console.log('state', state)
+      console.log('state', state) 
+      console.log('action', action)
       return {
         ...state,
         loggingIn: false,
         error: '',
-        profile_id: action.payload        
-      };
-      case LOGIN_FAILURE:
+        profile_id: "testing"             
+      }; 
+      case LOGIN_FAILURE:          
       return {
         ...state,
         loggingIn: false,

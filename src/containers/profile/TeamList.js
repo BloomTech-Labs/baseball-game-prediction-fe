@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import {axiosWithAuth} from '../../utils/axiosAuth.js';
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +26,24 @@ function ListItemLink(props) {
 export default function TeamList(props) {
   const classes = useStyles();
 
+  const [favorite, setFavorite] = useState({})
+
+  const submit = e => {
+    e.preventDefault()    
+    axiosWithAuth()
+    .post(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams`, props.team_name)
+    .then(res => {
+      localStorage.setItem('token', res.data.token)      
+      console.log("this token", res.data.token)
+    })
+    .catch(error => {
+      console.log("error", error)
+    })
+  }
+  useEffect(() => {
+    console.log("props2", props)    
+  })
+
   return (
     <div className={classes.root}>
       <List 
@@ -37,7 +57,7 @@ export default function TeamList(props) {
         {props.division.map(team => {
             return (
               
-                <ListItem button key={`${team.team_id}`}>
+                <ListItem onClick={submit} button key={`${team.team_id}`}>
                     <ListItemText primary={`${team.team_name}`} />
                 </ListItem>
               
