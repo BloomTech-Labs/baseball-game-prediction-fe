@@ -75,7 +75,7 @@ const Home = () => {
             format="MM/DD/YYYY"
             margin="normal"
             id="date-picker-inline"
-            label="Date picker inline"
+            label="Game Date"
             value={date}
             onChange={handleDateChange}
             KeyboardButtonProps={{
@@ -106,9 +106,11 @@ const Home = () => {
                       : null
                   }
                 >
+                  <h6 style={{ margin: "5px" }}>Home</h6>
                   <img src={getLogo(game.homeTeam)} width="50px" />
                 </Grid>
                 <Grid item xs={4}>
+                  <h6 style={{ margin: "5px" }}>Score</h6>
                   <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
                 </Grid>
                 <Grid
@@ -122,6 +124,7 @@ const Home = () => {
                       : null
                   }
                 >
+                  <h6 style={{ margin: "5px" }}>Away</h6>
                   <img src={getLogo(game.awayTeam)} width="50px" />
                 </Grid>
               </Grid>
