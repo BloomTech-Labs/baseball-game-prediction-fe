@@ -23,8 +23,8 @@ import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
 import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
 
-import Schedules from "../schedules/DivisionListView";
-import TeamSchedule from "../schedules/TeamScheduleView";
+import Schedules from "../schedules/views/DivisionListView";
+import TeamSchedule from "../schedules/views/TeamScheduleView";
 
 const useStyles = makeStyles(theme => ({
   grow: {
