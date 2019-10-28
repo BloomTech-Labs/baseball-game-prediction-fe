@@ -31,7 +31,7 @@ const Profile = props => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/api/favoriteTeams/${props.id}`)
+      .get(`/api/favoriteTeams/${props.profile_id}`)
       .then(res => {
         console.log("Favorite", res.data);
         setFavorite(res.data);
@@ -45,7 +45,7 @@ const Profile = props => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/api/profiles/${props.id}`)
+      .get(`/api/profiles/${props.profile_id}`)
       .then(res => {
         //localStorage.getItem('token')
         console.log(res.data);
@@ -77,14 +77,10 @@ const Profile = props => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          {profile.map(user => {
-            return (
-              <Paper key={user.profile_id} className={classes.paper}>
-                Welcome {user.username}!
-              </Paper>
-            );
-          })}
+        <Grid item xs={12}>          
+              <Paper className={classes.paper}>
+                Welcome {profile}!
+              </Paper>           
         </Grid>
 
         <Grid item xs={12}>

@@ -14,6 +14,7 @@ export default function DivisionListView() {
       .get("/api/teams")
       .then(teaminfo => {
         setTeams(teaminfo.data);
+        console.log('teaminfo', teaminfo)
       })
       .catch(err => {
         console.log(err);
