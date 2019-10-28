@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeamList from "./TeamList";
+import { axiosWithAuth } from "../../utils/axiosAuth";
 
 //CSS
 import "../../App.css";
@@ -9,8 +10,8 @@ export default function DivisionListView() {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://bgp-be-staging.herokuapp.com/api/teams")
+    axiosWithAuth()
+      .get("/api/teams")
       .then(teaminfo => {
         setTeams(teaminfo.data);
       })
@@ -18,9 +19,6 @@ export default function DivisionListView() {
         console.log(err);
       });
   }, []);
-
-  
-  
 
   // Divisional filters
 

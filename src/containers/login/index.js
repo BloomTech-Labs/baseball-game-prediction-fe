@@ -45,17 +45,15 @@ const LoginForm = ({ login, history }) => {
     username: "",
     password: ""
   });
-
-  //console.log("history :", history);
-
+  
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
 
   const handleSubmit = e => {
-    e.preventDefault();    
-    const redirect = () => history.push("/profile");
-    login(values, redirect);    
+    e.preventDefault();
+    const redirect = () => history.push("/");
+    login(values, redirect);
   };
 
   return (

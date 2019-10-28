@@ -22,15 +22,10 @@ import Register from "../register/index";
 import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
 import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
-import AddTeam from "../profile/AddTeamView.js"
-<<<<<<< HEAD
+import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
-=======
-import Schedules from "../schedules/DivisionListView";
-import TeamSchedule from "../schedules/TeamScheduleView";
 
->>>>>>> 1c2c5223ad9c1742b02243dedad2fca39117a48f
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -137,6 +132,9 @@ const PrimarySearchAppBar = ({ logout }) => {
     >
       {token ? (
         <div>
+          <Link to="/" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
           <Link to="/profile" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           </Link>
@@ -277,7 +275,7 @@ const PrimarySearchAppBar = ({ logout }) => {
         />
         <Route path="/register" component={Register} />
         <ProtectedRoute path="/profile" component={Profile} />
-        <ProtectedRoute path ='/addTeam' component={AddTeam}/>
+        <ProtectedRoute path="/addTeam" component={AddTeam} />
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>
