@@ -100,98 +100,98 @@ const Home = ({ id }) => {
       }
     }
     filteredSchedule = container.map((game, i) => (
-          <Grid
-            item
-            xs={10}
-            sm={12}
-            key={`scheduleGame#${i}`}
-            style={{ paddingBottom: 12 }}
-          >
-            <Paper className={classes.paper} elevation={5}>
-              <Grid container>
-                <Grid
-                  item
-                  xs={4}
-                  style={
-                    game.homeScore > game.awayScore
-                      ? {
-                          border: "4px solid lightgreen"
-                        }
-                      : null
-                  }
-                >
-                  <h6 style={{ margin: "5px" }}>Home</h6>
-                  <img src={getLogo(game.homeTeam)} width="50px" />
-                </Grid>
-                <Grid item xs={4}>
-                  <h6 style={{ margin: "5px" }}>Score</h6>
-                  <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={4}
-                  style={
-                    game.homeScore < game.awayScore
-                      ? {
-                          border: "4px solid lightgreen"
-                        }
-                      : null
-                  }
-                >
-                  <h6 style={{ margin: "5px" }}>Away</h6>
-                  <img src={getLogo(game.awayTeam)} width="50px" />
-                </Grid>
-              </Grid>
-            </Paper>
+      <Grid
+        item
+        xs={10}
+        sm={12}
+        key={`scheduleGame#${i}`}
+        style={{ paddingBottom: 12 }}
+      >
+        <Paper className={classes.paper} elevation={5}>
+          <Grid container>
+            <Grid
+              item
+              xs={4}
+              style={
+                game.homeScore > game.awayScore
+                  ? {
+                      border: "4px solid lightgreen"
+                    }
+                  : null
+              }
+            >
+              <h6 style={{ margin: "5px" }}>Home</h6>
+              <img src={getLogo(game.homeTeam)} width="50px" />
+            </Grid>
+            <Grid item xs={4}>
+              <h6 style={{ margin: "5px" }}>Score</h6>
+              <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
+            </Grid>
+            <Grid
+              item
+              xs={4}
+              style={
+                game.homeScore < game.awayScore
+                  ? {
+                      border: "4px solid lightgreen"
+                    }
+                  : null
+              }
+            >
+              <h6 style={{ margin: "5px" }}>Away</h6>
+              <img src={getLogo(game.awayTeam)} width="50px" />
+            </Grid>
           </Grid>
-        ));
+        </Paper>
+      </Grid>
+    ));
   } else {
-    filteredSchedule = {games.map((game, i) => (
-          <Grid
-            item
-            xs={10}
-            sm={12}
-            key={`scheduleGame#${i}`}
-            style={{ paddingBottom: 12 }}
-          >
-            <Paper className={classes.paper} elevation={5}>
-              <Grid container>
-                <Grid
-                  item
-                  xs={4}
-                  style={
-                    game.homeScore > game.awayScore
-                      ? {
-                          border: "4px solid lightgreen"
-                        }
-                      : null
-                  }
-                >
-                  <h6 style={{ margin: "5px" }}>Home</h6>
-                  <img src={getLogo(game.homeTeam)} width="50px" />
-                </Grid>
-                <Grid item xs={4}>
-                  <h6 style={{ margin: "5px" }}>Score</h6>
-                  <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={4}
-                  style={
-                    game.homeScore < game.awayScore
-                      ? {
-                          border: "4px solid lightgreen"
-                        }
-                      : null
-                  }
-                >
-                  <h6 style={{ margin: "5px" }}>Away</h6>
-                  <img src={getLogo(game.awayTeam)} width="50px" />
-                </Grid>
-              </Grid>
-            </Paper>
+    filteredSchedule = games.map((game, i) => (
+      <Grid
+        item
+        xs={10}
+        sm={12}
+        key={`scheduleGame#${i}`}
+        style={{ paddingBottom: 12 }}
+      >
+        <Paper className={classes.paper} elevation={5}>
+          <Grid container>
+            <Grid
+              item
+              xs={4}
+              style={
+                game.homeScore > game.awayScore
+                  ? {
+                      border: "4px solid lightgreen"
+                    }
+                  : null
+              }
+            >
+              <h6 style={{ margin: "5px" }}>Home</h6>
+              <img src={getLogo(game.homeTeam)} width="50px" />
+            </Grid>
+            <Grid item xs={4}>
+              <h6 style={{ margin: "5px" }}>Score</h6>
+              <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
+            </Grid>
+            <Grid
+              item
+              xs={4}
+              style={
+                game.homeScore < game.awayScore
+                  ? {
+                      border: "4px solid lightgreen"
+                    }
+                  : null
+              }
+            >
+              <h6 style={{ margin: "5px" }}>Away</h6>
+              <img src={getLogo(game.awayTeam)} width="50px" />
+            </Grid>
           </Grid>
-        ))}
+        </Paper>
+      </Grid>
+    ));
   }
 
   return (
