@@ -23,8 +23,14 @@ import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
 import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
 import AddTeam from "../profile/AddTeamView.js"
+<<<<<<< HEAD
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
+=======
+import Schedules from "../schedules/DivisionListView";
+import TeamSchedule from "../schedules/TeamScheduleView";
+
+>>>>>>> 1c2c5223ad9c1742b02243dedad2fca39117a48f
 
 const useStyles = makeStyles(theme => ({
   grow: {
