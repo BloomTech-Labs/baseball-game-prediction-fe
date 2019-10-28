@@ -44,7 +44,6 @@ export const login = (creds, redirect) => dispatch => {
   axiosWithAuth()
     .post("/api/profiles/login", creds)
     .then(res => {
-      console.log("res", res);
       localStorage.setItem("token", res.data.token);
       redirect();
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });

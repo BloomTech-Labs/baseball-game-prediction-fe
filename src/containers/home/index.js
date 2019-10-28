@@ -74,7 +74,6 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
 
   useEffect(() => {
     setProfile_id(id);
-    console.log(favoriteTeams);
   }, [id]);
 
   const handleDateChange = newDate => {
@@ -84,7 +83,6 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
   let filteredSchedule;
 
   if (favoriteTeams.length > 0 && checked) {
-    console.log("working");
     let container = [];
     for (let i = 0; i < games.length; i++) {
       for (let y = 0; y < favoriteTeams.length; y++) {
