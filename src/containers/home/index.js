@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Switch from "@material-ui/core/Switch";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
@@ -35,6 +38,8 @@ const Home = ({ id }) => {
   const [date, setDate] = useState("20190721");
   const [games, setGames] = useState([]);
   const [favoriteTeams, setFavoriteTeams] = useState([]);
+  const [profile_id, setProfile_id] = useState(null);
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     axiosWithAuthMSF()
@@ -61,7 +66,7 @@ const Home = ({ id }) => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/api/favoriteteams/${id}`)
+      .get(`/api/favoriteteams/${profile_id}`)
       .then(res => {
         console.log(res.data);
         setFavoriteTeams(res.data);
@@ -69,7 +74,11 @@ const Home = ({ id }) => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [profile_id]);
+
+  useEffect(() => {
+    setProfile_id(id);
+  }, [id]);
 
   const handleDateChange = newDate => {
     console.log(newDate);
@@ -78,7 +87,7 @@ const Home = ({ id }) => {
 
   let filteredSchedule;
 
-  if (favoriteTeams.length > 0) {
+  if (favoriteTeams.length > 0 && checked) {
     let container = [];
     for (let i = 0; i < games.length; i++) {
       for (let y = 0; y < favoriteTeams.length; y++) {
@@ -196,6 +205,19 @@ const Home = ({ id }) => {
               "aria-label": "change date"
             }}
           />
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={checked}
+                  onChange={() => setChecked(!checked)}
+                  value="checked"
+                  inputProps={{ "aria-label": "secondary checkbox" }}
+                />
+              }
+              label="Toggle View"
+            />
+          </FormGroup>
         </Grid>
       </MuiPickersUtilsProvider>
       <Grid container justify="center" style={{ margin: "20px auto auto" }}>
