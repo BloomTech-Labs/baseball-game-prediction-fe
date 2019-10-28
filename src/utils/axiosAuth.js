@@ -5,6 +5,7 @@ export const axiosWithAuth = () => {
 
   const getUrl = window.location;
   const currentUrl = getUrl.protocol + "//" + getUrl.host + "/";
+  console.log(currentUrl);
 
   let baseURL;
 
