@@ -101,6 +101,9 @@ export const getFavoriteTeams = id => dispatch => {
   axiosWithAuth()
     .get(`/api/favoriteTeams/${id}`)
     .then(res => {
-      console.log(res.data);
+      dispatch({
+        type: GET_FAVORITE_TEAMS_SUCCESS,
+        payload: res.data
+      });
     });
 };
