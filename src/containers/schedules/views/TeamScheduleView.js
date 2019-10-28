@@ -8,8 +8,10 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from "@material-ui/pickers";
-
 import moment from "moment";
+
+//CSS
+import "../../../App.css";
 
 export default function TeamScheduleView(props) {
     const [games, setGames] = useState([]);
@@ -45,7 +47,7 @@ export default function TeamScheduleView(props) {
     if(games.length > 1){
         return (
             <div className="teamview-container" style={{marginTop: "75px"}}>
-            <div className="datepicker-container" style={{display: "flex", flexDirection: "row"}}>
+            <div className="datepicker-container" >
             <MuiPickersUtilsProvider utils={MomentUtils}>
             <Grid container justify="space-around">
             <KeyboardDatePicker
@@ -54,7 +56,7 @@ export default function TeamScheduleView(props) {
             format="MM/DD/YYYY"
             margin="normal"
             id="start-date-picker-inline"
-            label="Date picker inline"
+            label="Start Date"
             value={startDate}
             onChange={handleStartDateChange}
             KeyboardButtonProps={{
@@ -71,7 +73,7 @@ export default function TeamScheduleView(props) {
             format="MM/DD/YYYY"
             margin="normal"
             id="end-date-picker-inline"
-            label="Date picker inline"
+            label="End Date"
             value={endDate}
             onChange={handleEndDateChange}
             KeyboardButtonProps={{
@@ -96,6 +98,44 @@ export default function TeamScheduleView(props) {
     }
 
     return (
-        <div/>
+        <div className="teamview-container" style={{marginTop: "75px"}}>
+        <div className="datepicker-container" >
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+            <Grid container justify="space-around">
+            <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="MM/DD/YYYY"
+            margin="normal"
+            id="start-date-picker-inline"
+            label="Start Date"
+            value={startDate}
+            onChange={handleStartDateChange}
+            KeyboardButtonProps={{
+            "aria-label": "change start date"
+            }}
+            />
+            </Grid>
+            </MuiPickersUtilsProvider>
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+            <Grid container justify="space-around">
+            <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="MM/DD/YYYY"
+            margin="normal"
+            id="end-date-picker-inline"
+            label="End Date"
+            value={endDate}
+            onChange={handleEndDateChange}
+            KeyboardButtonProps={{
+            "aria-label": "change end date"
+            }}
+            />
+            </Grid>
+            </MuiPickersUtilsProvider>
+            </div>
+            <h1 style={{margin: "0 auto", textAlign: "center"}}>No Games Scheduled</h1>
+        </div>
     )
 }

@@ -42,9 +42,11 @@ export default function GameCard(props) {
                       : null
                   }
                 >
+                  <h6 style={{ margin: "5px" }}>Home</h6>
                   <img src={getLogo(props.home_team)} width="50px" />
                 </Grid>
                 <Grid item xs={4}>
+                  <h6 style={{ margin: "5px" }}>Score</h6>
                   <Typography variant="h6">{`${props.home_score} : ${props.away_score}`}</Typography>
                 </Grid>
                 <Grid
@@ -58,6 +60,7 @@ export default function GameCard(props) {
                       : null
                   }
                 >
+                  <h6 style={{ margin: "5px" }}>Away</h6>
                   <img src={getLogo(props.away_team)} width="50px" />
                 </Grid>
               </Grid>

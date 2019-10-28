@@ -28,6 +28,11 @@
   justify-content: center;
 }
 
+.datepicker-container {
+  display: flex;
+  flex-direction: row;
+}
+
 a {
   text-decoration: none;
   color: #282c34;
@@ -65,5 +70,8 @@ a {
     justify-content: center;
     text-align: center;
     margin: 0 auto;
+  }
+  .datepicker-container {
+    flex-direction: column;
   }
 }
