@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login } from "../../Redux/actions/index";
 import { Link, Redirect } from "react-router-dom";
-import Loader from "react-loader-spinner";
+//import Loader from "react-loader-spinner";
 import "../formstyle/index.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginForm = ({ login }) => {
+const LoginForm = ({ login, history }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     username: "",
@@ -52,7 +52,8 @@ const LoginForm = ({ login }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    login(values);
+    const redirect = () => history.push("/");
+    login(values, redirect);
   };
 
   return (

@@ -22,7 +22,7 @@ import Register from "../register/index";
 import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
 import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
-
+import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 
@@ -86,8 +86,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const token = localStorage.getItem("token");
-
 const PrimarySearchAppBar = ({ logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -95,6 +93,8 @@ const PrimarySearchAppBar = ({ logout }) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const token = localStorage.getItem("token");
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -131,6 +131,9 @@ const PrimarySearchAppBar = ({ logout }) => {
     >
       {token ? (
         <div>
+          <Link to="/" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
           <Link to="/profile" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           </Link>
@@ -265,9 +268,13 @@ const PrimarySearchAppBar = ({ logout }) => {
 
       <main>
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
+        <Route
+          path="/login"
+          render={props => <Login history={props.history} />}
+        />
         <Route path="/register" component={Register} />
         <ProtectedRoute path="/profile" component={Profile} />
+        <ProtectedRoute path="/addTeam" component={AddTeam} />
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>

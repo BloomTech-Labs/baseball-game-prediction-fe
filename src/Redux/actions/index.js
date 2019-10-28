@@ -2,6 +2,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 import { axiosWithAuth } from "../../utils/axiosAuth";
+import { BottomNavigationAction } from "@material-ui/core";
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const PASSWORD_MISMATCH = "PASSWORD_MISMATCH";
@@ -38,15 +39,15 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
-export const login = creds => dispatch => {
+export const login = (creds, redirect) => dispatch => {
   dispatch({ type: LOGIN_START });
-  return axiosWithAuth()
+  axiosWithAuth()
     .post("/api/profiles/login", creds)
     .then(res => {
+      console.log("res", res);
       localStorage.setItem("token", res.data.token);
-      dispatch({ type: LOGIN_SUCCESS });
-      window.location.href = "/profile";
-      return true;
+      redirect();
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
     })
     .catch(err => {
       console.log(err.response);
