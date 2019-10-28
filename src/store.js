@@ -6,7 +6,7 @@ import rootReducer from "./Redux/reducers";
 
 export const history = History.createBrowserHistory();
 
-
+// const initialState = {};
 const enhancers = [];
 const middleware = [thunk, routerMiddleware(history)];
 
@@ -24,6 +24,7 @@ const composedEnhancers = compose(
 );
 
 export default createStore(
-  connectRouter(history)(rootReducer),  
+  connectRouter(history)(rootReducer),
+  // initialState,
   composedEnhancers
 );

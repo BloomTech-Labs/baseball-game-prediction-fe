@@ -25,16 +25,16 @@ function ListItemLink(props) {
 
 export default function TeamList(props) {
   const classes = useStyles();
-
+  console.log("props", props.division)
   const [favorite, setFavorite] = useState({})
 
   const submit = e => {
     e.preventDefault()    
     axiosWithAuth()
-    .post(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams`, props.team_name)
+    .post(`http://localhost:5000/api/favoriteTeams`, props.division.team_name)
     .then(res => {
-      localStorage.setItem('token', res.data.token)      
-      console.log("this token", res.data.token)
+      //localStorage.setItem('token', res.data.payload)      
+      console.log("this token", res.data.payload)
     })
     .catch(error => {
       console.log("error", error)
@@ -42,7 +42,7 @@ export default function TeamList(props) {
   }
   useEffect(() => {
     console.log("props2", props)    
-  })
+  }, [])
 
   return (
     <div className={classes.root}>

@@ -39,21 +39,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginForm = ({ login }) => {
+const LoginForm = ({ login, history }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     username: "",
     password: ""
   });
 
+  //console.log("history :", history);
+
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
 
   const handleSubmit = e => {
-    e.preventDefault();
-    login(values);
-    
+    e.preventDefault();    
+    const redirect = () => history.push("/profile");
+    login(values, redirect);    
   };
 
   return (

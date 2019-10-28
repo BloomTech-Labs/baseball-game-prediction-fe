@@ -18,19 +18,22 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    marginTop: 6
+    marginTop: 60
   },
 }));
 
-  const  Profile = (props) => {
+  const  Profile = (history) => {
   const classes = useStyles();
   const [profile, setProfile] = useState([])
-  const [favorite, setFavorite] = useState([])
+  const [favorite, setFavorite] = useState([{
+    team_name: 'Colorado-Rockies',
+    
+  }])
   const [teams, setTeams] = useState([])
   
   useEffect(() => {
     axiosWithAuth()
-    .get(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams/1`)
+    .get(`https://bgp-be-staging.herokuapp.com/api/favoriteTeams/${history.profile_id}`)
     .then(res => {      
       console.log("Favorite", res.data)
       setFavorite(res.data)
@@ -38,27 +41,24 @@ const useStyles = makeStyles(theme => ({
     .catch(error => {
       console.log('error', error)
     })
-  }, [])
+  }, [history.profile_id])
 
   //const profile_id = token.id
   
   useEffect(() => {
     axiosWithAuth()
-    .get(`http://localhost:5000/api/profiles`)
-    .then(res => {
-      //localStorage.getItem('token')
-      console.log("token", token)            
+    .get(`http://localhost:5000/api/profiles/${history.profile_id}`)
+    .then(res => {                    
       setProfile(res.data)
-      console.log("setProfile", res.data)
-      
+      console.log("setProfile", res.data)      
     })
     .catch(error => {
       console.log('error', error)
     })
-  }, [])
+  }, [history.profile_id])
 
   useEffect(() => {
-    console.log("props2", props)    
+    console.log("history", history.profile_id)    
   })
   //console.log("id", profile_id)
 
@@ -68,13 +68,14 @@ const useStyles = makeStyles(theme => ({
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          {profile.map(user => { return<Paper key={user.profile_id} className={classes.paper}>Welcome {user.username}!</Paper>})}
+          {profile.map(user => { return <Paper key={user.profile_id} className={classes.paper}>Welcome {user.username}!</Paper>
+          })}
         </Grid>         
         <Grid item xs={12}>
           <Paper className={classes.paper}>Your Favorite Teams </Paper>
         </Grid>        
         <Grid item xs={12}>
-        {favorite.map(favorite => {return<Paper className={classes.paper}>{favorite.team_name}</Paper>})}
+        {favorite.map(favorite => {return<Paper key={favorite.favorite_id} className={classes.paper}>{favorite.team_name}</Paper>})}
         </Grid>
         <Grid item xs={4}>
           <Link to="/addTeam"><button><Paper className={classes.paper}>Add More Favorite Teams To Follow</Paper></button></Link>
@@ -87,7 +88,7 @@ const useStyles = makeStyles(theme => ({
 const mapStateToProps = state => {
   console.log(state)
   return {
-    id: state.profile_id
+    profile_id: state.profile_id
   }
 }
 export default connect(
