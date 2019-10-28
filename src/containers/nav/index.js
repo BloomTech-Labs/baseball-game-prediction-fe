@@ -131,6 +131,9 @@ const PrimarySearchAppBar = ({ logout }) => {
     >
       {token ? (
         <div>
+          <Link to="/" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
           <Link to="/profile" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           </Link>
