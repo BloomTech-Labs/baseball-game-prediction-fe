@@ -2,6 +2,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 import { axiosWithAuth } from "../../utils/axiosAuth";
+import { BottomNavigationAction } from "@material-ui/core";
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const PASSWORD_MISMATCH = "PASSWORD_MISMATCH";
