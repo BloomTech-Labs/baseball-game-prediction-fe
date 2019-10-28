@@ -22,7 +22,12 @@ const initialState = {
   profile_id: null
 };
 
+<<<<<<< HEAD
+const reducer = (state = initialState, action) => {
+  console.log("state", state);
+=======
 const reducer = (state = initialState, action) => {  
+>>>>>>> 1c2c5223ad9c1742b02243dedad2fca39117a48f
   switch (action.type) {
     case PASSWORD_MISMATCH:
       return {
@@ -49,7 +54,10 @@ const reducer = (state = initialState, action) => {
     case LOGIN_START:
       return {
         ...state,
+<<<<<<< HEAD
+=======
 
+>>>>>>> 1c2c5223ad9c1742b02243dedad2fca39117a48f
         error: "",
         loggingIn: true
       };
