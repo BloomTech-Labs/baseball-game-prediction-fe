@@ -26,6 +26,7 @@ import AddTeam from "../profile/AddTeamView.js"
 import Schedules from "../schedules/DivisionListView";
 import TeamSchedule from "../schedules/TeamScheduleView";
 
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
@@ -86,8 +87,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const token = localStorage.getItem("token");
-
 const PrimarySearchAppBar = ({ logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -95,6 +94,8 @@ const PrimarySearchAppBar = ({ logout }) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const token = localStorage.getItem("token");
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -265,7 +266,10 @@ const PrimarySearchAppBar = ({ logout }) => {
 
       <main>
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
+        <Route
+          path="/login"
+          render={props => <Login history={props.history} />}
+        />
         <Route path="/register" component={Register} />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path ='/addTeam' component={AddTeam}/>

@@ -39,16 +39,15 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
-export const login = creds => dispatch => {
+export const login = (creds, redirect) => dispatch => {
   dispatch({ type: LOGIN_START });
-  return axiosWithAuth()
+  axiosWithAuth()
     .post("/api/profiles/login", creds)
     .then(res => {
-      console.log('res', res)
+      console.log("res", res);
       localStorage.setItem("token", res.data.token);
-      dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });      
-      //window.location.href = "/profile"; 
-      console.log("dispatch", res.data.id)     
+      redirect();
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
     })
     .catch(err => {
       console.log(err.response);

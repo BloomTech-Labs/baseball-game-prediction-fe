@@ -12,10 +12,10 @@ import {
   LOGOUT,
   ALREADY_LOGGED_IN,
   PASSWORD_MISMATCH
-} from '../actions';
+} from "../actions";
 
 const initialState = {
-  error: '',
+  error: "",
   fetchingData: false,
   loggingIn: false,
   gasPrices: [],
@@ -28,54 +28,53 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         passwordMismatchError: true
-      }
+      };
     case ALREADY_LOGGED_IN:
       return {
         ...state,
         loggedIn: true
-      }
+      };
     case CLEAR_ERRORS:
       return {
         ...state,
         loginError: false,
         passwordMismatchError: false,
         usernameExistsError: false
-      }
+      };
     case LOGOUT:
       return {
         ...state,
         loggedIn: false
-      }
+      };
     case LOGIN_START:
       return {
         ...state,
-        error: '',
-        loggingIn: true,
-        profile_id: action.payload
+
+        error: "",
+        loggingIn: true
       };
     case LOGIN_SUCCESS:
-      console.log('payload', action.payload)
-      console.log('state', state)
+      console.log("payload", action.payload);
       return {
         ...state,
         loggingIn: false,
-        error: '',
-        profile_id: action.payload        
+        error: "",
+        profile_id: action.payload
       };
-      case LOGIN_FAILURE:
+    case LOGIN_FAILURE:
       return {
         ...state,
         loggingIn: false,
         loginError: true
-      }
-      case REGISTER:
+      };
+    case REGISTER:
       return {
         ...state,
         registering: true,
         loginError: false,
         passwordMismatchError: false,
         usernameExistsError: false
-      }
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,
@@ -84,17 +83,17 @@ const reducer = (state = initialState, action) => {
         loginError: false,
         passwordMismatchError: false,
         usernameExistsError: false
-      }
-      case REGISTER_FAILURE:
+      };
+    case REGISTER_FAILURE:
       return {
         ...state,
         registering: false,
         usernameExistsError: true
-      }
+      };
     case FETCH_DATA_START:
       return {
         ...state,
-        error: '',
+        error: "",
         fetchingData: true
       };
     case FETCH_DATA_SUCCESS:
@@ -102,13 +101,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         fetchingData: false,
         gasPrices: action.payload
-          .filter(price => price.type === 'Gasoline - Regular')
+          .filter(price => price.type === "Gasoline - Regular")
           .filter(
             price =>
-              price.location === 'US' || price.location === 'State of Hawaii'
+              price.location === "US" || price.location === "State of Hawaii"
           )
       };
-  
+
     case FETCH_DATA_FAILURE:
       return {
         ...state,
