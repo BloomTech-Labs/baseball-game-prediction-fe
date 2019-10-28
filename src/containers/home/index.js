@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { getFavoriteTeams } from "../../Redux/actions/index";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -30,14 +31,17 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  link: {
+    textDecoration: "underline",
+    color: "black"
   }
 }));
 
-const Home = ({ id }) => {
+const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
   const classes = useStyles();
   const [date, setDate] = useState("20190721");
   const [games, setGames] = useState([]);
-  const [favoriteTeams, setFavoriteTeams] = useState([]);
   const [profile_id, setProfile_id] = useState(null);
   const [checked, setChecked] = useState(false);
 
@@ -65,15 +69,7 @@ const Home = ({ id }) => {
   }, [date]);
 
   useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/favoriteteams/${profile_id}`)
-      .then(res => {
-        console.log(res.data);
-        setFavoriteTeams(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    getFavoriteTeams(profile_id);
   }, [profile_id]);
 
   useEffect(() => {
@@ -81,7 +77,6 @@ const Home = ({ id }) => {
   }, [id]);
 
   const handleDateChange = newDate => {
-    console.log(newDate);
     setDate(newDate);
   };
 
@@ -145,6 +140,15 @@ const Home = ({ id }) => {
         </Paper>
       </Grid>
     ));
+  } else if (favoriteTeams.length == 0 && checked) {
+    filteredSchedule = (
+      <Typography variant="body1">
+        To add favorite teams to track,{" "}
+        <Link to="/profile" className={classes.link}>
+          go to the Profile Page
+        </Link>
+      </Typography>
+    );
   } else {
     filteredSchedule = games.map((game, i) => (
       <Grid
@@ -234,10 +238,11 @@ const Home = ({ id }) => {
 };
 
 const mapStateToProps = state => ({
-  id: state.profile_id
+  id: state.profile_id,
+  favoriteTeams: state.favoriteTeams
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  { getFavoriteTeams }
 )(Home);

@@ -11,7 +11,10 @@ import {
   CLEAR_ERRORS,
   LOGOUT,
   ALREADY_LOGGED_IN,
-  PASSWORD_MISMATCH
+  PASSWORD_MISMATCH,
+  GET_FAVORITE_TEAMS_START,
+  GET_FAVORITE_TEAMS_SUCCESS,
+  GET_FAVORITE_TEAMS_FAILURE
 } from "../actions";
 
 const initialState = {
@@ -19,10 +22,11 @@ const initialState = {
   fetchingData: false,
   loggingIn: false,
   gasPrices: [],
-  profile_id: null
+  profile_id: null,
+  favoriteTeams: []
 };
 
-const reducer = (state = initialState, action) => {  
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case PASSWORD_MISMATCH:
       return {
@@ -54,7 +58,6 @@ const reducer = (state = initialState, action) => {
         loggingIn: true
       };
     case LOGIN_SUCCESS:
-      console.log("payload", action.payload);
       return {
         ...state,
         loggingIn: false,
@@ -113,6 +116,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         fetchingData: false,
         error: action.payload
+      };
+    case GET_FAVORITE_TEAMS_SUCCESS:
+      return {
+        ...state,
+        favoriteTeams: action.payload
       };
     default:
       return state;

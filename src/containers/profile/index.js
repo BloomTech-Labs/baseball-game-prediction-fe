@@ -12,7 +12,8 @@ const token = localStorage.getItem("token");
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginTop: 60
   },
   paper: {
     padding: theme.spacing(2),
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = props => {
   const classes = useStyles();
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState();
   const [favorite, setFavorite] = useState([]);
   const [teams, setTeams] = useState([]);
 
@@ -44,11 +45,11 @@ const Profile = props => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/api/profiles`)
+      .get(`/api/profiles/${props.id}`)
       .then(res => {
         //localStorage.getItem('token')
-        console.log("token", token);
-        setProfile(res.data);
+        console.log(res.data);
+        setProfile(res.data[0].username);
         console.log("setProfile", res.data);
       })
       .catch(error => {
@@ -77,13 +78,7 @@ const Profile = props => {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          {profile.map(user => {
-            return (
-              <Paper key={user.profile_id} className={classes.paper}>
-                Welcome {user.username}!
-              </Paper>
-            );
-          })}
+          <Paper className={classes.paper}>Welcome {profile}!</Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>Your Favorite Teams </Paper>

@@ -93,3 +93,14 @@ export const getData = () => dispatch => {
       dispatch({ type: FETCH_DATA_FAILURE, payload: err.response.data.error });
     });
 };
+
+export const GET_FAVORITE_TEAMS_START = "GET_FAVORITE_TEAMS_START";
+export const GET_FAVORITE_TEAMS_SUCCESS = "GET_FAVORITE_TEAMS_SUCCESS";
+export const GET_FAVORITE_TEAMS_FAIL = "GET_FAVORITE_TEAMS_FAIL";
+export const getFavoriteTeams = id => dispatch => {
+  axiosWithAuth()
+    .get(`/api/favoriteTeams/${id}`)
+    .then(res => {
+      console.log(res.data);
+    });
+};
