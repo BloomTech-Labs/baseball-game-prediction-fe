@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    marginTop: 6
+    marginTop: 60
   }
 }));
 
@@ -78,8 +78,15 @@ const Profile = props => {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>Welcome {profile}!</Paper>
+          {profile.map(user => {
+            return (
+              <Paper key={user.profile_id} className={classes.paper}>
+                Welcome {user.username}!
+              </Paper>
+            );
+          })}
         </Grid>
+
         <Grid item xs={12}>
           <Paper className={classes.paper}>Your Favorite Teams </Paper>
         </Grid>
@@ -107,9 +114,10 @@ const Profile = props => {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    id: state.profile_id
+    profile_id: state.profile_id
   };
 };
+
 export default connect(
   mapStateToProps,
   {}

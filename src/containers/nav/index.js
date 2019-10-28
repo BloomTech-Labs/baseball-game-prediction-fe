@@ -26,9 +26,10 @@ import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 
+
 const useStyles = makeStyles(theme => ({
   grow: {
-    flexGrow: 1
+    flexGrow: 1    
   },
   menuButton: {
     marginRight: theme.spacing(2)

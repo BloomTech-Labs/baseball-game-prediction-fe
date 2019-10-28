@@ -53,7 +53,6 @@ const reducer = (state = initialState, action) => {
     case LOGIN_START:
       return {
         ...state,
-
         error: "",
         loggingIn: true
       };
