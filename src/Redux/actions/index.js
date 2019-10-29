@@ -44,7 +44,6 @@ export const login = (creds, redirect) => dispatch => {
   axiosWithAuth()
     .post("/api/profiles/login", creds)
     .then(res => {
-      console.log("res", res);
       localStorage.setItem("token", res.data.token);
       redirect();
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
@@ -102,10 +101,10 @@ export const getFavoriteTeams = id => dispatch => {
   axiosWithAuth()
     .get(`/api/favoriteTeams/${id}`)
     .then(res => {
-      console.log(res.data);
       dispatch({ type: GET_FAVORITE_TEAMS_SUCCESS, payload:res.data})
     })
     .catch(error => {
       dispatch({type: GET_FAVORITE_TEAMS_FAIL, payload: error.response.data})
     })
+
 };

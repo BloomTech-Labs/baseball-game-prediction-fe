@@ -10,9 +10,9 @@ export const axiosWithAuth = () => {
 
   if (currentUrl === "http://localhost:3000/") {
     baseURL = "http://localhost:5000";
-  } else if (currentUrl === "https://bgp-fe-staging.herokuapp.com") {
+  } else if (currentUrl === "https://bgp-fe-staging.herokuapp.com/") {
     baseURL = "https://bgp-be-staging.herokuapp.com";
-  } else if (currentUrl === "https://bgp-fe-production.herokuapp.com") {
+  } else if (currentUrl === "https://bgp-fe-production.herokuapp.com/") {
     baseURL = "https://bgp-be-production.herokuapp.com";
   }
 

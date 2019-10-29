@@ -22,7 +22,7 @@ export default function GameCard(props) {
   const classes = useStyles();
   console.log("scheduleprops", props)
   return (
-    <Grid container justify="center" style={{ margin: "20px auto auto" }}>
+    <Grid container className={classes.root} justify="center" style={{ margin: "20px auto auto" }}>
           <Grid
             item
             xs={10}
@@ -48,6 +48,7 @@ export default function GameCard(props) {
                 <Grid item xs={4}>
                   <h6 style={{ margin: "5px" }}>Score</h6>
                   <Typography variant="h6">{`${props.home_score} : ${props.away_score}`}</Typography>
+                  <h6 style={{ margin: "5px" }}>{props.date}</h6>
                 </Grid>
                 <Grid
                   item
