@@ -6,7 +6,7 @@ import {
   clearErrors,
   passwordMismatch
 } from "../../Redux/actions/index";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../formstyle/index.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
+const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     username: "",
@@ -67,7 +67,8 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
         username: values.username,
         password: values.password
       };
-      register(user);
+      const redirect = () => history.push("/login");
+      register(user, redirect);
     } else {
       // this.props.clearErrors()
       passwordMismatch();

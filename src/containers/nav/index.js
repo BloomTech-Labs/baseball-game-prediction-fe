@@ -26,10 +26,9 @@ import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 
-
 const useStyles = makeStyles(theme => ({
   grow: {
-    flexGrow: 1    
+    flexGrow: 1
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -273,7 +272,10 @@ const PrimarySearchAppBar = ({ logout }) => {
           path="/login"
           render={props => <Login history={props.history} />}
         />
-        <Route path="/register" component={Register} />
+        <Route
+          path="/register"
+          render={props => <Register history={props.history} />}
+        />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
         <Route exact path="/schedules" component={Schedules} />

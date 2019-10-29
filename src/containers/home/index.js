@@ -53,13 +53,14 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
         ).format("YYYYMMDD")}/games.json`
       )
       .then(res => {
+        console.log(res.data);
         const gamesContainer = res.data.games.map(game => {
           return {
             awayTeam: game.schedule.awayTeam.abbreviation,
             homeTeam: game.schedule.homeTeam.abbreviation,
             awayScore: game.score.awayScoreTotal,
             homeScore: game.score.homeScoreTotal,
-            date: moment(game.schedule.startTime).format('LLL')
+            date: moment(game.schedule.startTime).format("LLL")
           };
         });
         setGames(gamesContainer);
@@ -122,7 +123,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
             <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Score</h6>
               <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
-              <h6 style={{ margin: "5px" }}>{game.date}</h6>
+              {/* <h6 style={{ margin: "5px" }}>{game.date}</h6> */}
             </Grid>
             <Grid
               item
@@ -179,7 +180,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
             <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Score</h6>
               <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
-              <h6 style={{ margin: "5px" }}>{game.date}</h6>
+              {/* <h6 style={{ margin: "5px" }}>{game.date}</h6> */}
             </Grid>
             <Grid
               item

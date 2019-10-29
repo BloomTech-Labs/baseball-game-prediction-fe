@@ -61,11 +61,13 @@ export const REGISTER = "REGISTER";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
 
-export const register = creds => dispatch => {
+export const register = (creds, redirect) => dispatch => {
   dispatch({ type: REGISTER });
   return axiosWithAuth()
     .post("/api/profiles/create", creds)
     .then(res => {
+      redirect();
+      window.alert("Registration Successful! Please Login");
       dispatch({ type: REGISTER_SUCCESS });
     })
     .catch(err => {
@@ -97,14 +99,13 @@ export const GET_FAVORITE_TEAMS_START = "GET_FAVORITE_TEAMS_START";
 export const GET_FAVORITE_TEAMS_SUCCESS = "GET_FAVORITE_TEAMS_SUCCESS";
 export const GET_FAVORITE_TEAMS_FAIL = "GET_FAVORITE_TEAMS_FAIL";
 export const getFavoriteTeams = id => dispatch => {
-  dispatch({type: GET_FAVORITE_TEAMS_START})
+  dispatch({ type: GET_FAVORITE_TEAMS_START });
   axiosWithAuth()
     .get(`/api/favoriteTeams/${id}`)
     .then(res => {
-      dispatch({ type: GET_FAVORITE_TEAMS_SUCCESS, payload:res.data})
+      dispatch({ type: GET_FAVORITE_TEAMS_SUCCESS, payload: res.data });
     })
     .catch(error => {
-      dispatch({type: GET_FAVORITE_TEAMS_FAIL, payload: error.response.data})
-    })
-
+      dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.response.data });
+    });
 };
