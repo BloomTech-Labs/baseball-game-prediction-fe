@@ -14,7 +14,7 @@ export const axiosWithAuth = () => {
     baseURL = "https://bgp-be-staging.herokuapp.com";
   } else if (
     currentUrl === "http://www.baseballgamepredictor.com/" ||
-    currentUrl === "https://bgp-fe-production.herokuapp.com"
+    currentUrl === "https://bgp-fe-production.herokuapp.com/"
   ) {
     baseURL = "https://bgp-be-production.herokuapp.com";
   }
@@ -26,5 +26,3 @@ export const axiosWithAuth = () => {
     baseURL: baseURL
   });
 };
-
-// testing
