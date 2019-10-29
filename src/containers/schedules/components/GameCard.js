@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function GameCard(props) {
   const classes = useStyles();
-
+  console.log("scheduleprops", props)
   return (
     <Grid container className={classes.root} justify="center" style={{ margin: "20px auto auto" }}>
           <Grid
