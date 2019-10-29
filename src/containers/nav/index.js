@@ -144,6 +144,9 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         </div>
       ) : (
         <div>
+          <Link to="/" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
           <Link to="/login" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Login</MenuItem>
           </Link>
