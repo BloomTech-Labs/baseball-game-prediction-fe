@@ -98,9 +98,14 @@ export const GET_FAVORITE_TEAMS_START = "GET_FAVORITE_TEAMS_START";
 export const GET_FAVORITE_TEAMS_SUCCESS = "GET_FAVORITE_TEAMS_SUCCESS";
 export const GET_FAVORITE_TEAMS_FAIL = "GET_FAVORITE_TEAMS_FAIL";
 export const getFavoriteTeams = id => dispatch => {
+  dispatch({type: GET_FAVORITE_TEAMS_START})
   axiosWithAuth()
     .get(`/api/favoriteTeams/${id}`)
     .then(res => {
       console.log(res.data);
-    });
+      dispatch({ type: GET_FAVORITE_TEAMS_SUCCESS, payload:res.data})
+    })
+    .catch(error => {
+      dispatch({type: GET_FAVORITE_TEAMS_FAIL, payload: error.response.data})
+    })
 };

@@ -31,7 +31,8 @@ const TeamList = props => {
     console.log("team", team)
     const teams = {
       profile_id: props.profile_id,
-      team_id: team.team_id
+      team_id: team.team_id,
+      //abbreviation: team.abbreviation
     }    
     axiosWithAuth()
       .post(`/api/favoriteTeams`, teams)
