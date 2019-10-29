@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PrimarySearchAppBar = ({ logout }) => {
+const PrimarySearchAppBar = ({ logout, profile_id }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -129,7 +129,7 @@ const PrimarySearchAppBar = ({ logout }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {token ? (
+      {profile_id ? (
         <div>
           <Link to="/" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Home</MenuItem>
@@ -265,7 +265,6 @@ const PrimarySearchAppBar = ({ logout }) => {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-
       <main>
         <Route exact path="/" component={Home} />
         <Route
@@ -285,7 +284,9 @@ const PrimarySearchAppBar = ({ logout }) => {
   );
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  profile_id: state.profile_id
+});
 
 export default connect(
   mapStateToProps,

@@ -53,7 +53,6 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
         ).format("YYYYMMDD")}/games.json`
       )
       .then(res => {
-        console.log(res.data);
         const gamesContainer = res.data.games.map(game => {
           return {
             awayTeam: game.schedule.awayTeam.abbreviation,
