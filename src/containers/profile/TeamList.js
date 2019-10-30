@@ -25,12 +25,13 @@ function ListItemLink(props) {
 const TeamList = props => {
   const classes = useStyles();
   const [favorite, setFavorite] = useState({});
+  
 
   const submit = team => {
     const teams = {
       profile_id: props.profile_id,
-      team_id: team.team_id
-      //abbreviation: team.abbreviation
+      team_id: team.team_id,            
+      abbreviation: team.abbreviation
     }    
 
     axiosWithAuth()
