@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { getFavoriteTeams } from "../../Redux/actions/index";
 import {
   Typography,
-  Paper,
   Grid,
   Switch,
   FormGroup,
@@ -13,7 +12,6 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
-import getLogo from "../../utils/getLogo";
 
 import FavoriteGame from "./FavoriteGame";
 import RegularGame from "./RegularGame";
@@ -76,7 +74,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
 
   useEffect(() => {
     getFavoriteTeams(profile_id);
-  }, [profile_id]);
+  }, [profile_id, checked]);
 
   useEffect(() => {
     setProfile_id(id);

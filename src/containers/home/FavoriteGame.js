@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
 
 const FavoriteGame = ({ game, i }) => {
   const classes = useStyles();
+
   return (
     <Grid
       item

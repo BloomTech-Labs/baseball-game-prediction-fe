@@ -18,7 +18,7 @@ const RegularGame = ({ game, i }) => {
       item
       xs={10}
       sm={12}
-      key={`scheduleGame#${i}`}
+      key={`RegularScheduleGame#${i}`}
       style={{ paddingBottom: 12 }}
     >
       <Paper className={classes.paper} elevation={5}>
