@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getFavoriteTeams } from "../../Redux/actions/index";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Switch from "@material-ui/core/Switch";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import {
+  Typography,
+  Paper,
+  Grid,
+  Switch,
+  FormGroup,
+  FormControlLabel
+} from "@material-ui/core";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
-import { axiosWithAuth } from "../../utils/axiosAuth";
 import getLogo from "../../utils/getLogo";
+
+import FavoriteGame from "./FavoriteGame";
+import RegularGame from "./RegularGame";
 
 import MomentUtils from "@date-io/moment";
 import {
@@ -96,51 +101,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
       }
     }
     filteredSchedule = container.map((game, i) => (
-      <Grid
-        item
-        xs={10}
-        sm={12}
-        key={`scheduleGame#${i}`}
-        style={{ paddingBottom: 12 }}
-      >
-        <Paper className={classes.paper} elevation={5}>
-          <Grid container>
-            <Grid
-              item
-              xs={4}
-              style={
-                game.homeScore > game.awayScore
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
-              <h6 style={{ margin: "5px" }}>Home</h6>
-              <img src={getLogo(game.homeTeam)} width="50px" />
-            </Grid>
-            <Grid item xs={4}>
-              <h6 style={{ margin: "5px" }}>Score</h6>
-              <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
-              {/* <h6 style={{ margin: "5px" }}>{game.date}</h6> */}
-            </Grid>
-            <Grid
-              item
-              xs={4}
-              style={
-                game.homeScore < game.awayScore
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
-              <h6 style={{ margin: "5px" }}>Away</h6>
-              <img src={getLogo(game.awayTeam)} width="50px" />
-            </Grid>
-          </Grid>
-        </Paper>
-      </Grid>
+      <FavoriteGame game={game} i={i} />
     ));
   } else if (favoriteTeams.length == 0 && checked) {
     filteredSchedule = (
@@ -153,51 +114,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
     );
   } else {
     filteredSchedule = games.map((game, i) => (
-      <Grid
-        item
-        xs={10}
-        sm={12}
-        key={`scheduleGame#${i}`}
-        style={{ paddingBottom: 12 }}
-      >
-        <Paper className={classes.paper} elevation={5}>
-          <Grid container>
-            <Grid
-              item
-              xs={4}
-              style={
-                game.homeScore > game.awayScore
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
-              <h6 style={{ margin: "5px" }}>Home</h6>
-              <img src={getLogo(game.homeTeam)} width="50px" />
-            </Grid>
-            <Grid item xs={4}>
-              <h6 style={{ margin: "5px" }}>Score</h6>
-              <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
-              {/* <h6 style={{ margin: "5px" }}>{game.date}</h6> */}
-            </Grid>
-            <Grid
-              item
-              xs={4}
-              style={
-                game.homeScore < game.awayScore
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
-              <h6 style={{ margin: "5px" }}>Away</h6>
-              <img src={getLogo(game.awayTeam)} width="50px" />
-            </Grid>
-          </Grid>
-        </Paper>
-      </Grid>
+      <RegularGame game={game} i={i} />
     ));
   }
 
