@@ -7,8 +7,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import getLogo from "../../utils/getLogo";
 import Button from "@material-ui/core/Button";
-import ListItem from "@material-ui/core/ListItem";
-import { getFavoriteTeams } from "../../Redux/actions/index.js";
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,49 +22,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
-
 const Profile = props => {
   const classes = useStyles();
   const [profile, setProfile] = useState();
-  const [favorite, setFavorite] = useState([]);
-  const [teams, setTeams] = useState([]);
+  const [favorite, setFavorite] = useState([]);  
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/api/favoriteTeams/${props.profile_id}`)
-      .then(res => {
-        console.log("Favorite", res.data);
+      .then(res => {        
         setFavorite(res.data);
       })
       .catch(error => {
         console.log("error", error);
       });
-  }, []);
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/favoriteTeams/`)
-      .then(res => {
-        console.log("teams", res.data);
-        setTeams(res.data);
-        teams.map(t => {return t})        
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  }, []);
-
-  //const profile_id = token.id
+  }, []);    
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/api/profiles/${props.profile_id}`)
       .then(res => {
-        setProfile(res.data[0].username);
-        console.log("setProfile", res.data);
+        setProfile(res.data[0].username);        
       })
       .catch(error => {
         console.log("error", error);
@@ -77,34 +53,24 @@ const Profile = props => {
   console.log('submit', abv)
   axiosWithAuth()
   .delete(`/api/favoriteTeams/${abv.favorite_id}`)
-  .then(res => {      
-    //console.log(res)
+  .then(res => {         
     const newArr = favorite.filter(favorite => favorite.team_id != abv.team_id)
-    return setFavorite(newArr)
-    //const newArr = favorite.filter(favorite => favorite.profile_id != colorToEdit.id)
-    //updateColors(newArr)
+    return setFavorite(newArr)    
   })
   .catch(error => {
      console.log('error', error)
   }) 
 }
-  
-  /*useEffect(() => {
+  const remove = () => {
     axiosWithAuth()
-     .delete(`/api/favoriteTeams/${props.profile_id}`)
-     .then(res => {
-       console.log(res)
-       //const newArr = favorite.filter(favorite => favorite.profile_id != colorToEdit.id)
-       //updateColors(newArr)
-     })
-     .catch(error => {
-        console.log('error', error)
-     }) 
-}, [])*/
+    .delete(`/api/profiles/${props.profile_id}`)
+    .then(res => {
 
-  useEffect(() => {
-    console.log("props2", favorite);
-  });
+    })
+    .catch(err => {
+      console.log('err', err)
+    })
+  }
 
   return (
     <Grid container justify="center">
@@ -136,6 +102,11 @@ const Profile = props => {
       <Link to="/addTeam">
         <Button variant="contained" color="primary" className={classes.button}>
           Add More Favorite Teams To Follow
+        </Button>
+      </Link>
+      <Link to="/register">
+        <Button onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
+          Delete Your Account
         </Button>
       </Link>
     </Grid>

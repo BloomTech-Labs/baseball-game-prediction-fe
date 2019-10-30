@@ -14,7 +14,10 @@ import {
   PASSWORD_MISMATCH,
   GET_FAVORITE_TEAMS_START,
   GET_FAVORITE_TEAMS_SUCCESS,
-  GET_FAVORITE_TEAMS_FAILURE
+  GET_FAVORITE_TEAMS_FAILURE,
+  GET_TEAMSDB_START,
+  GET_TEAMSDB_SUCCESS,
+  GET_TEAMSDB_FAIL
 } from "../actions";
 
 const initialState = {
@@ -23,7 +26,8 @@ const initialState = {
   loggingIn: false,
   gasPrices: [],
   profile_id: null,
-  favoriteTeams: []
+  favoriteTeams: [],
+  teams: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -121,9 +125,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         favoriteTeams: action.payload
       };
+
+    case GET_TEAMSDB_FAIL: 
+      return {
+        ...state,
+        fetchingData: false,
+        error: action.payload      
+    }
+    case GET_TEAMSDB_START: 
+      return {
+        ...state,
+        fetchingData: true
+      }
+    case GET_TEAMSDB_SUCCESS:
+      return {
+        ...state,
+        teams: action.payload
+      }
+
     default:
       return state;
-  }
+  }  
 };
+
+    
 
 export default reducer;

@@ -23,9 +23,7 @@ function ListItemLink(props) {
 }
 
 const TeamList = props => {
-  const classes = useStyles();
-  const [favorite, setFavorite] = useState({});
-  
+  const classes = useStyles();  
 
   const submit = team => {
     const teams = {
@@ -33,13 +31,9 @@ const TeamList = props => {
       team_id: team.team_id,            
       abbreviation: team.abbreviation
     }    
-
     axiosWithAuth()
       .post(`/api/favoriteTeams`, teams)
-      .then(res => {
-        //localStorage.setItem('token', res.data.payload)
-        //console.log("this token", res.data.payload);
-        console.log("res", res);
+      .then(res => {             
       })
       .catch(error => {
         console.log("error", error);

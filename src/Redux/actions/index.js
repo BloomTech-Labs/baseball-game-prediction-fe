@@ -107,6 +107,22 @@ export const getFavoriteTeams = id => dispatch => {
     })
     .catch(error => {
 
-      dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.response.data });
+      dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.response });
     });
 };
+
+export const GET_TEAMSDB_START = "GET_TEAMSDB_START";
+export const GET_TEAMSDB_SUCCESS = "GET_TEAMSDB_SUCCESS";
+export const GET_TEAMSDB_FAIL = "GET_TEAMSDB_FAIL";
+
+export const getTeamsDB = () => dispatch => {
+  dispatch({type: GET_TEAMSDB_START})
+  axiosWithAuth()
+    .get(`/api/teams`)
+    .then(res => {
+      dispatch({type: GET_TEAMSDB_SUCCESS, payload: res.data})
+    })
+    .catch(error => {
+      dispatch({type: GET_TEAMSDB_FAIL, payload: error})
+    })
+}

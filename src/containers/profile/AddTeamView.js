@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { connect } from 'react-redux'
 import TeamList from "./TeamList";
 import { axiosWithAuth } from "../../utils/axiosAuth";
+import { getTeamsDB } from "../../Redux/actions/index"
 
 //CSS
 import "../../App.css";
 
-export default function DivisionListView() {
-  const [teams, setTeams] = useState([]);
-
+const DivisionListView = ({getTeamsDB, teams}) => {
+    
   useEffect(() => {
-    axiosWithAuth()
-      .get("/api/teams")
-      .then(teaminfo => {
-        setTeams(teaminfo.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
-  // Divisional filters
+    getTeamsDB()
+  }, [])
 
   const nlWTeams = () => {
     return teams.filter(team => {
@@ -73,3 +64,14 @@ export default function DivisionListView() {
     return <div />;
   }
 }
+
+const mapStateToProps = state => {  
+  return {
+    teams: state.teams
+  }
+}
+
+export default connect(
+  mapStateToProps,
+   {getTeamsDB}
+)(DivisionListView)
