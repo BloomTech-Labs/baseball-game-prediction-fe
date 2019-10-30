@@ -26,10 +26,9 @@ import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 
-
 const useStyles = makeStyles(theme => ({
   grow: {
-    flexGrow: 1    
+    flexGrow: 1
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -87,7 +86,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PrimarySearchAppBar = ({ logout }) => {
+const PrimarySearchAppBar = ({ logout, profile_id }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -130,7 +129,7 @@ const PrimarySearchAppBar = ({ logout }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {token ? (
+      {profile_id ? (
         <div>
           <Link to="/" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Home</MenuItem>
@@ -145,6 +144,9 @@ const PrimarySearchAppBar = ({ logout }) => {
         </div>
       ) : (
         <div>
+          <Link to="/" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
           <Link to="/login" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Login</MenuItem>
           </Link>
@@ -266,14 +268,16 @@ const PrimarySearchAppBar = ({ logout }) => {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-
       <main>
         <Route exact path="/" component={Home} />
         <Route
           path="/login"
           render={props => <Login history={props.history} />}
         />
-        <Route path="/register" component={Register} />
+        <Route
+          path="/register"
+          render={props => <Register history={props.history} />}
+        />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
         <Route exact path="/schedules" component={Schedules} />
@@ -283,7 +287,9 @@ const PrimarySearchAppBar = ({ logout }) => {
   );
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  profile_id: state.profile_id
+});
 
 export default connect(
   mapStateToProps,

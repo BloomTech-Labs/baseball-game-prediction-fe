@@ -5,11 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import { axiosWithAuth } from "../../utils/axiosAuth.js";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import getLogo from '../../utils/getLogo';
-import Button from '@material-ui/core/Button';
+import getLogo from "../../utils/getLogo";
+import Button from "@material-ui/core/Button";
 import ListItem from "@material-ui/core/ListItem";
-
-
+import { getFavoriteTeams } from "../../Redux/actions/index.js";
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,7 +40,6 @@ const Profile = props => {
       .then(res => {
         console.log("Favorite", res.data);
         setFavorite(res.data);
-        
       })
       .catch(error => {
         console.log("error", error);
@@ -66,7 +64,7 @@ const Profile = props => {
   useEffect(() => {
     axiosWithAuth()
       .get(`/api/profiles/${props.profile_id}`)
-      .then(res => {             
+      .then(res => {
         setProfile(res.data[0].username);
         console.log("setProfile", res.data);
       })
@@ -103,38 +101,46 @@ const Profile = props => {
         console.log('error', error)
      }) 
 }, [])*/
- 
- 
+
   useEffect(() => {
     console.log("props2", favorite);
   });
 
-  return (    
-  <Grid container justify="center">
-    <Grid item xs={12}>          
-      <Paper className={classes.paper}>
-        <h1>Welcome {profile}!</h1>
-      </Paper>           
-    </Grid>
-    <Grid item xs={6} style={{paddingBottom: 70}}>
-      <Paper className={classes.paper}>
-        <h3>Your Favorite Teams</h3>
-      </Paper>
-    </Grid>        
-    <Grid container justify="center" item xs={12} style={{paddingBottom: 50}}>
-      {favorite.map(abv => {
-        return <button onClick={() => submit(abv)} style={{color: 'red'}}>x<img src={getLogo(abv.abbreviation)} width="80px"/></button>
-      })}       
-    </Grid>        
+  return (
+    <Grid container justify="center">
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <h1>Welcome {profile}!</h1>
+        </Paper>
+      </Grid>
+      <Grid item xs={6} style={{ paddingBottom: 70 }}>
+        <Paper className={classes.paper}>
+          <h3>Your Favorite Teams</h3>
+        </Paper>
+      </Grid>
+      <Grid
+        container
+        justify="center"
+        item
+        xs={12}
+        style={{ paddingBottom: 50 }}
+      >
+        {favorite.map(abv => {
+          return (
+            <button onClick={() => submit(abv)} style={{ color: "red" }}>
+              x<img src={getLogo(abv.abbreviation)} width="80px" />
+            </button>
+          );
+        })}
+      </Grid>
       <Link to="/addTeam">
-        <Button variant="contained" color="primary" className={classes.button}>              
-            Add More Favorite Teams To Follow              
+        <Button variant="contained" color="primary" className={classes.button}>
+          Add More Favorite Teams To Follow
         </Button>
-      </Link>        
-  </Grid>    
+      </Link>
+    </Grid>
   );
 };
-
 
 const mapStateToProps = state => {
   console.log(state);
