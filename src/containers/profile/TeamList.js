@@ -26,13 +26,14 @@ const TeamList = props => {
   const classes = useStyles();
   console.log("props", props.division);
   const [favorite, setFavorite] = useState({});
+  
 
   const submit = team => {    
     console.log("team", team)
     const teams = {
       profile_id: props.profile_id,
-      team_id: team.team_id,
-      //abbreviation: team.abbreviation
+      team_id: team.team_id,            
+      abbreviation: team.abbreviation
     }    
     axiosWithAuth()
       .post(`/api/favoriteTeams`, teams)
