@@ -6,12 +6,13 @@ import {
   clearErrors,
   passwordMismatch
 } from "../../Redux/actions/index";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../formstyle/index.css";
 
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,10 +34,15 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     display: "none"
+  },
+  text: {
+    width: "100%",
+    maxWidth: 500,
+    margin: "auto"
   }
 }));
 
-const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
+const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     username: "",
@@ -61,7 +67,8 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
         username: values.username,
         password: values.password
       };
-      register(user);
+      const redirect = () => history.push("/login");
+      register(user, redirect);
     } else {
       // this.props.clearErrors()
       passwordMismatch();
@@ -73,6 +80,11 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
 
   return (
     <div className="RegisterForm">
+      <div className={classes.text}>
+        <Typography variant="h4" gutterBottom align="center">
+          Create Account
+        </Typography>
+      </div>
       <form
         onSubmit={e => this.handleSubmit(e)}
         className={classes.container}
@@ -121,10 +133,11 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
           Create Account
         </Button>
         <br />
-
-        <span>
-          Already have a account? <Link to="/login">Login</Link>
-        </span>
+        <div className={classes.text}>
+          <Typography variant="body1" gutterBottom align="center">
+            Already have a account? <Link to="/login">Login</Link>
+          </Typography>
+        </div>
       </form>
     </div>
   );

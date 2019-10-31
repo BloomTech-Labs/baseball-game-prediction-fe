@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login } from "../../Redux/actions/index";
 import { Link, Redirect } from "react-router-dom";
-import Loader from "react-loader-spinner";
+//import Loader from "react-loader-spinner";
 import "../formstyle/index.css";
 import { FormValidation } from "calidation";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -30,31 +31,38 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     display: "none"
+  },
+  text: {
+    width: "100%",
+    maxWidth: 500,
+    margin: "auto"
   }
 }));
 
-const LoginForm = ({ login }) => {
+const LoginForm = ({ login, history }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     username: "",
     password: ""
   });
-
-
   
-
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    login(values);
+    const redirect = () => history.push("/");
+    login(values, redirect);
   };
 
   return (
     <div className="RegisterForm">
+      <div className={classes.text}>
+        <Typography variant="h4" gutterBottom align="center">
+          Login
+        </Typography>
+      </div>
       <form
         onSubmit={e => this.handleSubmit(e)}
         className={classes.container}
@@ -94,9 +102,11 @@ const LoginForm = ({ login }) => {
         </Button>
         <br />
 
-        <span>
-          Don't have an account yet? <Link to="/register">Register</Link>
-        </span>
+        <div className={classes.text}>
+          <Typography variant="body1" gutterBottom align="center">
+            Don't have an account yet? <Link to="/register">Register</Link>
+          </Typography>
+        </div>
       </form>
     </div>
   );

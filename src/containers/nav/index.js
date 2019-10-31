@@ -19,9 +19,12 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import Home from "../home";
 import Login from "../login/index";
 import Register from "../register/index";
-import Schedule from "../schedules/index";
 import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
+import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
+import AddTeam from "../profile/AddTeamView.js";
+import Schedules from "../schedules/views/DivisionListView";
+import TeamSchedule from "../schedules/views/TeamScheduleView";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -69,10 +72,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+    display: "flex"
   },
   sectionMobile: {
     display: "flex",
@@ -86,15 +86,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const token = localStorage.getItem("token");
-
-const PrimarySearchAppBar = ({ logout }) => {
+const PrimarySearchAppBar = ({ logout, profile_id }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const token = localStorage.getItem("token");
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -129,18 +129,24 @@ const PrimarySearchAppBar = ({ logout }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {token ? (
+      {profile_id ? (
         <div>
+          <Link to="/" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
           <Link to="/profile" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           </Link>
-          <Link to="/schedule" className={classes.link}>
+          <Link to="/schedules" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Schedule</MenuItem>
           </Link>
           <MenuItem onClick={handleLogOut}>Logout</MenuItem>
         </div>
       ) : (
         <div>
+          <Link to="/" className={classes.link}>
+            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
           <Link to="/login" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Login</MenuItem>
           </Link>
@@ -196,7 +202,7 @@ const PrimarySearchAppBar = ({ logout }) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -206,9 +212,11 @@ const PrimarySearchAppBar = ({ logout }) => {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography className={classes.title} variant="h6" noWrap>
-            Baseball Game Prediction
-          </Typography>
+          <Link to="/" className={classes.link} style={{ color: "white" }}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Baseball Game Prediction
+            </Typography>
+          </Link>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -245,7 +253,7 @@ const PrimarySearchAppBar = ({ logout }) => {
               <AccountCircle />
             </IconButton>
           </div>
-          <div className={classes.sectionMobile}>
+          {/* <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -255,24 +263,33 @@ const PrimarySearchAppBar = ({ logout }) => {
             >
               <MoreIcon />
             </IconButton>
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-
       <main>
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/schedule" component={Schedule} />
-        <Route exact path="/profile" component={Profile} />
+        <Route
+          path="/login"
+          render={props => <Login history={props.history} />}
+        />
+        <Route
+          path="/register"
+          render={props => <Register history={props.history} />}
+        />
+        <ProtectedRoute path="/profile" component={Profile} />
+        <ProtectedRoute path="/addTeam" component={AddTeam} />
+        <Route exact path="/schedules" component={Schedules} />
+        <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>
     </div>
   );
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  profile_id: state.profile_id
+});
 
 export default connect(
   mapStateToProps,

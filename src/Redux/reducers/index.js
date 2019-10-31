@@ -11,14 +11,19 @@ import {
   CLEAR_ERRORS,
   LOGOUT,
   ALREADY_LOGGED_IN,
-  PASSWORD_MISMATCH
-} from '../actions';
+  PASSWORD_MISMATCH,
+  GET_FAVORITE_TEAMS_START,
+  GET_FAVORITE_TEAMS_SUCCESS,
+  GET_FAVORITE_TEAMS_FAILURE
+} from "../actions";
 
 const initialState = {
-  error: '',
+  error: "",
   fetchingData: false,
   loggingIn: false,
-  gasPrices: []
+  gasPrices: [],
+  profile_id: null,
+  favoriteTeams: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,50 +32,51 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         passwordMismatchError: true
-      }
+      };
     case ALREADY_LOGGED_IN:
       return {
         ...state,
         loggedIn: true
-      }
+      };
     case CLEAR_ERRORS:
       return {
         ...state,
         loginError: false,
         passwordMismatchError: false,
         usernameExistsError: false
-      }
+      };
     case LOGOUT:
       return {
         ...state,
         loggedIn: false
-      }
+      };
     case LOGIN_START:
       return {
         ...state,
-        error: '',
+        error: "",
         loggingIn: true
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         loggingIn: false,
-        error: ''
+        error: "",
+        profile_id: action.payload
       };
-      case LOGIN_FAILURE:
+    case LOGIN_FAILURE:
       return {
         ...state,
         loggingIn: false,
         loginError: true
-      }
-      case REGISTER:
+      };
+    case REGISTER:
       return {
         ...state,
         registering: true,
         loginError: false,
         passwordMismatchError: false,
         usernameExistsError: false
-      }
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,
@@ -79,17 +85,17 @@ const reducer = (state = initialState, action) => {
         loginError: false,
         passwordMismatchError: false,
         usernameExistsError: false
-      }
-      case REGISTER_FAILURE:
+      };
+    case REGISTER_FAILURE:
       return {
         ...state,
         registering: false,
         usernameExistsError: true
-      }
+      };
     case FETCH_DATA_START:
       return {
         ...state,
-        error: '',
+        error: "",
         fetchingData: true
       };
     case FETCH_DATA_SUCCESS:
@@ -97,18 +103,23 @@ const reducer = (state = initialState, action) => {
         ...state,
         fetchingData: false,
         gasPrices: action.payload
-          .filter(price => price.type === 'Gasoline - Regular')
+          .filter(price => price.type === "Gasoline - Regular")
           .filter(
             price =>
-              price.location === 'US' || price.location === 'State of Hawaii'
+              price.location === "US" || price.location === "State of Hawaii"
           )
       };
-  
+
     case FETCH_DATA_FAILURE:
       return {
         ...state,
         fetchingData: false,
         error: action.payload
+      };
+    case GET_FAVORITE_TEAMS_SUCCESS:
+      return {
+        ...state,
+        favoriteTeams: action.payload
       };
     default:
       return state;
