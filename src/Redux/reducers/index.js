@@ -17,7 +17,10 @@ import {
   GET_FAVORITE_TEAMS_FAILURE,
   GET_TEAMSDB_START,
   GET_TEAMSDB_SUCCESS,
-  GET_TEAMSDB_FAIL
+  GET_TEAMSDB_FAIL,
+  GET_PROFILE_START,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAIL
 } from "../actions";
 
 const initialState = {
@@ -27,7 +30,9 @@ const initialState = {
   gasPrices: [],
   profile_id: null,
   favoriteTeams: [],
-  teams: []
+  teams: [],
+  profile: [],
+  username: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -141,6 +146,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         teams: action.payload
+      }
+    case GET_PROFILE_START:
+      return {
+        ...state,
+        fetchingData: true
+      }
+    case GET_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profile: action.payload,
+        username: action.payload
+      }
+    case GET_PROFILE_FAIL:
+      return {
+        ...state,
+        fetchingData: false,
+        error: action.payload
       }
 
     default:

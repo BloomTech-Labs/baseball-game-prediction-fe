@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import getLogo from "../../utils/getLogo";
 import Button from "@material-ui/core/Button";
+import { getFavoriteTeams } from "../../Redux/actions/index";
+import { getProfile } from "../../Redux/actions/index";
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,11 +25,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Profile = props => {
-  const classes = useStyles();
-  const [profile, setProfile] = useState();
-  const [favorite, setFavorite] = useState([]);  
+  const classes = useStyles();  
+  const [favorites, setFavorites] = useState([]);
+  
+  useEffect(() => {
+    props.getFavoriteTeams(props.profile_id)
+  }, [props.profile_id])  
 
   useEffect(() => {
+    setFavorites(props.favorite)
+  }, [props.favorite])
+ 
+
+  useEffect(() => {
+    props.getProfile(props.profile_id)
+  }, [props.profile_id])
+  
+ /* useEffect(() => {
     axiosWithAuth()
       .get(`/api/favoriteTeams/${props.profile_id}`)
       .then(res => {        
@@ -36,9 +50,9 @@ const Profile = props => {
       .catch(error => {
         console.log("error", error);
       });
-  }, []);    
+  }, []);*/    
 
-  useEffect(() => {
+  /*useEffect(() => {
     axiosWithAuth()
       .get(`/api/profiles/${props.profile_id}`)
       .then(res => {
@@ -47,15 +61,15 @@ const Profile = props => {
       .catch(error => {
         console.log("error", error);
       });
-  }, []);
+  }, []);*/
 
   const submit = abv => {
   console.log('submit', abv)
   axiosWithAuth()
   .delete(`/api/favoriteTeams/${abv.favorite_id}`)
   .then(res => {         
-    const newArr = favorite.filter(favorite => favorite.team_id != abv.team_id)
-    return setFavorite(newArr)    
+    const newArr = favorites.filter(fav => fav.team_id != abv.team_id)
+    return setFavorites(newArr)    
   })
   .catch(error => {
      console.log('error', error)
@@ -76,7 +90,7 @@ const Profile = props => {
     <Grid container justify="center">
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          <h1>Welcome {profile}!</h1>
+          <h1>Welcome {props.username}!</h1>
         </Paper>
       </Grid>
       <Grid item xs={6} style={{ paddingBottom: 70 }}>
@@ -91,7 +105,7 @@ const Profile = props => {
         xs={12}
         style={{ paddingBottom: 50 }}
       >
-        {favorite.map(abv => {
+        {favorites.map(abv => {
           return (
             <button onClick={() => submit(abv)} style={{ color: "red" }}>
               x<img src={getLogo(abv.abbreviation)} width="80px" />
@@ -116,11 +130,14 @@ const Profile = props => {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    profile_id: state.profile_id
+    profile_id: state.profile_id,
+    favorite: state.favoriteTeams,
+    profile: state.profile,
+    username: state.username
   };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  {getFavoriteTeams, getProfile}
 )(Profile);

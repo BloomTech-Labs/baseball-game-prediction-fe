@@ -106,7 +106,6 @@ export const getFavoriteTeams = id => dispatch => {
       dispatch({ type: GET_FAVORITE_TEAMS_SUCCESS, payload: res.data });
     })
     .catch(error => {
-
       dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.response });
     });
 };
@@ -124,5 +123,21 @@ export const getTeamsDB = () => dispatch => {
     })
     .catch(error => {
       dispatch({type: GET_TEAMSDB_FAIL, payload: error})
+    })
+}
+
+export const GET_PROFILE_START =" GET_PROFILE_START";
+export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS";
+export const GET_PROFILE_FAIL = "GET_PROFILE_FAIL"
+
+export const getProfile = profile_id => dispatch => {
+  dispatch({type: GET_PROFILE_START})
+  axiosWithAuth()
+    .get(`/api/profiles/${profile_id}`)
+    .then(res => {
+      dispatch({type: GET_PROFILE_SUCCESS, payload: res.data[0].username})
+    })
+    .catch(error => {
+      dispatch({type: GET_PROFILE_FAIL, payload: error})
     })
 }
