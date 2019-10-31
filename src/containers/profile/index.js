@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import ListItem from "@material-ui/core/ListItem";
 import { getFavoriteTeams } from "../../Redux/actions/index.js";
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -49,45 +48,31 @@ const Profile = props => {
     axiosWithAuth()
       .get(`/api/favoriteTeams/`)
       .then(res => {
-
         setProfile(res.data[0].username);
-
       })
       .catch(error => {
         console.log("error", error);
       });
   }, []);
 
-
   const submit = abv => {
-
+    console.log("submit", abv);
     axiosWithAuth()
-      .get(`/api/profiles/${props.profile_id}`)
+      .delete(`/api/favoriteTeams/${abv.favorite_id}`)
       .then(res => {
-        setProfile(res.data[0].username);
-        console.log("setProfile", res.data);
+        //console.log(res)
+        const newArr = favorite.filter(
+          favorite => favorite.team_id != abv.team_id
+        );
+        return setFavorite(newArr);
+        //const newArr = favorite.filter(favorite => favorite.profile_id != colorToEdit.id)
+        //updateColors(newArr)
       })
       .catch(error => {
         console.log("error", error);
       });
-  }, []);
+  };
 
-  const submit = abv => {
-  console.log('submit', abv)
-  axiosWithAuth()
-  .delete(`/api/favoriteTeams/${abv.favorite_id}`)
-  .then(res => {      
-    //console.log(res)
-    const newArr = favorite.filter(favorite => favorite.team_id != abv.team_id)
-    return setFavorite(newArr)
-    //const newArr = favorite.filter(favorite => favorite.profile_id != colorToEdit.id)
-    //updateColors(newArr)
-  })
-  .catch(error => {
-     console.log('error', error)
-  }) 
-}
-  
   /*useEffect(() => {
     axiosWithAuth()
      .delete(`/api/favoriteTeams/${props.profile_id}`)
