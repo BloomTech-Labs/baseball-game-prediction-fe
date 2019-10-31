@@ -68,6 +68,9 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch }) => {
     }
   };
 
+
+  
+
   return (
     <div className="RegisterForm">
       <form
