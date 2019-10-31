@@ -9,6 +9,8 @@ import {
   FormControlLabel
 } from "@material-ui/core";
 
+import getPrediction from "../../utils/getPrediction";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
@@ -71,6 +73,18 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
         console.log(err);
       });
   }, [date]);
+
+  useEffect(() => {
+    axiosWithAuthMSF()
+      .get(
+        `https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/date/${moment(
+          date
+        ).format("YYYYMMDD")}/games.json`
+      )
+      .then(res => {
+        getPrediction(res.data.games[1]);
+      });
+  }, []);
 
   useEffect(() => {
     getFavoriteTeams(profile_id);
