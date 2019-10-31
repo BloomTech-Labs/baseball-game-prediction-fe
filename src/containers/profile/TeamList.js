@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { axiosWithAuth } from "../../utils/axiosAuth.js";
-import axios from "axios";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     marginTop: 70
-  }
+  }  
 }));
 
 function ListItemLink(props) {
@@ -24,21 +23,32 @@ function ListItemLink(props) {
 
 const TeamList = props => {
   const classes = useStyles();  
+  const [favorites, setFavorites] = useState([])
+  console.log("props", props)
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`api/favoriteTeams/${props.profile_id}`)
+      .then(res => {
+        setFavorites(res.data)        
+      })    
+  }, [setFavorites])
+
+  console.log('favorites', favorites)
 
   const submit = team => {
     const teams = {
       profile_id: props.profile_id,
       team_id: team.team_id,            
       abbreviation: team.abbreviation
-    }    
+    }     
     axiosWithAuth()
       .post(`/api/favoriteTeams`, teams)
-      .then(res => {             
+      .then(res => {                                   
       })
       .catch(error => {
         console.log("error", error);
       });
-  };
+  };  
 
   return (
     <div className={classes.root}>
@@ -53,14 +63,17 @@ const TeamList = props => {
         }
       >
         {props.division.map(team => {
-          return (
+          return (            
             <ListItem
               onClick={() => submit(team)}
               button
               key={`${team.team_id}`}
-            >
+            > 
+            <Link to="/profile">
               <ListItemText primary={`${team.team_name}`} />
+            </Link>
             </ListItem>
+            
           );
         })}
       </List>

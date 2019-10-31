@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from 'react-redux'
 import TeamList from "./TeamList";
-import { axiosWithAuth } from "../../utils/axiosAuth";
 import { getTeamsDB } from "../../Redux/actions/index"
 
 //CSS
 import "../../App.css";
 
 const DivisionListView = ({getTeamsDB, teams}) => {
-    
+
   useEffect(() => {
     getTeamsDB()
   }, [])
