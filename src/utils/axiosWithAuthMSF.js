@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const apiKey = process.env.REACT_APP_MSF_API_KEY;
+
 export const axiosWithAuthMSF = () => {
-  const authHeader = `${process.env.REACT_APP_MSF_API_KEY}:MYSPORTSFEEDS`;
+  const authHeader = `${apiKey}:MYSPORTSFEEDS`;
   const b64Header = window.btoa(authHeader);
   const auth = "Basic " + b64Header;
 

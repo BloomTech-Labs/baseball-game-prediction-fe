@@ -37,7 +37,6 @@ const Profile = props => {
     axiosWithAuth()
       .get(`/api/favoriteTeams/${props.profile_id}`)
       .then(res => {
-        console.log("Favorite", res.data);
         setFavorite(res.data);
       })
       .catch(error => {
@@ -49,25 +48,7 @@ const Profile = props => {
     axiosWithAuth()
       .get(`/api/favoriteTeams/`)
       .then(res => {
-        console.log("teams", res.data);
-        setTeams(res.data);
-        teams.map(t => {
-          return t;
-        });
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  }, []);
-
-  //const profile_id = token.id
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/profiles/${props.profile_id}`)
-      .then(res => {
         setProfile(res.data[0].username);
-        console.log("setProfile", res.data);
       })
       .catch(error => {
         console.log("error", error);
@@ -104,10 +85,6 @@ const Profile = props => {
         console.log('error', error)
      }) 
 }, [])*/
-
-  useEffect(() => {
-    console.log("props2", favorite);
-  });
 
   return (
     <Grid container justify="center">
@@ -146,7 +123,6 @@ const Profile = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     profile_id: state.profile_id
   };

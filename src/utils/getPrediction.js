@@ -4,10 +4,12 @@ import moment from "moment";
 const getPrediction = apiData => {
   console.log(apiData);
 
+  const date = moment(apiData.schedule.startTime).format("YYYYMMDD");
+
   const gameData = {
-    date: moment(apiData.schedule.startTime).format("YYYYMMDD"),
+    date: date,
     game_num: "",
-    day_of_week: "",
+    day_of_week: moment(date).day(),
     visiting_team: "",
     visiting_team_league: "",
     visiting_game_num: "",
