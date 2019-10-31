@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { axiosWithAuth } from "../../utils/axiosAuth.js";
+
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { postFavoriteTeam } from "../../Redux/actions/index";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,32 +23,15 @@ function ListItemLink(props) {
 }
 
 const TeamList = props => {
-  const classes = useStyles();  
-  const [favorites, setFavorites] = useState([])
-  console.log("props", props)
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`api/favoriteTeams/${props.profile_id}`)
-      .then(res => {
-        setFavorites(res.data)        
-      })    
-  }, [setFavorites])
-
-  console.log('favorites', favorites)
+  const classes = useStyles(); 
 
   const submit = team => {
     const teams = {
       profile_id: props.profile_id,
       team_id: team.team_id,            
       abbreviation: team.abbreviation
-    }     
-    axiosWithAuth()
-      .post(`/api/favoriteTeams`, teams)
-      .then(res => {                                   
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
+      }
+    props.postFavoriteTeam(teams)     
   };  
 
   return (
@@ -89,5 +73,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {}
+  {postFavoriteTeam}
 )(TeamList);

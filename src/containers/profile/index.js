@@ -41,62 +41,17 @@ const Profile = props => {
 
   useEffect(() => {
     props.getProfile(props.profile_id)
-  }, [props.profile_id])
+  }, [props.profile_id]) 
 
-  /*useEffect(() => {
+  const submit = abv => {  
     props.deleteFavorite(abv.favorite_id)
-  }, [abv.favorite_id])*/
-  
- /* useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/favoriteTeams/${props.profile_id}`)
-      .then(res => {        
-        setFavorite(res.data);
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  }, []);*/    
-
-  /*useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/profiles/${props.profile_id}`)
-      .then(res => {
-        setProfile(res.data[0].username);        
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  }, []);*/
-
-  const submit = abv => {
-  console.log('submit', abv)
-  props.deleteFavorite(abv.favorite_id)
-  const newArr = favorites.filter(fav => fav.team_id != abv.team_id)
-  return setFavorites(newArr)
-  }
-  /*axiosWithAuth()
-  .delete(`/api/favoriteTeams/${abv.favorite_id}`)
-  .then(res => {         
     const newArr = favorites.filter(fav => fav.team_id != abv.team_id)
-    return setFavorites(newArr)    
-  })
-  .catch(error => {
-     console.log('error', error)
-  }) 
-}*/
-  const remove = () => {
-    /*axiosWithAuth()
-    .delete(`/api/profiles/${props.profile_id}`)
-    .then(res => {
-
-    })
-    .catch(err => {
-      console.log('err', err)
-    })*/
+    return setFavorites(newArr)
+  }
+  
+  const remove = () => {   
     const redirect = () => props.history.push('/register')
-    deleteProfile(props.profile_id, redirect)
-    
+    deleteProfile(props.profile_id, redirect)    
   }
 
   return (
@@ -130,12 +85,10 @@ const Profile = props => {
         <Button variant="contained" color="primary" className={classes.button}>
           Add More Favorite Teams To Follow
         </Button>
-      </Link>
-      {/*<Link to="/register">*/}
+      </Link>      
         <Button onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
           Delete Your Account
-        </Button>
-      {/*</Link>*/}
+        </Button>      
     </Grid>
   );
 };

@@ -23,6 +23,7 @@ import {
   GET_PROFILE_FAIL,
   DELETE_FAVORITE_START,
   DELETE_FAVORITE_SUCCESS,
+  POST_FAVORITE_START
  
 } from "../actions";
 
@@ -159,7 +160,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.payload,
-        username: action.payload
+        username: action.payload,        
       }
     case GET_PROFILE_FAIL:
       return {
@@ -170,6 +171,11 @@ const reducer = (state = initialState, action) => {
     case DELETE_FAVORITE_SUCCESS:
       return {
         ...state
+      }
+    case POST_FAVORITE_START: 
+      return {
+        ...state,
+         
       }
 
     default:
