@@ -20,7 +20,10 @@ import {
   GET_TEAMSDB_FAIL,
   GET_PROFILE_START,
   GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAIL
+  GET_PROFILE_FAIL,
+  DELETE_FAVORITE_START,
+  DELETE_FAVORITE_SUCCESS,
+ 
 } from "../actions";
 
 const initialState = {
@@ -163,6 +166,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         fetchingData: false,
         error: action.payload
+      }
+    case DELETE_FAVORITE_SUCCESS:
+      return {
+        ...state
       }
 
     default:

@@ -9,6 +9,8 @@ import getLogo from "../../utils/getLogo";
 import Button from "@material-ui/core/Button";
 import { getFavoriteTeams } from "../../Redux/actions/index";
 import { getProfile } from "../../Redux/actions/index";
+import { deleteFavorite } from "../../Redux/actions/index";
+import { deleteProfile } from "../../Redux/actions/index";
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,6 +42,10 @@ const Profile = props => {
   useEffect(() => {
     props.getProfile(props.profile_id)
   }, [props.profile_id])
+
+  /*useEffect(() => {
+    props.deleteFavorite(abv.favorite_id)
+  }, [abv.favorite_id])*/
   
  /* useEffect(() => {
     axiosWithAuth()
@@ -65,7 +71,11 @@ const Profile = props => {
 
   const submit = abv => {
   console.log('submit', abv)
-  axiosWithAuth()
+  props.deleteFavorite(abv.favorite_id)
+  const newArr = favorites.filter(fav => fav.team_id != abv.team_id)
+  return setFavorites(newArr)
+  }
+  /*axiosWithAuth()
   .delete(`/api/favoriteTeams/${abv.favorite_id}`)
   .then(res => {         
     const newArr = favorites.filter(fav => fav.team_id != abv.team_id)
@@ -74,16 +84,19 @@ const Profile = props => {
   .catch(error => {
      console.log('error', error)
   }) 
-}
+}*/
   const remove = () => {
-    axiosWithAuth()
+    /*axiosWithAuth()
     .delete(`/api/profiles/${props.profile_id}`)
     .then(res => {
 
     })
     .catch(err => {
       console.log('err', err)
-    })
+    })*/
+    const redirect = () => props.history.push('/register')
+    deleteProfile(props.profile_id, redirect)
+    
   }
 
   return (
@@ -118,11 +131,11 @@ const Profile = props => {
           Add More Favorite Teams To Follow
         </Button>
       </Link>
-      <Link to="/register">
+      {/*<Link to="/register">*/}
         <Button onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
           Delete Your Account
         </Button>
-      </Link>
+      {/*</Link>*/}
     </Grid>
   );
 };
@@ -139,5 +152,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {getFavoriteTeams, getProfile}
+  {getFavoriteTeams, getProfile, deleteFavorite, deleteProfile}
 )(Profile);

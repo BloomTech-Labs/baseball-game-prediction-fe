@@ -126,7 +126,7 @@ export const getTeamsDB = () => dispatch => {
     })
 }
 
-export const GET_PROFILE_START =" GET_PROFILE_START";
+export const GET_PROFILE_START = "GET_PROFILE_START";
 export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS";
 export const GET_PROFILE_FAIL = "GET_PROFILE_FAIL"
 
@@ -140,4 +140,25 @@ export const getProfile = profile_id => dispatch => {
     .catch(error => {
       dispatch({type: GET_PROFILE_FAIL, payload: error})
     })
+}
+
+export const DELETE_FAVORITE_START = "DELETE_FAVORITE_START";
+export const DELETE_FAVORITE_SUCCESS = "DELETE_FAVORITE_SUCCESS";
+
+
+export const deleteFavorite = favorite_id => dispatch => {
+  dispatch({type: DELETE_FAVORITE_START})
+  axiosWithAuth()
+    .delete(`/api/favoriteTeams/${favorite_id}`)    
+}
+
+export const deleteProfile = (profile_id, redirect) => {
+  var yes = window.confirm('Are you sure you want to delete your profile?')
+    if(yes === true) {
+  axiosWithAuth()     
+    .delete(`/api/profiles/${profile_id}`)
+    .then(res => {
+      redirect()
+    })
+  }
 }
