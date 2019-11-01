@@ -1,11 +1,8 @@
-// Render Prop
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login } from "../../Redux/actions/index";
-import { Link, Redirect } from "react-router-dom";
-//import Loader from "react-loader-spinner";
+import { Link } from "react-router-dom";
 import "../formstyle/index.css";
-import { FormValidation } from "calidation";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
