@@ -1,12 +1,10 @@
 import moment from "moment";
 import { axiosWithAuthMSF } from "./axiosWithAuthMSF";
 
-const getPrediction = () => {
-  axiosWithAuthMSF()
-    .get(
-      "https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/team_gamelogs.json"
-    )
-    .then(res => console.log(res.data));
+const getPrediction = async () => {
+  let variable1 = await axiosWithAuthMSF().get(
+    "https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/team_gamelogs.json"
+  );
 };
 
 export default getPrediction;
