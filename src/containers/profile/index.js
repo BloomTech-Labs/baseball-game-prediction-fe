@@ -7,8 +7,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import getLogo from "../../utils/getLogo";
 import Button from "@material-ui/core/Button";
-import ListItem from "@material-ui/core/ListItem";
-import { getFavoriteTeams } from "../../Redux/actions/index.js";
+import { getFavoriteTeams } from "../../Redux/actions/index";
+import { getProfile } from "../../Redux/actions/index";
+import { deleteFavorite } from "../../Redux/actions/index";
+import { deleteProfile } from "../../Redux/actions/index";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,74 +25,40 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
-
 const Profile = props => {
-  const classes = useStyles();
-  const [profile, setProfile] = useState();
-  const [favorite, setFavorite] = useState([]);
-  const [teams, setTeams] = useState([]);
+  const classes = useStyles();  
+  const [favorites, setFavorites] = useState([]);
+  
+  useEffect(() => {
+    props.getFavoriteTeams(props.profile_id)
+  }, [props.profile_id])  
 
   useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/favoriteTeams/${props.profile_id}`)
-      .then(res => {
-        setFavorite(res.data);
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  }, []);
+    setFavorites(props.favorite)
+  }, [props.favorite])
+ 
 
   useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/favoriteTeams/`)
-      .then(res => {
-        setProfile(res.data[0].username);
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  }, []);
+    props.getProfile(props.profile_id)
+  }, [props.profile_id]) 
 
-  const submit = abv => {
-    console.log("submit", abv);
-    axiosWithAuth()
-      .delete(`/api/favoriteTeams/${abv.favorite_id}`)
-      .then(res => {
-        //console.log(res)
-        const newArr = favorite.filter(
-          favorite => favorite.team_id != abv.team_id
-        );
-        return setFavorite(newArr);
-        //const newArr = favorite.filter(favorite => favorite.profile_id != colorToEdit.id)
-        //updateColors(newArr)
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  };
+  const submit = abv => {  
+    props.deleteFavorite(abv.favorite_id)
+    const newArr = favorites.filter(fav => fav.team_id != abv.team_id)
+    return setFavorites(newArr)
+  }
+  
+  const remove = () => {   
+    const redirect = () => props.history.push('/register')
+    deleteProfile(props.profile_id, redirect)    
+  }
 
-  /*useEffect(() => {
-    axiosWithAuth()
-     .delete(`/api/favoriteTeams/${props.profile_id}`)
-     .then(res => {
-       console.log(res)
-       //const newArr = favorite.filter(favorite => favorite.profile_id != colorToEdit.id)
-       //updateColors(newArr)
-     })
-     .catch(error => {
-        console.log('error', error)
-     }) 
-}, [])*/
 
   return (
     <Grid container justify="center">
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          <h1>Welcome {profile}!</h1>
+          <h1>Welcome {props.username}!</h1>
         </Paper>
       </Grid>
       <Grid item xs={6} style={{ paddingBottom: 70 }}>
@@ -105,7 +73,7 @@ const Profile = props => {
         xs={12}
         style={{ paddingBottom: 50 }}
       >
-        {favorite.map(abv => {
+        {favorites.map(abv => {
           return (
             <button onClick={() => submit(abv)} style={{ color: "red" }}>
               x<img src={getLogo(abv.abbreviation)} width="80px" />
@@ -117,18 +85,24 @@ const Profile = props => {
         <Button variant="contained" color="primary" className={classes.button}>
           Add More Favorite Teams To Follow
         </Button>
-      </Link>
+      </Link>      
+        <Button onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
+          Delete Your Account
+        </Button>      
     </Grid>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    profile_id: state.profile_id
+    profile_id: state.profile_id,
+    favorite: state.favoriteTeams,
+    profile: state.profile,
+    username: state.username
   };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  {getFavoriteTeams, getProfile, deleteFavorite, deleteProfile}
 )(Profile);

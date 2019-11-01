@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeamList from "../components/TeamList";
+import { getTeamsDB } from "../../../Redux/actions/index"
+import { connect } from 'react-redux'
 
 //CSS
 import "../../../App.css";
 
-export default function DivisionListView() {
-  const [teams, setTeams] = useState([]);
-
+const DivisionListView = ({getTeamsDB, teams}) => {
   useEffect(() => {
+    getTeamsDB()
+  }, [])
+
+  /*useEffect(() => {
     axios
       .get("https://bgp-be-staging.herokuapp.com/api/teams")
       .then(teaminfo => {
@@ -17,7 +21,7 @@ export default function DivisionListView() {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, []);*/
 
   // Divisional filters
 
@@ -72,3 +76,14 @@ export default function DivisionListView() {
     return <div />;
   }
 }
+
+const mapStateToProps = state => {  
+  return {
+    teams: state.teams
+  }
+}
+
+export default connect(
+  mapStateToProps,
+   {getTeamsDB}
+)(DivisionListView)

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-
 import { axiosWithAuth } from "../../utils/axiosAuth";
 import { BottomNavigationAction } from "@material-ui/core";
 
@@ -8,6 +7,8 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const PASSWORD_MISMATCH = "PASSWORD_MISMATCH";
 export const ALREADY_LOGGED_IN = "ALREADY_LOGGED_IN";
 export const LOGOUT = "LOGOUT";
+
+
 
 export const passwordMismatch = () => dispatch => {
   dispatch({
@@ -109,3 +110,63 @@ export const getFavoriteTeams = id => dispatch => {
       dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.response });
     });
 };
+
+export const GET_TEAMSDB_START = "GET_TEAMSDB_START";
+export const GET_TEAMSDB_SUCCESS = "GET_TEAMSDB_SUCCESS";
+export const GET_TEAMSDB_FAIL = "GET_TEAMSDB_FAIL";
+
+export const getTeamsDB = () => dispatch => {
+  dispatch({type: GET_TEAMSDB_START})
+  axiosWithAuth()
+    .get(`/api/teams`)
+    .then(res => {
+      dispatch({type: GET_TEAMSDB_SUCCESS, payload: res.data})
+    })
+    .catch(error => {
+      dispatch({type: GET_TEAMSDB_FAIL, payload: error})
+    })
+}
+
+export const GET_PROFILE_START = "GET_PROFILE_START";
+export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS";
+export const GET_PROFILE_FAIL = "GET_PROFILE_FAIL"
+
+export const getProfile = profile_id => dispatch => {  
+  dispatch({type: GET_PROFILE_START})
+  axiosWithAuth()  
+  .get(`/api/profiles/${profile_id}`)
+        .then(res => {      
+      dispatch({type: GET_PROFILE_SUCCESS, payload: res.data[0].username})
+    })
+    .catch(error => {
+      dispatch({type: GET_PROFILE_FAIL, payload: error})
+    })
+}
+
+export const DELETE_FAVORITE_START = "DELETE_FAVORITE_START";
+export const DELETE_FAVORITE_SUCCESS = "DELETE_FAVORITE_SUCCESS";
+
+
+export const deleteFavorite = favorite_id => dispatch => {
+  dispatch({type: DELETE_FAVORITE_START})
+  axiosWithAuth()
+    .delete(`/api/favoriteTeams/${favorite_id}`)    
+}
+
+export const deleteProfile = (profile_id, redirect) => {
+  var yes = window.confirm('Are you sure you want to delete your profile?')
+    if(yes === true) {
+  axiosWithAuth()     
+    .delete(`/api/profiles/${profile_id}`)
+    .then(res => {
+      redirect()
+    })
+  }
+}
+export const POST_FAVORITE_START = "POST_FAVORITE_START"
+
+export const postFavoriteTeam = (team) => dispatch => {
+  dispatch({type: POST_FAVORITE_START})
+    axiosWithAuth()
+    .post(`/api/favoriteTeams`, team)   
+}

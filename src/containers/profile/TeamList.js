@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { axiosWithAuth } from "../../utils/axiosAuth.js";
-import axios from "axios";
+
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { postFavoriteTeam } from "../../Redux/actions/index";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     marginTop: 70
-  }
+  }  
 }));
 
 function ListItemLink(props) {
@@ -23,28 +23,16 @@ function ListItemLink(props) {
 }
 
 const TeamList = props => {
-  const classes = useStyles();
-  const [favorite, setFavorite] = useState({});
-  
+  const classes = useStyles(); 
 
   const submit = team => {
     const teams = {
       profile_id: props.profile_id,
       team_id: team.team_id,            
       abbreviation: team.abbreviation
-    }    
-
-    axiosWithAuth()
-      .post(`/api/favoriteTeams`, teams)
-      .then(res => {
-        //localStorage.setItem('token', res.data.payload)
-        //console.log("this token", res.data.payload);
-        console.log("res", res);
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
-  };
+      }
+    props.postFavoriteTeam(teams)     
+  };  
 
   return (
     <div className={classes.root}>
@@ -59,14 +47,17 @@ const TeamList = props => {
         }
       >
         {props.division.map(team => {
-          return (
+          return (            
             <ListItem
               onClick={() => submit(team)}
               button
               key={`${team.team_id}`}
-            >
+            > 
+            <Link to="/profile">
               <ListItemText primary={`${team.team_name}`} />
+            </Link>
             </ListItem>
+            
           );
         })}
       </List>
@@ -82,5 +73,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {}
+  {postFavoriteTeam}
 )(TeamList);
