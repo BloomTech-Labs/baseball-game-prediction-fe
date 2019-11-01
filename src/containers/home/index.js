@@ -9,7 +9,7 @@ import {
   FormControlLabel
 } from "@material-ui/core";
 
-import getPrediction from "../../utils/getPrediction";
+// import getPrediction from "../../utils/getPrediction";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
@@ -74,9 +74,9 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
       });
   }, [date]);
 
-  useEffect(() => {
-    getPrediction(date);
-  }, []);
+  // useEffect(() => {
+  //   getPrediction(date);
+  // }, []);
 
   useEffect(() => {
     getFavoriteTeams(profile_id);

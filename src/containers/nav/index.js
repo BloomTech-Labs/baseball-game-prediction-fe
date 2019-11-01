@@ -25,6 +25,7 @@ import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
 import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
+import GameData from "../gamedata";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -280,6 +281,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
+        <ProtectedRoute path="/gamedata/:date/:away/:home" component={GameData} />
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>
