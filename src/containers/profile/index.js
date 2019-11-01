@@ -12,7 +12,6 @@ import { getProfile } from "../../Redux/actions/index";
 import { deleteFavorite } from "../../Redux/actions/index";
 import { deleteProfile } from "../../Redux/actions/index";
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -54,6 +53,7 @@ const Profile = props => {
     deleteProfile(props.profile_id, redirect)    
   }
 
+
   return (
     <Grid container justify="center">
       <Grid item xs={12}>
@@ -94,7 +94,6 @@ const Profile = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     profile_id: state.profile_id,
     favorite: state.favoriteTeams,
