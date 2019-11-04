@@ -14,7 +14,17 @@ import {
   PASSWORD_MISMATCH,
   GET_FAVORITE_TEAMS_START,
   GET_FAVORITE_TEAMS_SUCCESS,
-  GET_FAVORITE_TEAMS_FAILURE
+  GET_FAVORITE_TEAMS_FAILURE,
+  GET_TEAMSDB_START,
+  GET_TEAMSDB_SUCCESS,
+  GET_TEAMSDB_FAIL,
+  GET_PROFILE_START,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAIL,
+  DELETE_FAVORITE_START,
+  DELETE_FAVORITE_SUCCESS,
+  POST_FAVORITE_START
+ 
 } from "../actions";
 
 const initialState = {
@@ -23,7 +33,10 @@ const initialState = {
   loggingIn: false,
   gasPrices: [],
   profile_id: null,
-  favoriteTeams: []
+  favoriteTeams: [],
+  teams: [],
+  profile: [],
+  username: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -121,9 +134,55 @@ const reducer = (state = initialState, action) => {
         ...state,
         favoriteTeams: action.payload
       };
+
+    case GET_TEAMSDB_FAIL: 
+      return {
+        ...state,
+        fetchingData: false,
+        error: action.payload      
+    }
+    case GET_TEAMSDB_START: 
+      return {
+        ...state,
+        fetchingData: true
+      }
+    case GET_TEAMSDB_SUCCESS:
+      return {
+        ...state,
+        teams: action.payload
+      }
+    case GET_PROFILE_START:
+      return {
+        ...state,
+        fetchingData: true
+      }
+    case GET_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profile: action.payload,
+        username: action.payload,        
+      }
+    case GET_PROFILE_FAIL:
+      return {
+        ...state,
+        fetchingData: false,
+        error: action.payload
+      }
+    case DELETE_FAVORITE_SUCCESS:
+      return {
+        ...state
+      }
+    case POST_FAVORITE_START: 
+      return {
+        ...state,
+         
+      }
+
     default:
       return state;
-  }
+  }  
 };
+
+    
 
 export default reducer;
