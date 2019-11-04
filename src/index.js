@@ -8,6 +8,9 @@ import App from "./containers/app";
 
 import "sanitize.css/sanitize.css";
 import "./index.css";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const target = document.querySelector("#root");
 

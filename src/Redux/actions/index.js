@@ -106,7 +106,6 @@ export const getFavoriteTeams = id => dispatch => {
       dispatch({ type: GET_FAVORITE_TEAMS_SUCCESS, payload: res.data });
     })
     .catch(error => {
-      console.log(error.data)
-      dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.data });
+      dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.res.data });
     });
 };

@@ -16,7 +16,9 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    maxWidth: 350,
+    margin: "auto"
   },
   textField: {
     marginLeft: theme.spacing(1),
