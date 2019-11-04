@@ -6,11 +6,14 @@ import { axiosWithAuth } from "../../utils/axiosAuth.js";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import getLogo from "../../utils/getLogo";
+import getWallpaper from "../../utils/getWallpaper";
 import Button from "@material-ui/core/Button";
 import { getFavoriteTeams } from "../../Redux/actions/index";
 import { getProfile } from "../../Redux/actions/index";
 import { deleteFavorite } from "../../Redux/actions/index";
 import { deleteProfile } from "../../Redux/actions/index";
+import { getTeamsDB } from "../../Redux/actions/index"
+import { styles } from "@material-ui/pickers/views/Clock/Clock";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +31,10 @@ const useStyles = makeStyles(theme => ({
 const Profile = props => {
   const classes = useStyles();  
   const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    props.getTeamsDB()
+  }, [])
   
   useEffect(() => {
     props.getFavoriteTeams(props.profile_id)
@@ -36,8 +43,7 @@ const Profile = props => {
   useEffect(() => {
     setFavorites(props.favorite)
   }, [props.favorite])
- 
-
+  
   useEffect(() => {
     props.getProfile(props.profile_id)
   }, [props.profile_id]) 
@@ -53,9 +59,23 @@ const Profile = props => {
     deleteProfile(props.profile_id, redirect)    
   }
 
+  const background = () => {
+    favorites.map(fav => {
+      if(fav.favorite === 1) {
+        return fav.abbreviation
+      }
+    })
+  }
 
-  return (
-    <Grid container justify="center">
+  var sectionStyle = {
+    backgroundImage: `url(${getWallpaper(background())})`
+  }
+
+
+
+  return (   
+    <Grid style={{sectionStyle}}
+    container justify="center">
       <Grid item xs={12}>
         <Paper className={classes.paper}>
           <h1>Welcome {props.username}!</h1>
@@ -63,9 +83,26 @@ const Profile = props => {
       </Grid>
       <Grid item xs={6} style={{ paddingBottom: 70 }}>
         <Paper className={classes.paper}>
-          <h3>Your Favorite Teams</h3>
+          <h3>Your Favorite Team</h3>
         </Paper>
+        <Grid
+        container
+        justify="center"
+        item
+        xs={12}
+        style={{ paddingBottom: 50 }}
+      >
+        {favorites.map(fav => {
+          if(fav.favorite === 1) {
+            return <p>x<img onClick={() => submit(fav)} src={getLogo(fav.abbreviation)} width="180px"/></p>
+          }
+        })}
+         </Grid> 
       </Grid>
+      <Grid item xs={6} style={{ paddingBottom: 70 }}>
+        <Paper className={classes.paper}>
+          <h3>Teams You Are Following</h3>
+        </Paper>      
       <Grid
         container
         justify="center"
@@ -75,21 +112,27 @@ const Profile = props => {
       >
         {favorites.map(abv => {
           return (
-            <button onClick={() => submit(abv)} style={{ color: "red" }}>
-              x<img src={getLogo(abv.abbreviation)} width="80px" />
-            </button>
+            <p>
+              x<img style={{margin: 10}} onClick={() => submit(abv)} src={getLogo(abv.abbreviation)} width="70px" />
+            </p>
           );
         })}
-      </Grid>
+        </Grid>
+      </Grid>           
+      <Link to='/favoriteTeam'>
+        <Button style={{margin: 6}} variant="contained" color="primary" className={classes.button}>
+          Add A Favorite Team
+        </Button>
+      </Link> 
       <Link to="/addTeam">
-        <Button variant="contained" color="primary" className={classes.button}>
-          Add More Favorite Teams To Follow
+        <Button style={{margin: 6}} variant="contained" color="primary" className={classes.button}>
+          Add Teams To Follow
         </Button>
       </Link>      
-        <Button onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
+        <Button style={{margin: 6}} onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
           Delete Your Account
-        </Button>      
-    </Grid>
+        </Button>                 
+    </Grid>   
   );
 };
 
@@ -98,11 +141,12 @@ const mapStateToProps = state => {
     profile_id: state.profile_id,
     favorite: state.favoriteTeams,
     profile: state.profile,
-    username: state.username
+    username: state.username,
+    teams: state.teams
   };
 };
 
 export default connect(
   mapStateToProps,
-  {getFavoriteTeams, getProfile, deleteFavorite, deleteProfile}
+  {getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB}
 )(Profile);
