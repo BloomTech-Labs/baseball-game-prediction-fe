@@ -3,6 +3,7 @@ import axios from "axios";
 import TeamList from "../components/TeamList";
 import { getTeamsDB } from "../../../Redux/actions/index"
 import { connect } from 'react-redux'
+import getLogo from "../../../utils/getLogo";
 
 //CSS
 import "../../../App.css";
@@ -11,19 +12,24 @@ const DivisionListView = ({getTeamsDB, teams}) => {
   useEffect(() => {
     getTeamsDB()
   }, [])
+  
 
-  /*useEffect(() => {
-    axios
-      .get("https://bgp-be-staging.herokuapp.com/api/teams")
-      .then(teaminfo => {
-        setTeams(teaminfo.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);*/
+
 
   // Divisional filters
+
+  const newLogo = () =>{
+    return <img src={getLogo(teamImg)} width="25px" />
+  }
+
+  const teamImg = () => {
+    return teams.filter(team => {
+      return team.abbreviation === getLogo.team ;
+     
+    });
+    
+  };
+  
 
   const nlWTeams = () => {
     return teams.filter(team => {
@@ -64,7 +70,7 @@ const DivisionListView = ({getTeamsDB, teams}) => {
   if (teams.length > 1) {
     return (
       <div className="schedule-list-container" style={{marginTop: "75px"}}>
-        <TeamList division={nlWTeams()} />
+        <TeamList division={nlWTeams( <img src={teamImg()} width="25px" />)}  />
         <TeamList division={nlETeams()} />
         <TeamList division={nlCTeams()} />
         <TeamList division={alWTeams()} />
