@@ -57,8 +57,6 @@ const Profile = props => {
     const redirect = () => props.history.push('/register')
     deleteProfile(props.profile_id, redirect)    
   }
-
-  
   
 
 
