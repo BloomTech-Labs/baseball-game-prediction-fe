@@ -18,9 +18,7 @@ import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
 import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
-import GameData from "../gamedata";
 import addFavorite from "../profile/addFavorite";
-
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -166,7 +164,6 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -185,16 +182,14 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
     <div className={classes.grow}>
       <AppBar position="fixed">
         <Toolbar>
-        
           <Link to="/" className={classes.link} style={{ color: "white" }}>
             <Typography className={classes.title} variant="h6" noWrap>
               Baseball Game Prediction
             </Typography>
           </Link>
-         
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-           
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -206,7 +201,6 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
               <AccountCircle />
             </IconButton>
           </div>
-         
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -223,11 +217,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
-
-        <ProtectedRoute path="/gamedata/:date/:away/:home" component={GameData} />
-
         <ProtectedRoute path="/favoriteTeam" component={addFavorite} />
-
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>
