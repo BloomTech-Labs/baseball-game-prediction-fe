@@ -92,7 +92,7 @@ export const getData = () => dispatch => {
     })
     .catch(err => {
       console.log(err.response);
-      dispatch({ type: FETCH_DATA_FAILURE, payload: err.response.data.error });
+      dispatch({ type: FETCH_DATA_FAILURE, payload: err });
     });
 };
 
@@ -107,7 +107,7 @@ export const getFavoriteTeams = id => dispatch => {
       dispatch({ type: GET_FAVORITE_TEAMS_SUCCESS, payload: res.data });
     })
     .catch(error => {
-      dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error.res.data });
+      dispatch({ type: GET_FAVORITE_TEAMS_FAIL, payload: error });
     });
 };
 
