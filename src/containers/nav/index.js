@@ -22,7 +22,7 @@ import Register from "../register/index";
 import Profile from "../profile/index";
 import { logout } from "../../Redux/actions";
 import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
-import AddTeam from "../profile/AddTeamView.js";
+import AddTeam from "../profile/TeamList.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 import AddFavoriteTeam from "../profile/addFavorite";
