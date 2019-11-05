@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { axiosWithAuth } from "../../utils/axiosAuth.js";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import getLogo from "../../utils/getLogo";
@@ -13,18 +12,18 @@ import { getProfile } from "../../Redux/actions/index";
 import { deleteFavorite } from "../../Redux/actions/index";
 import { deleteProfile } from "../../Redux/actions/index";
 import { getTeamsDB } from "../../Redux/actions/index"
-import { styles } from "@material-ui/pickers/views/Clock/Clock";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    marginTop: 60
+    marginTop: 40
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    marginTop: 60
+    marginTop: 20
   }
 }));
 
@@ -59,29 +58,20 @@ const Profile = props => {
     deleteProfile(props.profile_id, redirect)    
   }
 
-  const background = () => {
-    favorites.map(fav => {
-      if(fav.favorite === 1) {
-        return fav.abbreviation
-      }
-    })
-  }
-
-  var sectionStyle = {
-    backgroundImage: `url(${getWallpaper(background())})`
-  }
+  
+  
 
 
 
   return (   
-    <Grid style={{sectionStyle}}
+    <Grid 
     container justify="center">
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          <h1>Welcome {props.username}!</h1>
+          <h1 style={{fontFamily: "Times New Roman, Times, serif", color: "maroon" }}>Welcome {props.username}!</h1>
         </Paper>
       </Grid>
-      <Grid item xs={6} style={{ paddingBottom: 70 }}>
+      <Grid item xs={6} style={{ paddingBottom: 0 }}>
         <Paper className={classes.paper}>
           <h3>Your Favorite Team</h3>
         </Paper>
@@ -90,7 +80,7 @@ const Profile = props => {
         justify="center"
         item
         xs={12}
-        style={{ paddingBottom: 50 }}
+        style={{ paddingBottom: 0 }}
       >
         {favorites.map(fav => {
           if(fav.favorite === 1) {
@@ -99,7 +89,7 @@ const Profile = props => {
         })}
          </Grid> 
       </Grid>
-      <Grid item xs={6} style={{ paddingBottom: 70 }}>
+      <Grid item xs={6} style={{ paddingBottom: 0 }}>
         <Paper className={classes.paper}>
           <h3>Teams You Are Following</h3>
         </Paper>      
@@ -108,7 +98,7 @@ const Profile = props => {
         justify="center"
         item
         xs={12}
-        style={{ paddingBottom: 50 }}
+        style={{ paddingBottom: 0 }}
       >
         {favorites.map(abv => {
           return (
@@ -118,7 +108,14 @@ const Profile = props => {
           );
         })}
         </Grid>
-      </Grid>           
+      </Grid>
+      <Grid container justify = "center">
+        {favorites.map(fav => {
+          if(fav.favorite === 1) {
+            return <img src={getWallpaper(fav.abbreviation)}/> 
+          }
+        })}
+          </Grid>           
       <Link to='/favoriteTeam'>
         <Button style={{margin: 6}} variant="contained" color="primary" className={classes.button}>
           Add A Favorite Team
@@ -131,7 +128,9 @@ const Profile = props => {
       </Link>      
         <Button style={{margin: 6}} onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
           Delete Your Account
-        </Button>                 
+        </Button>
+        <br/>
+                      
     </Grid>   
   );
 };
