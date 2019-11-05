@@ -8,7 +8,6 @@ import {
 } from "../../Redux/actions/index";
 import { Link, Redirect } from "react-router-dom";
 import "../formstyle/index.css";
-
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -62,8 +61,6 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // this.props.clearErrors();
-
     if (values.password === values.confPassword) {
       const user = {
         username: values.username,
@@ -72,10 +69,12 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
       const redirect = () => history.push("/login");
       register(user, redirect);
     } else {
-      // this.props.clearErrors()
       passwordMismatch();
     }
   };
+
+
+  
 
   return (
     <div className="RegisterForm">

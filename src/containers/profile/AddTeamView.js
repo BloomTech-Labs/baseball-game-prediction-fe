@@ -12,6 +12,8 @@ const DivisionListView = ({getTeamsDB, teams}) => {
     getTeamsDB()
   }, [])
 
+  console.log('teams', teams)
+
   const nlWTeams = () => {
     return teams.filter(team => {
       return team.league === "NL" && team.division === "West";

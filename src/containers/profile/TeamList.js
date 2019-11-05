@@ -4,7 +4,6 @@ import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { postFavoriteTeam } from "../../Redux/actions/index";
@@ -24,14 +23,15 @@ function ListItemLink(props) {
 
 const TeamList = props => {
   const classes = useStyles(); 
-
+  
   const submit = team => {
     const teams = {
       profile_id: props.profile_id,
       team_id: team.team_id,            
-      abbreviation: team.abbreviation
+      abbreviation: team.abbreviation,
+      favorite: null
       }
-    props.postFavoriteTeam(teams)     
+    props.postFavoriteTeam(teams)    
   };  
 
   return (
