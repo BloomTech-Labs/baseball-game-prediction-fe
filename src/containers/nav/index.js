@@ -18,6 +18,8 @@ import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
 import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
+import AddFavoriteTeam from "../profile/addFavorite";
+import addFavorite from "../profile/addFavorite";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -220,6 +222,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
+        <ProtectedRoute path="/favoriteTeam" component={addFavorite} />
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>
