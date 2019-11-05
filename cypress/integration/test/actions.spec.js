@@ -5,7 +5,7 @@ context('Actions', () => {
     cy.visit('http://www.baseballgamepredictor.com/actions')
   })
 
-  // https://on.cypress.io/interacting-with-elements
+  
 
   it('.type() - type into a DOM element', () => {
     // https://on.cypress.io/type
