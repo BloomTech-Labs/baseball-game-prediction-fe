@@ -45,8 +45,28 @@ export function getPrediction(date, away, home) {
       };
       const gamedate = res.game.startTime;
       const dayofweek = moment(gamedate).format('ddd');
+      
+      const lineupSorter = () => {
+        // Gives player objects with batting order as their position
+        const awayFilteredLineup = res.teamLineups[0].expected.lineupPositions.filter(player => player.position.length > 2);
+        const homeFilteredLineup = res.teamLineups[1].expected.lineupPositions.filter(player => player.position.length > 2);
+        // Sorts lineup by batting order
+        const awaySortedLineup = awayFilteredLineup.sort(function(a, b){
+          return a.position.charAt(2) - b.position.charAt(2);
+        });
+        const homeSortedLineup = homeFilteredLineup.sort(function(a, b){
+          return a.position.charAt(2) - b.position.charAt(2);
+        });
 
-      console.log(res, gameTime);
+        return {
+          awayLineup: awaySortedLineup,
+          homeLineup: homeSortedLineup
+        }
+      };
+
+      console.log(lineupSorter());
+
+      console.log(res);
       const gameData = {
         date: date,
         game_num: "3",
@@ -59,8 +79,8 @@ export function getPrediction(date, away, home) {
         home_team_game_num: "1",
         day_night: dayNight(),
         park_id: res.game.venue.id,
-        visiting_manager_name: "",
-        home_manager_name: "",
+        visiting_manager_name: `${res.teams[0].data[0].manager}`,
+        home_manager_name: `${res.teams[1].data[0].manager}`,
         visiting_starting_pitcher_name: 2,
         home_starting_pitcher_name: 2,
         visiting_1_name: 2,
