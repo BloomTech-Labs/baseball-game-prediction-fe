@@ -21,7 +21,7 @@ const DateSelector = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/api/games/date/${moment(selectedDate).format(
+        `https://bgp-be-staging.herokuapp.com/api/games/date/${moment(selectedDate).format(
           "YYYY-MM-DD"
         )}`
       )
