@@ -18,12 +18,9 @@ import ProtectedRoute from "../../utils/protectedroute/ProtectedRoute";
 import AddTeam from "../profile/AddTeamView.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
-<<<<<<< HEAD
 import GameData from "../gamedata";
-=======
 import AddFavoriteTeam from "../profile/addFavorite";
 import addFavorite from "../profile/addFavorite";
->>>>>>> 7274d7afb04fb8a281d6e6af58a1a2df83f51341
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -226,11 +223,8 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
-<<<<<<< HEAD
         <ProtectedRoute path="/gamedata/:date/:away/:home" component={GameData} />
-=======
         <ProtectedRoute path="/favoriteTeam" component={addFavorite} />
->>>>>>> 7274d7afb04fb8a281d6e6af58a1a2df83f51341
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
       </main>
