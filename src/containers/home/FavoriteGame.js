@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Paper, Grid } from "@material-ui/core";
 import getLogo from "../../utils/getLogo";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
 
 const FavoriteGame = ({ game, i }) => {
   const classes = useStyles();
+  const [hover, setHover] = useState(false);
 
   return (
     <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }}>
@@ -24,7 +25,17 @@ const FavoriteGame = ({ game, i }) => {
         }/${game.homeTeam}`}
         key={`RegularScheduleGame#${i}`}
       >
-        <Paper className={classes.paper} elevation={5}>
+        <Paper
+          className={classes.paper}
+          elevation={hover ? 12 : 4}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          {hover && (
+            <Typography variant="body2" style={{ marginBottom: 15 }}>
+              Click To View Prediction
+            </Typography>
+          )}
           <Grid container>
             <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Home</h6>

@@ -39,23 +39,25 @@ export default function TeamScheduleView(props) {
       if (currentSchedule.data) {
         const gamesContainer = currentSchedule.data.games.map(game => {
           return (
-            <Link
-              to={`/gamedata/${moment(game.schedule.startTime).format(
-                "YYYYMMDD"
-              )}/${game.schedule.awayTeam.abbreviation}/${
-                game.schedule.homeTeam.abbreviation
-              }`}
-              key={game.schedule.id}
-            >
-              <GameCard
-                away_team={game.schedule.awayTeam.abbreviation}
-                home_team={game.schedule.homeTeam.abbreviation}
-                away_score={game.score.awayScoreTotal}
-                home_score={game.score.homeScoreTotal}
-                date={moment(game.schedule.startTime).format("LLL")}
+            <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }}>
+              <Link
+                to={`/gamedata/${moment(game.schedule.startTime).format(
+                  "YYYYMMDD"
+                )}/${game.schedule.awayTeam.abbreviation}/${
+                  game.schedule.homeTeam.abbreviation
+                }`}
                 key={game.schedule.id}
-              />
-            </Link>
+              >
+                <GameCard
+                  away_team={game.schedule.awayTeam.abbreviation}
+                  home_team={game.schedule.homeTeam.abbreviation}
+                  away_score={game.score.awayScoreTotal}
+                  home_score={game.score.homeScoreTotal}
+                  date={moment(game.schedule.startTime).format("LLL")}
+                  key={game.schedule.id}
+                />
+              </Link>
+            </Grid>
           );
         });
 
@@ -116,9 +118,14 @@ export default function TeamScheduleView(props) {
           </Grid>
         </MuiPickersUtilsProvider>
       </div>
-      <div className="teamview-container" style={{ marginTop: "75px" }}>
+
+      <Grid
+        container
+        justify="center"
+        style={{ margin: "75px auto auto", maxWidth: 500 }}
+      >
         {games}
-      </div>
+      </Grid>
     </>
   );
 }
