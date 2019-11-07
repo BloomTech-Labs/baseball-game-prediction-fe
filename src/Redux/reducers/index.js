@@ -23,8 +23,10 @@ import {
   GET_PROFILE_FAIL,
   DELETE_FAVORITE_START,
   DELETE_FAVORITE_SUCCESS,
-  POST_FAVORITE_START
- 
+  POST_FAVORITE_START,
+  GET_HOMEPAGE_GAMEDATA_LOADING,
+  GET_HOMEPAGE_GAMEDATA_SUCCESS,
+  GET_HOMEPAGE_GAMEDATA_FAILED
 } from "../actions";
 
 const initialState = {
@@ -36,7 +38,10 @@ const initialState = {
   favoriteTeams: [],
   teams: [],
   profile: [],
-  username: ""
+  username: "",
+  homepageGamedataLoading: false,
+  homepageGamedata: [],
+  homepageGamedataError: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -135,54 +140,69 @@ const reducer = (state = initialState, action) => {
         favoriteTeams: action.payload
       };
 
-    case GET_TEAMSDB_FAIL: 
+    case GET_TEAMSDB_FAIL:
       return {
         ...state,
         fetchingData: false,
-        error: action.payload      
-    }
-    case GET_TEAMSDB_START: 
+        error: action.payload
+      };
+    case GET_TEAMSDB_START:
       return {
         ...state,
         fetchingData: true
-      }
+      };
     case GET_TEAMSDB_SUCCESS:
       return {
         ...state,
         teams: action.payload
-      }
+      };
     case GET_PROFILE_START:
       return {
         ...state,
         fetchingData: true
-      }
+      };
     case GET_PROFILE_SUCCESS:
       return {
         ...state,
         profile: action.payload,
-        username: action.payload,        
-      }
+        username: action.payload
+      };
     case GET_PROFILE_FAIL:
       return {
         ...state,
         fetchingData: false,
         error: action.payload
-      }
+      };
     case DELETE_FAVORITE_SUCCESS:
       return {
         ...state
-      }
-    case POST_FAVORITE_START: 
+      };
+    case POST_FAVORITE_START:
+      return {
+        ...state
+      };
+    case GET_HOMEPAGE_GAMEDATA_LOADING:
       return {
         ...state,
-         
-      }
-
+        homepageGamedataLoading: true,
+        homepageGameDataError: null
+      };
+    case GET_HOMEPAGE_GAMEDATA_SUCCESS:
+      return {
+        ...state,
+        homepageGamedataLoading: false,
+        homepageGamedata: action.payload,
+        homepageGamedataError: false
+      };
+    case GET_HOMEPAGE_GAMEDATA_FAILED:
+      return {
+        ...state,
+        homepageGamedataLoading: false,
+        homepageGamedataError: true
+      };
     default:
       return state;
-  }  
+  }
 };
-
-    
 
 export default reducer;
