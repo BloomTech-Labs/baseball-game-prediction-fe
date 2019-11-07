@@ -15,13 +15,7 @@ const FavoriteGame = ({ game, i }) => {
   const classes = useStyles();
 
   return (
-    <Grid
-      item
-      xs={10}
-      sm={12}
-      key={`scheduleGame#${i}`}
-      style={{ paddingBottom: 12 }}
-    >
+    <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }}>
       <Paper className={classes.paper} elevation={5}>
         <Grid container>
           <Grid

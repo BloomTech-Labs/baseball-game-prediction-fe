@@ -9,7 +9,7 @@ import {
   FormControlLabel
 } from "@material-ui/core";
 
-import getPrediction from "../../utils/getPrediction";
+// import getPrediction from "../../utils/getPrediction";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
@@ -74,17 +74,9 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
       });
   }, [date]);
 
-  useEffect(() => {
-    axiosWithAuthMSF()
-      .get(
-        `https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/date/${moment(
-          date
-        ).format("YYYYMMDD")}/games.json`
-      )
-      .then(res => {
-        getPrediction(res.data.games[1]);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getPrediction(date);
+  // }, []);
 
   useEffect(() => {
     getFavoriteTeams(profile_id);
@@ -113,7 +105,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
       }
     }
     filteredSchedule = container.map((game, i) => (
-      <FavoriteGame game={game} i={i} />
+      <FavoriteGame game={game} key={`scheduleGame#${i}`} />
     ));
   } else if (favoriteTeams.length == 0 && checked) {
     filteredSchedule = (
@@ -126,7 +118,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
     );
   } else {
     filteredSchedule = games.map((game, i) => (
-      <RegularGame game={game} i={i} />
+      <RegularGame game={game} key={`RegularScheduleGame#${i}`} />
     ));
   }
 
