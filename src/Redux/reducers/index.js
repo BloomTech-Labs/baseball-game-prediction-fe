@@ -26,7 +26,10 @@ import {
   POST_FAVORITE_START,
   GET_HOMEPAGE_GAMEDATA_LOADING,
   GET_HOMEPAGE_GAMEDATA_SUCCESS,
-  GET_HOMEPAGE_GAMEDATA_FAILED
+  GET_HOMEPAGE_GAMEDATA_FAILED,
+  GET_TEAMSCHEDULE_LOADING,
+  GET_TEAMSCHEDULE_SUCCESS,
+  GET_TEAMSCHEDULE_FAILED
 } from "../actions";
 
 const initialState = {
@@ -41,7 +44,10 @@ const initialState = {
   username: "",
   homepageGamedataLoading: false,
   homepageGamedata: [],
-  homepageGamedataError: false
+  homepageGamedataError: false,
+  teamscheduledataLoading: false,
+  teamscheduleData: [],
+  teamscheduleError: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -200,6 +206,25 @@ const reducer = (state = initialState, action) => {
         homepageGamedataLoading: false,
         homepageGamedataError: true
       };
+    case GET_TEAMSCHEDULE_LOADING: 
+    return {
+      ...state,
+      teamscheduledataLoading: true,
+      teamscheduleError: false
+    }
+    case GET_TEAMSCHEDULE_SUCCESS:
+      return {
+        ...state,
+        teamscheduledataLoading: false,
+        teamscheduleData: action.payload,
+        teamscheduleError: false
+      }
+    case GET_TEAMSCHEDULE_FAILED:
+      return {
+        ...state,
+        teamscheduleError: true,
+        teamscheduledataLoading: false
+      }
     default:
       return state;
   }

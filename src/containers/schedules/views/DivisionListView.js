@@ -5,6 +5,7 @@ import { getTeamsDB } from "../../../Redux/actions/index"
 import { connect } from 'react-redux'
 import getLogo from "../../../utils/getLogo";
 
+
 //CSS
 import "../../../App.css";
 
@@ -12,8 +13,6 @@ const DivisionListView = ({getTeamsDB, teams}) => {
   useEffect(() => {
     getTeamsDB()
   }, [])
-  
-
 
 
   // Divisional filters

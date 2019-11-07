@@ -203,11 +203,72 @@ export const getHomepageGamedata = date => dispatch => {
       dispatch({
         type: GET_HOMEPAGE_GAMEDATA_FAILED
       });
-    });
-
-  // setTimeout(() => {
-  //   dispatch({
-  //     type: GET_HOMEPAGE_GAMEDATA_SUCCESS
-  //   });
-  // }, 3000);
+    });  
 };
+
+export const GET_TEAMSCHEDULE_LOADING = "GET_TEAMSCHEDULE_LOADING";
+export const GET_TEAMSCHEDULE_SUCCESS = "GET_TEAMSCHEDULE_SUCCESS";
+export const GET_TEAMSCHEDULE_FAILED = "GET_TEAMSCHEDULE_FAILED";
+
+export const fetchCurrentTeamSchedule = (team_id, endDate, startDate) => dispatch => {
+  dispatch({
+    type: GET_TEAMSCHEDULE_LOADING
+  });
+  axiosWithAuth()
+  .get(`https://bgp-be-staging.herokuapp.com/api/teams/${team_id}`)
+  .then(res => {
+  axiosWithAuthMSF()
+  .get(`https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/games.json?date=from-${startDate}-to-${endDate}&team=${res.data[0].abbreviation.toLowerCase()}`)
+  .then(res => {
+    const gamesContainer = res.data.games.map(game => game)  
+    dispatch({
+      type: GET_TEAMSCHEDULE_SUCCESS,
+      payload: gamesContainer
+    })    
+  })
+    .catch(err => {
+      dispatch({
+        type: GET_TEAMSDB_FAIL        
+      })      
+    })
+  })
+}
+  
+  
+  /*let response = await axios
+    .get(
+      `https://bgp-be-staging.herokuapp.com/api/teams/${props.match.params.team_id}`
+    )
+    .catch(err => console.log(err));
+  if (response.data) {
+    let currentSchedule = await axiosWithAuthMSF()
+      .get(
+        `https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/games.json?date=from-${startDate}-to-${endDate}&team=${response.data[0].abbreviation.toLowerCase()}`
+      )
+      .catch(err => console.log(err));
+    if (currentSchedule.data) {
+      const gamesContainer = currentSchedule.data.games.map(game => {
+        return (
+          <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }}>
+            <Link
+              to={`/gamedata/${moment(game.schedule.startTime).format(
+                "YYYYMMDD"
+              )}/${game.schedule.awayTeam.abbreviation}/${
+                game.schedule.homeTeam.abbreviation
+              }`}
+              key={game.schedule.id}
+            >
+              <GameCard
+                away_team={game.schedule.awayTeam.abbreviation}
+                home_team={game.schedule.homeTeam.abbreviation}
+                away_score={game.score.awayScoreTotal}
+                home_score={game.score.homeScoreTotal}
+                date={moment(game.schedule.startTime).format("LLL")}
+                key={game.schedule.id}
+              />
+            </Link>
+          </Grid>
+        );
+      });*/
+
+
