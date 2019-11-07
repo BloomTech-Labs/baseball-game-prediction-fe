@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+/*import React, { useEffect } from "react";
 import { connect } from 'react-redux'
 import TeamList from "./TeamList";
 import { getTeamsDB } from "../../Redux/actions/index"
@@ -75,4 +75,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
    {getTeamsDB}
-)(DivisionListView)
+)(DivisionListView)*/

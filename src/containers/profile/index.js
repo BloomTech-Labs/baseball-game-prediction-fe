@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    marginTop: 20
+    marginTop: 40
   }
 }));
 
@@ -57,8 +57,6 @@ const Profile = props => {
     const redirect = () => props.history.push('/register')
     deleteProfile(props.profile_id, redirect)    
   }
-
-  
   
 
 

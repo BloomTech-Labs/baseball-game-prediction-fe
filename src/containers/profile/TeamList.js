@@ -1,77 +1,53 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import React, {useEffect, useState} from "react"
+import getLogo from "../../utils/getLogo";
+import { getTeamsDB } from "../../Redux/actions/index"
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { postFavoriteTeam } from "../../Redux/actions/index";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-    marginTop: 70
-  }  
-}));
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
+import { Link } from "react-router-dom";
 
 const TeamList = props => {
-  const classes = useStyles(); 
-  
-  const submit = team => {
-    const teams = {
-      profile_id: props.profile_id,
-      team_id: team.team_id,            
-      abbreviation: team.abbreviation,
-      favorite: null
-      }
-    props.postFavoriteTeam(teams)    
-  };  
-
-  return (
-    <div className={classes.root}>
-      <List
-        component="nav"
-        aria-label="list"
-        className="division-list"
-        subheader={
-          <ListSubheader component="div" id="list-subheader">
-            {`${props.division[0].league} ${props.division[0].division}`}
-          </ListSubheader>
-        }
-      >
-        {props.division.map(team => {
-          return (            
-            <ListItem
-              onClick={() => submit(team)}
-              button
-              key={`${team.team_id}`}
-            > 
-            <Link to="/profile">
-              <ListItemText primary={`${team.team_name}`} />
-            </Link>
-            </ListItem>
-            
-          );
-        })}
-      </List>
-    </div>
-  );
-};
+    
+    useEffect(() => {
+        props.getTeamsDB()        
+    }, [])
+    
+    const submit = team => {       
+        const teams = {
+          profile_id: props.profile_id,
+          team_id: team.team_id,            
+          abbreviation: team.abbreviation,
+          favorite: null
+          }                   
+        props.postFavoriteTeam(teams)    
+        };  
+      
+    return (
+        <div style={{paddingTop: 100, margin: "auto", maxWidth: 1000}}>
+            <h1 style={{textAlign: "center"}}>Pick Your Favorite Teams To Follow</h1>
+            <div style={{textAlign: "center"}}>
+              {props.teams.map(team => {
+                return <button onClick={()=> submit(team)} style={{ margin: 20 }}>
+                                <Link to="/profile">
+                                  <img src={getLogo(team.abbreviation)} width="100px"/>  
+                                </Link>
+                        </button>                    
+            })}
+            </div> 
+        </div>
+    )
+}
 
 const mapStateToProps = state => {
-  return {
-    profile_id: state.profile_id
+    return {
+      profile_id: state.profile_id,
+      favorite: state.favoriteTeams,
+      profile: state.profile,
+      username: state.username,
+      teams: state.teams
+    };
   };
-};
-
-export default connect(
-  mapStateToProps,
-  {postFavoriteTeam}
-)(TeamList);
+  
+  export default connect(
+    mapStateToProps,
+    {postFavoriteTeam, getTeamsDB}
+  )(TeamList);
