@@ -118,7 +118,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
     );
   } else {
     filteredSchedule = games.map((game, i) => (
-      <RegularGame game={game} key={`RegularScheduleGame#${i}`} />
+      <RegularGame game={game} key={`scheduleRegularGame#${i}`} />
     ));
   }
 
