@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
 export default function GameCard(props) {
   const classes = useStyles();
   return (
@@ -31,17 +30,7 @@ export default function GameCard(props) {
       <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }}>
         <Paper className={classes.paper} elevation={5}>
           <Grid container>
-            <Grid
-              item
-              xs={4}
-              style={
-                props.home_score > props.away_score
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
+            <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Home</h6>
               <img src={getLogo(props.home_team)} width="50px" />
             </Grid>
@@ -50,17 +39,7 @@ export default function GameCard(props) {
               <Typography variant="h6">{`${props.home_score} : ${props.away_score}`}</Typography>
               <h6 style={{ margin: "5px" }}>{props.date}</h6>
             </Grid>
-            <Grid
-              item
-              xs={4}
-              style={
-                props.home_score < props.away_score
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
+            <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Away</h6>
               <img src={getLogo(props.away_team)} width="50px" />
             </Grid>

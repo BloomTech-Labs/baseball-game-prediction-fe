@@ -223,10 +223,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
-        <ProtectedRoute
-          path="/gamedata/:date/:away/:home"
-          component={GameData}
-        />
+        <Route path="/gamedata/:date/:away/:home" component={GameData} />
         <ProtectedRoute path="/favoriteTeam" component={addFavorite} />
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />

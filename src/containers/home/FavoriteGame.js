@@ -26,17 +26,7 @@ const FavoriteGame = ({ game, i }) => {
       >
         <Paper className={classes.paper} elevation={5}>
           <Grid container>
-            <Grid
-              item
-              xs={4}
-              style={
-                game.homeScore > game.awayScore
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
+            <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Home</h6>
               <img src={getLogo(game.homeTeam)} width="50px" />
             </Grid>
@@ -45,17 +35,7 @@ const FavoriteGame = ({ game, i }) => {
               <Typography variant="h6">{`${game.homeScore} : ${game.awayScore}`}</Typography>
               {/* <h6 style={{ margin: "5px" }}>{game.date}</h6> */}
             </Grid>
-            <Grid
-              item
-              xs={4}
-              style={
-                game.homeScore < game.awayScore
-                  ? {
-                      border: "4px solid lightgreen"
-                    }
-                  : null
-              }
-            >
+            <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Away</h6>
               <img src={getLogo(game.awayTeam)} width="50px" />
             </Grid>
