@@ -78,12 +78,12 @@ export default function GameData(props) {
       <Grid container spacing={3} alignItems="center">
         <Grid item xs={5}>
           <img
-            src={getLogo(lineup.teams[0].data[0].abbreviation)}
+            src={getLogo(lineup.teams[1].data[0].abbreviation)}
             width="100px"
             style={{ display: "block", margin: "auto" }}
           />
           {prediction.data["Winning team"] ===
-          lineup.teams[0].data[0].abbreviation ? (
+          lineup.teams[1].data[0].abbreviation ? (
             <Typography align="center">WINNER</Typography>
           ) : (
             <Typography align="center">LOSER</Typography>
@@ -92,14 +92,15 @@ export default function GameData(props) {
         <Grid item xs={2}>
           <Typography align="center">VS</Typography>
         </Grid>
+
         <Grid item xs={5}>
           <img
-            src={getLogo(lineup.teams[1].data[0].abbreviation)}
+            src={getLogo(lineup.teams[0].data[0].abbreviation)}
             width="100px"
             style={{ display: "block", margin: "auto" }}
           />
           {prediction.data["Winning team"] ===
-          lineup.teams[1].data[0].abbreviation ? (
+          lineup.teams[0].data[0].abbreviation ? (
             <Typography align="center">WINNER</Typography>
           ) : (
             <Typography align="center">LOSER</Typography>
