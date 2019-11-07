@@ -9,7 +9,7 @@ export const axiosWithAuth = () => {
   let baseURL;
 
   if (currentUrl === "http://localhost:3000/") {
-    baseURL = "https://bgp-be-staging.herokuapp.com";
+    baseURL = "http://localhost:5000/";
   } else if (currentUrl === "https://bgp-fe-staging.herokuapp.com/") {
     baseURL = "https://bgp-be-staging.herokuapp.com";
   } else if (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+/*import React, { useEffect } from "react";
 import { connect } from 'react-redux'
 import TeamList from "./TeamList";
 import { getTeamsDB } from "../../Redux/actions/index"
@@ -11,6 +11,8 @@ const DivisionListView = ({getTeamsDB, teams}) => {
   useEffect(() => {
     getTeamsDB()
   }, [])
+
+  console.log('teams', teams)
 
   const nlWTeams = () => {
     return teams.filter(team => {
@@ -73,4 +75,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
    {getTeamsDB}
-)(DivisionListView)
+)(DivisionListView)*/
