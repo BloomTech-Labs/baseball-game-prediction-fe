@@ -10,15 +10,11 @@ import {
   Switch,
   FormGroup,
   FormControlLabel,
-  Button,
   CircularProgress
 } from "@material-ui/core";
 
-// import getPrediction from "../../utils/getPrediction";
-
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
 
 import FavoriteGame from "./FavoriteGame";
 import RegularGame from "./RegularGame";
@@ -63,17 +59,12 @@ const Home = ({
 }) => {
   const classes = useStyles();
   const [date, setDate] = useState("20190721");
-  const [games, setGames] = useState([]);
   const [profile_id, setProfile_id] = useState(null);
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     getHomepageGamedata(date);
   }, [date]);
-
-  // useEffect(() => {
-  //   getPrediction(date);
-  // }, []);
 
   useEffect(() => {
     getFavoriteTeams(profile_id);

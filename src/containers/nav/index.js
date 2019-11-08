@@ -19,7 +19,6 @@ import AddTeam from "../profile/TeamList.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 import GameData from "../gamedata";
-import AddFavoriteTeam from "../profile/addFavorite";
 import addFavorite from "../profile/addFavorite";
 
 const useStyles = makeStyles(theme => ({

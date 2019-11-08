@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
 import { Grid, Typography, Tabs, Tab, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getLineup } from "../../utils/getLineup";

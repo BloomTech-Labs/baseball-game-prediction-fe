@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { axiosWithAuthMSF } from "../../../utils/axiosWithAuthMSF";
 import GameCard from "../components/GameCard";
 import Grid from "@material-ui/core/Grid";
-import { Typography, Button, CircularProgress } from "@material-ui/core";
+import { Typography, CircularProgress } from "@material-ui/core";
 import MomentUtils from "@date-io/moment";
 import {
   MuiPickersUtilsProvider,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import getLogo from "../../utils/getLogo";
 import { getTeamsDB } from "../../Redux/actions/index";
 import { connect } from "react-redux";
