@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getFavoriteTeams } from "../../Redux/actions/index";
+import {
+  getFavoriteTeams,
+  getHomepageGamedata
+} from "../../Redux/actions/index";
 import {
   Typography,
   Grid,
   Switch,
   FormGroup,
-  FormControlLabel
+  FormControlLabel,
+  Button,
+  CircularProgress
 } from "@material-ui/core";
 
 // import getPrediction from "../../utils/getPrediction";
@@ -24,8 +29,6 @@ import {
   KeyboardDatePicker
 } from "@material-ui/pickers";
 
-import moment from "moment";
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -40,38 +43,34 @@ const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: "underline",
     color: "black"
+  },
+  circleProgress: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2)
+    }
   }
 }));
 
-const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
+const Home = ({
+  id,
+  getFavoriteTeams,
+  favoriteTeams,
+  homepageGamedataLoading,
+  getHomepageGamedata,
+  homepageGamedata,
+  homepageGamedataError
+}) => {
   const classes = useStyles();
   const [date, setDate] = useState("20190721");
   const [games, setGames] = useState([]);
   const [profile_id, setProfile_id] = useState(null);
   const [checked, setChecked] = useState(false);
 
+  console.log(homepageGamedataError);
+
   useEffect(() => {
-    axiosWithAuthMSF()
-      .get(
-        `https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/date/${moment(
-          date
-        ).format("YYYYMMDD")}/games.json`
-      )
-      .then(res => {
-        const gamesContainer = res.data.games.map(game => {
-          return {
-            awayTeam: game.schedule.awayTeam.abbreviation,
-            homeTeam: game.schedule.homeTeam.abbreviation,
-            awayScore: game.score.awayScoreTotal,
-            homeScore: game.score.homeScoreTotal,
-            date: moment(game.schedule.startTime).format("LLL")
-          };
-        });
-        setGames(gamesContainer);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    getHomepageGamedata(date);
   }, [date]);
 
   // useEffect(() => {
@@ -94,13 +93,13 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
 
   if (favoriteTeams.length > 0 && checked) {
     let container = [];
-    for (let i = 0; i < games.length; i++) {
+    for (let i = 0; i < homepageGamedata.length; i++) {
       for (let y = 0; y < favoriteTeams.length; y++) {
         if (
-          games[i].awayTeam === favoriteTeams[y].abbreviation ||
-          games[i].homeTeam === favoriteTeams[y].abbreviation
+          homepageGamedata[i].awayTeam === favoriteTeams[y].abbreviation ||
+          homepageGamedata[i].homeTeam === favoriteTeams[y].abbreviation
         ) {
-          container.push(games[i]);
+          container.push(homepageGamedata[i]);
         }
       }
     }
@@ -117,7 +116,7 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
       </Typography>
     );
   } else {
-    filteredSchedule = games.map((game, i) => (
+    filteredSchedule = homepageGamedata.map((game, i) => (
       <RegularGame game={game} key={`scheduleRegularGame#${i}`} />
     ));
   }
@@ -154,19 +153,32 @@ const Home = ({ id, getFavoriteTeams, favoriteTeams }) => {
           </FormGroup>
         </Grid>
       </MuiPickersUtilsProvider>
-      <Grid container justify="center" style={{ margin: "20px auto auto" }}>
-        {filteredSchedule}
-      </Grid>
+      {homepageGamedataLoading ? (
+        <div className={classes.circleProgress}>
+          <CircularProgress />
+        </div>
+      ) : homepageGamedataError ? (
+        <Typography>
+          There was an issue loading the schedule. Please try again later .
+        </Typography>
+      ) : (
+        <Grid container justify="center" style={{ margin: "20px auto auto" }}>
+          {filteredSchedule}
+        </Grid>
+      )}
     </div>
   );
 };
 
 const mapStateToProps = state => ({
   id: state.profile_id,
-  favoriteTeams: state.favoriteTeams
+  favoriteTeams: state.favoriteTeams,
+  homepageGamedataLoading: state.homepageGamedataLoading,
+  homepageGamedata: state.homepageGamedata,
+  homepageGamedataError: state.homepageGamedataError
 });
 
 export default connect(
   mapStateToProps,
-  { getFavoriteTeams }
+  { getFavoriteTeams, getHomepageGamedata }
 )(Home);
