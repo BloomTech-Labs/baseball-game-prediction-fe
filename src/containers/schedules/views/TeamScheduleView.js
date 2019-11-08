@@ -4,27 +4,21 @@ import axios from "axios";
 import { axiosWithAuthMSF } from "../../../utils/axiosWithAuthMSF";
 import GameCard from "../components/GameCard";
 import Grid from "@material-ui/core/Grid";
-import {Typography,
-   Button,
-  CircularProgress
-} from "@material-ui/core";
+import { Typography, Button, CircularProgress } from "@material-ui/core";
 import MomentUtils from "@date-io/moment";
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker,  
+  KeyboardDatePicker
 } from "@material-ui/pickers";
 import moment from "moment";
-import {connect} from "react-redux";
-import { 
-  fetchCurrentTeamSchedule 
-} from "../../../Redux/actions/index";
+import { connect } from "react-redux";
+import { fetchCurrentTeamSchedule } from "../../../Redux/actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 
 //CSS
 import "../../../App.css";
 
 const useStyles = makeStyles(theme => ({
- 
   link: {
     textDecoration: "underline",
     color: "black"
@@ -44,20 +38,29 @@ const TeamScheduleView = props => {
   const classes = useStyles();
 
   useEffect(() => {
-    props.fetchCurrentTeamSchedule(props.match.params.team_id, endDate, startDate);
+    props.fetchCurrentTeamSchedule(
+      props.match.params.team_id,
+      endDate,
+      startDate
+    );
   }, [startDate, endDate]);
 
   useEffect(() => {
     const gamesContainer = props.teamscheduleData.map(game => {
       return (
-        <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }}>
+        <Grid
+          item
+          xs={10}
+          sm={12}
+          style={{ paddingBottom: 12 }}
+          key={game.schedule.id}
+        >
           <Link
             to={`/gamedata/${moment(game.schedule.startTime).format(
               "YYYYMMDD"
             )}/${game.schedule.awayTeam.abbreviation}/${
               game.schedule.homeTeam.abbreviation
             }`}
-            key={game.schedule.id}
           >
             <GameCard
               away_team={game.schedule.awayTeam.abbreviation}
@@ -65,15 +68,13 @@ const TeamScheduleView = props => {
               away_score={game.score.awayScoreTotal}
               home_score={game.score.homeScoreTotal}
               date={moment(game.schedule.startTime).format("LLL")}
-              key={game.schedule.id}
             />
           </Link>
-        </Grid>        
+        </Grid>
       );
     });
-    setGames(gamesContainer)
-  }, [props.teamscheduleData]) 
-
+    setGames(gamesContainer);
+  }, [props.teamscheduleData]);
 
   const handleStartDateChange = newDate => {
     const newStartDate = moment(newDate._d).format("YYYYMMDD");
@@ -120,43 +121,47 @@ const TeamScheduleView = props => {
                 "aria-label": "change end date"
               }}
             />
-          </Grid>          
+          </Grid>
         </MuiPickersUtilsProvider>
-      </div>     
-             
+      </div>
+
       <Grid
         container
         justify="center"
         style={{ margin: "75px auto auto", maxWidth: 500 }}
       >
         {props.teamscheduledataLoading ? (
-        <div className={classes.circleProgress}>
-          <CircularProgress />
-        </div>
-      ) : props.teamscheduleError ? (
-        <Typography>
-          There was an issue loading the schedule. Please try again later .
-        </Typography>
-      ) : (
-        <Grid container justify="center" style={{ margin: "20px auto auto" }}>
-          {games}
-        </Grid>
-      )}
+          <div className={classes.circleProgress}>
+            <CircularProgress
+              size={50}
+              thickness={2}
+              style={{ margin: "75px auto" }}
+            />
+          </div>
+        ) : props.teamscheduleError ? (
+          <Typography>
+            There was an issue loading the schedule. Please try again later .
+          </Typography>
+        ) : (
+          <Grid container justify="center" style={{ margin: "20px auto auto" }}>
+            {games}
+          </Grid>
+        )}
       </Grid>
     </>
   );
-}
+};
 
-const mapStateToProps = state => {  
+const mapStateToProps = state => {
   return {
     teams: state.teams,
     teamscheduledataLoading: state.teamscheduledataLoading,
     teamscheduleData: state.teamscheduleData,
     teamscheduleError: state.teamscheduleError
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
-   {fetchCurrentTeamSchedule}
-)(TeamScheduleView)
+  { fetchCurrentTeamSchedule }
+)(TeamScheduleView);

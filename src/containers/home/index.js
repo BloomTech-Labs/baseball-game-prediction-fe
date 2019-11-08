@@ -67,8 +67,6 @@ const Home = ({
   const [profile_id, setProfile_id] = useState(null);
   const [checked, setChecked] = useState(false);
 
-  console.log(homepageGamedataError);
-
   useEffect(() => {
     getHomepageGamedata(date);
   }, [date]);
@@ -155,7 +153,11 @@ const Home = ({
       </MuiPickersUtilsProvider>
       {homepageGamedataLoading ? (
         <div className={classes.circleProgress}>
-          <CircularProgress />
+          <CircularProgress
+            size={50}
+            thickness={2}
+            style={{ margin: "75px auto" }}
+          />
         </div>
       ) : homepageGamedataError ? (
         <Typography>
