@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeamList from "../components/TeamList";
-import { getTeamsDB } from "../../../Redux/actions/index"
-import { connect } from 'react-redux'
+import { getTeamsDB } from "../../../Redux/actions/index";
+import { connect } from 'react-redux';
 import getLogo from "../../../utils/getLogo";
 
 //CSS

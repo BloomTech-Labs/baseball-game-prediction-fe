@@ -23,7 +23,13 @@ import {
   GET_PROFILE_FAIL,
   DELETE_FAVORITE_START,
   DELETE_FAVORITE_SUCCESS,
-  POST_FAVORITE_START
+  POST_FAVORITE_START,
+  GET_LINEUP_START,
+  GET_LINEUP_SUCCESS,
+  GET_LINEUP_FAIL,
+  GET_PREDICTION_START,
+  GET_PREDICTION_SUCCESS,
+  GET_PREDICTION_FAIL
  
 } from "../actions";
 
@@ -36,7 +42,9 @@ const initialState = {
   favoriteTeams: [],
   teams: [],
   profile: [],
-  username: ""
+  username: "",
+  lineup: {},
+  prediction: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -177,6 +185,40 @@ const reducer = (state = initialState, action) => {
         ...state,
          
       }
+      case GET_LINEUP_START:
+        return {
+          ...state,
+          fetchingData: true
+        }
+      case GET_LINEUP_SUCCESS:
+        return {
+          ...state,
+          fetchingData: false,
+          lineup: action.payload,       
+        }
+      case GET_LINEUP_FAIL:
+        return {
+          ...state,
+          fetchingData: false,
+          error: action.payload
+        }
+      case GET_PREDICTION_START:
+        return {
+          ...state,
+          fetchingData: true
+        }
+      case GET_PREDICTION_SUCCESS:
+        return {
+          ...state,
+          fetchingData: false,
+          prediction: action.payload,       
+        }
+      case GET_PREDICTION_FAIL:
+        return {
+          ...state,
+          fetchingData: false,
+          error: action.payload
+        }
 
     default:
       return state;

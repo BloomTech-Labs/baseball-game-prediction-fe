@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { axiosWithAuthMSF } from "../../utils/axiosWithAuthMSF";
 import { Grid, Typography, Tabs, Tab, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { getLineup } from "../../utils/getLineup";
-import { getPrediction } from "../../utils/getPrediction";
 import moment from "moment";
+import { getLineup, getPrediction } from "../../Redux/actions"
+import { connect } from 'react-redux';
 
 import getLogo from "../../utils/getLogo";
 
@@ -56,39 +54,24 @@ const useStyles = makeStyles(theme => ({
   
 }));
 
-export default function GameData(props) {
+function GameData(props) {
   const { date, away, home } = props.match.params;
-  const [lineup, setLineup] = useState({});
-  const [prediction, setPrediction] = useState({});
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   useEffect(() => {
-    getLineup(date, away, home)
-      .then(res => {
-        setLineup(res);
-        getPrediction(res)
-          .then(res => {
-            setPrediction(res);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    props.getLineup(date, away, home)
+      
+    props.getPrediction(props.lineup)
   }, []);
 
   let gameDisplay;
 
-  console.log(lineup);
-
-  if (lineup.teams && prediction.data) {
+  if (props.lineup.teams && props.prediction.data) {
 
     gameDisplay = (
       <div className={classes.fullContainer}>
@@ -96,12 +79,12 @@ export default function GameData(props) {
         <Grid item xs={5}>
           <Typography align="center">HOME</Typography>
           <img
-            src={getLogo(lineup.teams[1].data[0].abbreviation)}
+            src={getLogo(props.lineup.teams[1].data[0].abbreviation)}
             width="100px"
             style={{ display: "block", margin: "auto" }}
           />
-          {prediction.data["Winning team"] ===
-          lineup.teams[1].data[0].abbreviation ? (
+          {props.prediction.data["Winning team"] ===
+          props.lineup.teams[1].data[0].abbreviation ? (
             <Typography align="center">PREDICTED WINNER</Typography>
           ) : (
             <Typography align="center">PREDICTED LOSER</Typography>
@@ -113,21 +96,21 @@ export default function GameData(props) {
         <Grid item xs={5}>
           <Typography align="center">AWAY</Typography>
           <img
-            src={getLogo(lineup.teams[0].data[0].abbreviation)}
+            src={getLogo(props.lineup.teams[0].data[0].abbreviation)}
             width="100px"
             style={{ display: "block", margin: "auto" }}
           />
-          {prediction.data["Winning team"] ===
-          lineup.teams[0].data[0].abbreviation ? (
+          {props.prediction.data["Winning team"] ===
+          props.lineup.teams[0].data[0].abbreviation ? (
             <Typography align="center">PREDICTED WINNER</Typography>
           ) : (
             <Typography align="center">PREDICTED LOSER</Typography>
           )}
         </Grid>
       </Grid>
-      <Grid container className={classes.dateTime} xs={12} justify="center" alignItems="center">
+      <Grid container className={classes.dateTime} justify="center" alignItems="center">
         <Grid item xs={12}>
-          <Typography align="center">{moment(lineup.game.startTime).format('LLL')} @ {lineup.references.venueReferences[0].name} in {lineup.references.venueReferences[0].city}</Typography>
+          <Typography align="center">{moment(props.lineup.game.startTime).format('LLL')} @ {props.lineup.references.venueReferences[0].name} in {props.lineup.references.venueReferences[0].city}</Typography>
         </Grid>
       </Grid>
       </div>
@@ -135,13 +118,13 @@ export default function GameData(props) {
   }
 
   // Check for lineup data and prediciton
-  if (lineup.teamLineups && prediction.data) {
+  if (props.lineup.teamLineups && props.prediction.data) {
       // Gives an array of player objects with fielding position as their position
-      const awayFilteredFieldingLineup = lineup.teamLineups[0].expected.lineupPositions.filter(player => player.position.length < 3) || null;
-      const homeFilteredFieldingLineup = lineup.teamLineups[1].expected.lineupPositions.filter(player => player.position.length < 3) || null;
+      const awayFilteredFieldingLineup = props.lineup.teamLineups[0].expected.lineupPositions.filter(player => player.position.length < 3) || null;
+      const homeFilteredFieldingLineup = props.lineup.teamLineups[1].expected.lineupPositions.filter(player => player.position.length < 3) || null;
        // Gives an array of player objects with batting order as their position
-      const awayFilteredBattingLineup = lineup.teamLineups[0].expected.lineupPositions.filter(player => player.position.length > 2) || null;
-      const homeFilteredBattingLineup = lineup.teamLineups[1].expected.lineupPositions.filter(player => player.position.length > 2) || null;
+      const awayFilteredBattingLineup = props.lineup.teamLineups[0].expected.lineupPositions.filter(player => player.position.length > 2) || null;
+      const homeFilteredBattingLineup = props.lineup.teamLineups[1].expected.lineupPositions.filter(player => player.position.length > 2) || null;
        // Sorts lineup by fielding position
        const awaySortedFieldingLineup = awayFilteredFieldingLineup.sort();
       const homeSortedFieldingLineup = homeFilteredFieldingLineup.sort();
@@ -219,3 +202,15 @@ export default function GameData(props) {
     return <div />;
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    lineup: state.lineup,
+    prediction: state.prediction
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {getLineup, getPrediction}
+)(GameData)
