@@ -74,6 +74,7 @@ const TeamScheduleView = props => {
     setGames(gamesContainer)
   }, [props.teamscheduleData]) 
 
+
   const handleStartDateChange = newDate => {
     const newStartDate = moment(newDate._d).format("YYYYMMDD");
     setStartDate(newStartDate);
