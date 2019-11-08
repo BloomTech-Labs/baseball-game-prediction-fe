@@ -89,8 +89,6 @@ export const getPrediction = async res => {
       // home_9_pos: 2
     };
 
-    console.log("game Data ", gameData);
-
     const prediction = await axios.post(
       "https://baseball-game-predictor.herokuapp.com/",
       gameData

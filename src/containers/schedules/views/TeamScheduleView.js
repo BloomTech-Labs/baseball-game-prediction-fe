@@ -39,7 +39,7 @@ export default function TeamScheduleView(props) {
       if (currentSchedule.data) {
         const gamesContainer = currentSchedule.data.games.map(game => {
           return (
-            <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }}>
+            <Grid item xs={10} sm={12} style={{ paddingBottom: 12 }} key={`${game.schedule.id}-grid`}>
               <Link
                 to={`/gamedata/${moment(game.schedule.startTime).format(
                   "YYYYMMDD"
