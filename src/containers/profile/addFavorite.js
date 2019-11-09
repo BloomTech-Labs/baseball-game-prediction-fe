@@ -26,7 +26,7 @@ const AddFavorite = props => {
                 <h1 style={{textAlign: "center"}}>Pick Your Favorite Teams To Follow</h1>
                 <div style={{textAlign: "center"}}>
                 {props.teams.map(team => {
-                    return <button id="cy-teams" onClick={()=> submit(team)} style={{ margin: 20 }}>
+                    return <button className="cy-teams" onClick={()=> submit(team)} style={{ margin: 20 }}>
                                 <Link to="/profile">
                                     <img src={getLogo(team.abbreviation)} width="100px"/>
                                 </Link>

@@ -33,5 +33,5 @@ describe('check init login page', () => {
     cy.url().should('include', '/')
   })
   
-})
+}, 5000)
 
