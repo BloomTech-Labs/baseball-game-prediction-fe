@@ -22,7 +22,11 @@ import GameData from "../gamedata";
 import AddFavoriteTeam from "../profile/addFavorite";
 import addFavorite from "../profile/addFavorite";
 
+
 const useStyles = makeStyles(theme => ({
+  link: {
+    margin: theme.spacing(1),
+  },
   grow: {
     flexGrow: 1
   },
@@ -79,13 +83,18 @@ const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: "none",
     color: "black"
-  }
+  },
+  title: {
+    paddingLeft: 80
+  }  
+  
 }));
 
 const PrimarySearchAppBar = ({ logout, profile_id }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const preventDefault = event => event.preventDefault();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -115,7 +124,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
   };
 
   const menuId = "primary-search-account-menu";
-  const renderMenu = (
+  /*const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -125,6 +134,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+    
       {profile_id ? (
         <div>
           <Link to="/" className={classes.link}>
@@ -134,7 +144,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           </Link>
           <Link to="/schedules" className={classes.link}>
-            <MenuItem onClick={handleMenuClose}>Schedule</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Schedules</MenuItem>
           </Link>
           <MenuItem onClick={handleLogOut}>Logout</MenuItem>
         </div>
@@ -142,6 +152,10 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         <div>
           <Link to="/" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+          </Link>
+          <Link to="/schedules" className={classes.link}>
+            {" "}
+            <MenuItem onClick={handleMenuClose}>Schedules</MenuItem>
           </Link>
           <Link to="/login" className={classes.link}>
             <MenuItem onClick={handleMenuClose}>Login</MenuItem>
@@ -152,8 +166,9 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
           </Link>
         </div>
       )}
+      
     </Menu>
-  );
+  );*/
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -166,7 +181,6 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -185,16 +199,57 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
     <div className={classes.grow}>
       <AppBar position="fixed">
         <Toolbar>
-        
           <Link to="/" className={classes.link} style={{ color: "white" }}>
             <Typography className={classes.title} variant="h6" noWrap>
               Baseball Game Prediction
             </Typography>
           </Link>
-         
-          <div className={classes.grow} />
+          {profile_id ? (
+            <div style={{display: "flex"}}>
+            <Link to="/" className={classes.link} style={{color: "white"}}>
+              <Typography className={classes.title} variant="h6" noWrap>
+                Home
+              </Typography>
+            </Link>
+            <Link to="/profile" className={classes.link} style={{color: "white"}}>
+              <Typography className={classes.title} variant="h6" noWrap>
+                Profile
+              </Typography>
+            </Link>
+            <Link to="/schedules" className={classes.link} style={{color: "white"}}>
+              <Typography className={classes.title} variant="h6" noWrap>
+                Schedules
+              </Typography>
+            </Link>
+            <Link to="/" className={classes.link}>
+              <Typography onClick={handleLogOut} className={classes.title} variant="h6" style={{color: "red"}} noWrap>
+                Logout
+              </Typography>
+            </Link>
+        
+        </div>
+          ): (
+            <div style={{display: "flex"}}>
+              <Link to="/" className={classes.link} style={{color: "white"}}>
+              <Typography className={classes.title} variant="h6"noWrap>
+                Home
+              </Typography>
+            </Link>
+            <Link to="/login" className={classes.link} style={{color: "white"}}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Login
+            </Typography>
+          </Link>
+          <Link to="/register" className={classes.link} style={{color: "white"}}>
+          <Typography className={classes.title} variant="h6" noWrap>
+            Register
+          </Typography>
+        </Link>
+            </div>
+          )}
+
+          {/*<div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-           
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -205,12 +260,13 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
             >
               <AccountCircle />
             </IconButton>
-          </div>
-         
+          </div>*/}
         </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+      </AppBar>    
+     
+  );
+}
+
       <main>
         <Route exact path="/" component={Home} />
         <Route
@@ -223,7 +279,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
-        <ProtectedRoute path="/gamedata/:date/:away/:home" component={GameData} />
+        <Route path="/gamedata/:date/:away/:home" component={GameData} />
         <ProtectedRoute path="/favoriteTeam" component={addFavorite} />
         <Route exact path="/schedules" component={Schedules} />
         <Route exact path="/schedules/:team_id" component={TeamSchedule} />
