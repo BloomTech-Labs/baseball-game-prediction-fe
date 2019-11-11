@@ -168,6 +168,13 @@ export const postFavoriteTeam = team => dispatch => {
   axiosWithAuth().post(`/api/favoriteTeams`, team);
 };
 
+export const POST_FOLLOWING_START = "POST_FOLLOWING_START"
+
+export const postFollowingTeam = team => dispatch => {
+  dispatch({type: POST_FOLLOWING_START})
+  axiosWithAuth().post('/api/following', team)
+}
+
 export const GET_HOMEPAGE_GAMEDATA_LOADING = "GET_HOMEPAGE_GAMEDATA_LOADING";
 export const GET_HOMEPAGE_GAMEDATA_SUCCESS = "GET_HOMEPAGE_GAMEDATA_SUCCESS";
 export const GET_HOMEPAGE_GAMEDATA_FAILED = "GET_HOMEPAGE_GAMEDATA_FAILED";

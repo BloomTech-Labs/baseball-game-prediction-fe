@@ -3,6 +3,7 @@ import getLogo from "../../utils/getLogo";
 import { getTeamsDB } from "../../Redux/actions/index";
 import { connect } from "react-redux";
 import { postFavoriteTeam } from "../../Redux/actions/index";
+import { postFollowingTeam } from "../../Redux/actions/index";
 import { Link } from "react-router-dom";
 
 const TeamList = props => {
@@ -14,10 +15,9 @@ const TeamList = props => {
     const teams = {
       profile_id: props.profile_id,
       team_id: team.team_id,
-      abbreviation: team.abbreviation,
-      favorite: null
+      abbreviation: team.abbreviation,      
     };
-    props.postFavoriteTeam(teams);
+    props.postFollowingTeam(teams);
   };
 
   return (
@@ -51,11 +51,12 @@ const mapStateToProps = state => {
     favorite: state.favoriteTeams,
     profile: state.profile,
     username: state.username,
-    teams: state.teams
+    teams: state.teams,
+    following: state.followingTeams
   };
 };
 
 export default connect(
   mapStateToProps,
-  { postFavoriteTeam, getTeamsDB }
+  { postFavoriteTeam, getTeamsDB, postFollowingTeam }
 )(TeamList);

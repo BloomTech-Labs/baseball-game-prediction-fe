@@ -12,6 +12,7 @@ import { getProfile } from "../../Redux/actions/index";
 import { deleteFavorite } from "../../Redux/actions/index";
 import { deleteProfile } from "../../Redux/actions/index";
 import { getTeamsDB } from "../../Redux/actions/index";
+import { getFollowingTeams } from "../../Redux/actions/index.js"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,6 +38,8 @@ const Profile = props => {
   useEffect(() => {
     props.getFavoriteTeams(props.profile_id);
   }, [props.profile_id]);
+
+  console.log("favorite", props.favorite)
 
   useEffect(() => {
     setFavorites(props.favorite);
@@ -176,11 +179,12 @@ const mapStateToProps = state => {
     favorite: state.favoriteTeams,
     profile: state.profile,
     username: state.username,
-    teams: state.teams
+    teams: state.teams,
+    following: state.followingTeams
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB }
+  { getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB, getFollowingTeams }
 )(Profile);
