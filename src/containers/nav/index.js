@@ -119,6 +119,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
     e.preventDefault();
     logout();
   };
+  
 
   const menuId = "primary-search-account-menu";
   /*const renderMenu = (

@@ -6,6 +6,7 @@ import { postFavoriteTeam } from "../../Redux/actions/index";
 import { Link } from "react-router-dom";
 
 const AddFavorite = props => {
+
   useEffect(() => {
     props.getTeamsDB();
   }, []);
