@@ -50,6 +50,13 @@ const useStyles = makeStyles(theme => ({
 
   dateTime: {
     marginTop: 20
+  },
+  
+  circleProgress: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2)
+    }
   }
 }));
 
@@ -70,7 +77,7 @@ function GameData(props) {
 
   let gameDisplay;
 
-  if(props.fetchingData) {
+  if (props.fetchingData) {
     return (
       <div className={classes.circleProgress}>
           <CircularProgress
@@ -82,7 +89,7 @@ function GameData(props) {
     )
   }
 
-  else if (props.lineup.teams && props.prediction.data && !props.fetchingData) {
+  if (props.lineup.teams && props.prediction.data && !props.fetchingData) {
 
     gameDisplay = (
       <div className={classes.fullContainer}>
