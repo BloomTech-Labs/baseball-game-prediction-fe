@@ -6,7 +6,7 @@ import rootReducer from "./Redux/reducers";
 
 export const history = History.createBrowserHistory();
 
-// const initialState = {};
+const initialState = {};
 const enhancers = [];
 const middleware = [thunk, routerMiddleware(history)];
 

@@ -203,39 +203,44 @@ export const getHomepageGamedata = date => dispatch => {
       dispatch({
         type: GET_HOMEPAGE_GAMEDATA_FAILED
       });
-    });  
+    });
 };
 
 export const GET_TEAMSCHEDULE_LOADING = "GET_TEAMSCHEDULE_LOADING";
 export const GET_TEAMSCHEDULE_SUCCESS = "GET_TEAMSCHEDULE_SUCCESS";
 export const GET_TEAMSCHEDULE_FAILED = "GET_TEAMSCHEDULE_FAILED";
 
-export const fetchCurrentTeamSchedule = (team_id, endDate, startDate) => dispatch => {
+export const fetchCurrentTeamSchedule = (
+  team_id,
+  endDate,
+  startDate
+) => dispatch => {
   dispatch({
     type: GET_TEAMSCHEDULE_LOADING
   });
   axiosWithAuth()
-  .get(`https://bgp-be-staging.herokuapp.com/api/teams/${team_id}`)
-  .then(res => {
-  axiosWithAuthMSF()
-  .get(`https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/games.json?date=from-${startDate}-to-${endDate}&team=${res.data[0].abbreviation.toLowerCase()}`)
-  .then(res => {
-    const gamesContainer = res.data.games.map(game => game)  
-    dispatch({
-      type: GET_TEAMSCHEDULE_SUCCESS,
-      payload: gamesContainer
-    })    
-  })
-    .catch(err => {
-      dispatch({
-        type: GET_TEAMSDB_FAIL        
-      })      
-    })
-  })
-}
-  
-  
-  /*let response = await axios
+    .get(`https://bgp-be-staging.herokuapp.com/api/teams/${team_id}`)
+    .then(res => {
+      axiosWithAuthMSF()
+        .get(
+          `https://api.mysportsfeeds.com/v2.1/pull/mlb/2019-regular/games.json?date=from-${startDate}-to-${endDate}&team=${res.data[0].abbreviation.toLowerCase()}`
+        )
+        .then(res => {
+          const gamesContainer = res.data.games.map(game => game);
+          dispatch({
+            type: GET_TEAMSCHEDULE_SUCCESS,
+            payload: gamesContainer
+          });
+        })
+        .catch(err => {
+          dispatch({
+            type: GET_TEAMSDB_FAIL
+          });
+        });
+    });
+};
+
+/*let response = await axios
     .get(
       `https://bgp-be-staging.herokuapp.com/api/teams/${props.match.params.team_id}`
     )
@@ -270,5 +275,3 @@ export const fetchCurrentTeamSchedule = (team_id, endDate, startDate) => dispatc
           </Grid>
         );
       });*/
-
-
