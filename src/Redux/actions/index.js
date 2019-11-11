@@ -219,7 +219,7 @@ export const fetchCurrentTeamSchedule = (
     type: GET_TEAMSCHEDULE_LOADING
   });
   axiosWithAuth()
-    .get(`https://bgp-be-staging.herokuapp.com/api/teams/${team_id}`)
+    .get(`/api/teams/${team_id}`)
     .then(res => {
       axiosWithAuthMSF()
         .get(
