@@ -6,7 +6,7 @@ import {
   clearErrors,
   passwordMismatch
 } from "../../Redux/actions/index";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../formstyle/index.css";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -72,9 +72,6 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
       passwordMismatch();
     }
   };
-
-
-  
 
   return (
     <div className="RegisterForm">

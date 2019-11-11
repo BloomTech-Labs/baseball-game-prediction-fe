@@ -1,35 +1,28 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import TeamList from "../components/TeamList";
 import { getTeamsDB } from "../../../Redux/actions/index";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import getLogo from "../../../utils/getLogo";
 
 //CSS
 import "../../../App.css";
 
-const DivisionListView = ({getTeamsDB, teams}) => {
+const DivisionListView = ({ getTeamsDB, teams }) => {
   useEffect(() => {
-    getTeamsDB()
-  }, [])
-  
-
-
+    getTeamsDB();
+  }, []);
 
   // Divisional filters
 
-  const newLogo = () =>{
-    return <img src={getLogo(teamImg)} width="25px" />
-  }
+  const newLogo = () => {
+    return <img src={getLogo(teamImg)} width="25px" />;
+  };
 
   const teamImg = () => {
     return teams.filter(team => {
-      return team.abbreviation === getLogo.team ;
-     
+      return team.abbreviation === getLogo.team;
     });
-    
   };
-  
 
   const nlWTeams = () => {
     return teams.filter(team => {
@@ -69,8 +62,8 @@ const DivisionListView = ({getTeamsDB, teams}) => {
 
   if (teams.length > 1) {
     return (
-      <div className="schedule-list-container" style={{marginTop: "75px"}}>
-        <TeamList division={nlWTeams( <img src={teamImg()} width="25px" />)}  />
+      <div className="schedule-list-container" style={{ marginTop: "75px" }}>
+        <TeamList division={nlWTeams(<img src={teamImg()} width="25px" />)} />
         <TeamList division={nlETeams()} />
         <TeamList division={nlCTeams()} />
         <TeamList division={alWTeams()} />
@@ -81,15 +74,15 @@ const DivisionListView = ({getTeamsDB, teams}) => {
   } else {
     return <div />;
   }
-}
+};
 
-const mapStateToProps = state => {  
+const mapStateToProps = state => {
   return {
     teams: state.teams
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
-   {getTeamsDB}
-)(DivisionListView)
+  { getTeamsDB }
+)(DivisionListView);

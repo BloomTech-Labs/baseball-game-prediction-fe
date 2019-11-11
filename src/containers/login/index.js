@@ -91,6 +91,8 @@ const LoginForm = ({ login, history }) => {
         />
 
         <Button
+          className="submit"
+          id="submit"
           variant="contained"
           color="primary"
           fullWidth

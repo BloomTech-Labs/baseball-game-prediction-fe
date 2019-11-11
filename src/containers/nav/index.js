@@ -19,10 +19,12 @@ import AddTeam from "../profile/TeamList.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 import GameData from "../gamedata";
-import AddFavoriteTeam from "../profile/addFavorite";
 import addFavorite from "../profile/addFavorite";
 
 const useStyles = makeStyles(theme => ({
+  link: {
+    margin: theme.spacing(1)
+  },
   grow: {
     flexGrow: 1
   },
@@ -79,6 +81,9 @@ const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: "none",
     color: "black"
+  },
+  title: {
+    paddingLeft: 80
   }
 }));
 
@@ -86,6 +91,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const preventDefault = event => event.preventDefault();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -125,6 +131,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+    
       {profile_id ? (
         <div>
           <Link to="/" className={classes.link}>
@@ -156,6 +163,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
           </Link>
         </div>
       )}
+      
     </Menu>
   );
 
@@ -193,6 +201,70 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
               Baseball Game Prediction
             </Typography>
           </Link>
+         {/*} {profile_id ? (
+            <div style={{ display: "flex" }}>
+              <Link to="/" className={classes.link} style={{ color: "white" }}>
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Home
+                </Typography>
+              </Link>
+              <Link
+                to="/profile"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Profile
+                </Typography>
+              </Link>
+              <Link
+                to="/schedules"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Schedules
+                </Typography>
+              </Link>
+              <Link to="/" className={classes.link}>
+                <Typography
+                  onClick={handleLogOut}
+                  className={classes.title}
+                  variant="h6"
+                  style={{ color: "red" }}
+                  noWrap
+                >
+                  Logout
+                </Typography>
+              </Link>
+            </div>
+          ) : (
+            <div style={{ display: "flex" }}>
+              <Link to="/" className={classes.link} style={{ color: "white" }}>
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Home
+                </Typography>
+              </Link>
+              <Link
+                to="/login"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Login
+                </Typography>
+              </Link>
+              <Link
+                to="/register"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Register
+                </Typography>
+              </Link>
+            </div>
+          )}*/}
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
@@ -207,10 +279,10 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
               <AccountCircle />
             </IconButton>
           </div>
+          {renderMobileMenu}
+          {renderMenu}
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
       <main>
         <Route exact path="/" component={Home} />
         <Route
@@ -223,10 +295,17 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
         />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/addTeam" component={AddTeam} />
-        <Route path="/gamedata/:date/:away/:home" component={GameData} />
+        <ProtectedRoute
+          path="/gamedata/:date/:away/:home"
+          component={GameData}
+        />
         <ProtectedRoute path="/favoriteTeam" component={addFavorite} />
-        <Route exact path="/schedules" component={Schedules} />
-        <Route exact path="/schedules/:team_id" component={TeamSchedule} />
+        <ProtectedRoute exact path="/schedules" component={Schedules} />
+        <ProtectedRoute
+          exact
+          path="/schedules/:team_id"
+          component={TeamSchedule}
+        />
       </main>
     </div>
   );

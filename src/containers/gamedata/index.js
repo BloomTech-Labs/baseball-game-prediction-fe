@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Typography, Tabs, Tab, Box } from "@material-ui/core";
+import { Grid, Typography, Tabs, Tab, Box, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import { getLineup, getPrediction } from "../../Redux/actions"
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     marginTop: 70
   },
-  
+
   tabs: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -51,7 +51,6 @@ const useStyles = makeStyles(theme => ({
   dateTime: {
     marginTop: 20
   }
-  
 }));
 
 function GameData(props) {
@@ -71,7 +70,19 @@ function GameData(props) {
 
   let gameDisplay;
 
-  if (props.lineup.teams && props.prediction.data) {
+  if(props.fetchingData) {
+    return (
+      <div className={classes.circleProgress}>
+          <CircularProgress
+            size={50}
+            thickness={2}
+            style={{ margin: "75px auto" }}
+          />
+      </div>
+    )
+  }
+
+  else if (props.lineup.teams && props.prediction.data && !props.fetchingData) {
 
     gameDisplay = (
       <div className={classes.fullContainer}>
@@ -137,67 +148,94 @@ function GameData(props) {
       });
     
     // Checks for sorted lineups
-    if(awaySortedBattingLineup && homeSortedBattingLineup && awaySortedFieldingLineup && homeSortedFieldingLineup) {
-  
-    return (
-      <div style={{ width: "75%", margin: "150px auto" }}>
-        {gameDisplay}
-        <div className={classes.tabs}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="simple tabs example"
-            variant="fullWidth"
-          >
-            <Tab label="Home Lineup" {...a11yProps(0)} />
-            <Tab label="Batting Order" {...a11yProps(1)} />
-            <Tab label="Away Lineup" {...a11yProps(2)} />
-            <Tab label="Batting Order" {...a11yProps(3)} />
-          </Tabs>
+    if (
+      awaySortedBattingLineup &&
+      homeSortedBattingLineup &&
+      awaySortedFieldingLineup &&
+      homeSortedFieldingLineup
+    ) {
+      return (
+        <div style={{ width: "75%", margin: "150px auto" }}>
+          {gameDisplay}
+          <div className={classes.tabs}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="simple tabs example"
+              variant="fullWidth"
+            >
+              <Tab label="Home Lineup" {...a11yProps(0)} />
+              <Tab label="Batting Order" {...a11yProps(1)} />
+              <Tab label="Away Lineup" {...a11yProps(2)} />
+              <Tab label="Batting Order" {...a11yProps(3)} />
+            </Tabs>
 
-          <TabPanel className={classes.dateTime} value={value} index={0}>
-            {homeSortedFieldingLineup.map(obj => {
-              if(obj.player){
-              return (
-                <Grid item xs={12} key={obj.player.id}>
-                  <Typography variant="h6" align="center">{obj.position} {obj.player.firstName} {obj.player.lastName} #{obj.player.jerseyNumber}</Typography>
-                </Grid>
-              )} else {return <div/>}
-            })}
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-          {homeSortedBattingLineup.map(obj => {
-              if(obj.player){
-              return (
-                <Grid item xs={12} key={obj.player.id}>
-                  <Typography variant="h6" align="center">{obj.position.charAt(2)}. {obj.player.firstName} {obj.player.lastName}</Typography>
-                </Grid>
-              )} else {return <div/>}
-            })}
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-          {awaySortedFieldingLineup.map(obj => {
-              if(obj.player){
-              return (
-                <Grid item xs={12} key={obj.player.id}>
-                  <Typography variant="h6" align="center">{obj.position} {obj.player.firstName} {obj.player.lastName} #{obj.player.jerseyNumber}</Typography>
-                </Grid>
-              )} else {return <div/>}
-            })}
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-          {awaySortedBattingLineup.map(obj => {
-              if(obj.player){
-              return (
-                <Grid item xs={12} key={obj.player.id}>
-                  <Typography variant="h6" align="center">{obj.position.charAt(2)}. {obj.player.firstName} {obj.player.lastName}</Typography>
-                </Grid>
-              )} else {return <div/>}
-            })}
-          </TabPanel>
+            <TabPanel className={classes.dateTime} value={value} index={0}>
+              {homeSortedFieldingLineup.map(obj => {
+                if (obj.player) {
+                  return (
+                    <Grid item xs={12} key={obj.player.id}>
+                      <Typography variant="h6" align="center">
+                        {obj.position} {obj.player.firstName}{" "}
+                        {obj.player.lastName} #{obj.player.jerseyNumber}
+                      </Typography>
+                    </Grid>
+                  );
+                }
+              })}
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              {homeSortedBattingLineup.map(obj => {
+                if (obj.player) {
+                  return (
+                    <Grid item xs={12} key={obj.player.id}>
+                      <Typography variant="h6" align="center">
+                        {obj.position.charAt(2)}. {obj.player.firstName}{" "}
+                        {obj.player.lastName}
+                      </Typography>
+                    </Grid>
+                  );
+                } else {
+                  return <div />;
+                }
+              })}
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              {awaySortedFieldingLineup.map(obj => {
+                if (obj.player) {
+                  return (
+                    <Grid item xs={12} key={obj.player.id}>
+                      <Typography variant="h6" align="center">
+                        {obj.position} {obj.player.firstName}{" "}
+                        {obj.player.lastName} #{obj.player.jerseyNumber}
+                      </Typography>
+                    </Grid>
+                  );
+                }
+              })}
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              {awaySortedBattingLineup.map(obj => {
+                if (obj.player) {
+                  return (
+                    <Grid item xs={12} key={obj.player.id}>
+                      <Typography variant="h6" align="center">
+                        {obj.position.charAt(2)}. {obj.player.firstName}{" "}
+                        {obj.player.lastName}
+                      </Typography>
+                    </Grid>
+                  );
+                } else {
+                  return <div />;
+                }
+              })}
+            </TabPanel>
+          </div>
         </div>
-      </div>
-    );} else {return <div />;}
+      );
+    } else {
+      return <div />;
+    }
   } else {
     return <div />;
   }
@@ -206,7 +244,8 @@ function GameData(props) {
 const mapStateToProps = state => {
   return {
     lineup: state.lineup,
-    prediction: state.prediction
+    prediction: state.prediction,
+    fetchingData: state.fetchingData
   }
 }
 
