@@ -32,6 +32,7 @@ const TeamList = props => {
               onClick={() => submit(team)}
               style={{ margin: 20 }}
               key={team.abbreviation}
+              className="cy-teams"
             >
               <Link to="/profile">
                 <img src={getLogo(team.abbreviation)} width="100px" />
