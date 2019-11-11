@@ -11,8 +11,7 @@ import { getFavoriteTeams } from "../../Redux/actions/index";
 import { getProfile } from "../../Redux/actions/index";
 import { deleteFavorite } from "../../Redux/actions/index";
 import { deleteProfile } from "../../Redux/actions/index";
-import { getTeamsDB } from "../../Redux/actions/index"
-
+import { getTeamsDB } from "../../Redux/actions/index";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,45 +27,48 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Profile = props => {
-  const classes = useStyles();  
+  const classes = useStyles();
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    props.getTeamsDB()
-  }, [])
-  
-  useEffect(() => {
-    props.getFavoriteTeams(props.profile_id)
-  }, [props.profile_id])  
+    props.getTeamsDB();
+  }, []);
 
   useEffect(() => {
-    setFavorites(props.favorite)
-  }, [props.favorite])
-  
+    props.getFavoriteTeams(props.profile_id);
+  }, [props.profile_id]);
+
   useEffect(() => {
-    props.getProfile(props.profile_id)
-  }, [props.profile_id]) 
+    setFavorites(props.favorite);
+  }, [props.favorite]);
 
-  const submit = abv => {  
-    props.deleteFavorite(abv.favorite_id)
-    const newArr = favorites.filter(fav => fav.team_id != abv.team_id)
-    return setFavorites(newArr)
-  }
-  
-  const remove = () => {   
-    const redirect = () => props.history.push('/register')
-    deleteProfile(props.profile_id, redirect)    
-  }
-  
+  useEffect(() => {
+    props.getProfile(props.profile_id);
+  }, [props.profile_id]);
 
+  const submit = abv => {
+    props.deleteFavorite(abv.favorite_id);
+    const newArr = favorites.filter(fav => fav.team_id != abv.team_id);
+    return setFavorites(newArr);
+  };
 
+  const remove = () => {
+    const redirect = () => props.history.push("/register");
+    deleteProfile(props.profile_id, redirect);
+  };
 
-  return (   
-    <Grid 
-    container justify="center">
+  return (
+    <Grid container justify="center">
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          <h1 style={{fontFamily: "Times New Roman, Times, serif", color: "maroon" }}>Welcome {props.username}!</h1>
+          <h1
+            style={{
+              fontFamily: "Times New Roman, Times, serif",
+              color: "maroon"
+            }}
+          >
+            Welcome {props.username}!
+          </h1>
         </Paper>
       </Grid>
       <Grid item xs={6} style={{ paddingBottom: 0 }}>
@@ -74,62 +76,97 @@ const Profile = props => {
           <h3>Your Favorite Team</h3>
         </Paper>
         <Grid
-        container
-        justify="center"
-        item
-        xs={12}
-        style={{ paddingBottom: 0 }}
-      >
-        {favorites.map(fav => {
-          if(fav.favorite === 1) {
-            return <p>x<img onClick={() => submit(fav)} src={getLogo(fav.abbreviation)} width="180px"/></p>
-          }
-        })}
-         </Grid> 
+          container
+          justify="center"
+          item
+          xs={12}
+          style={{ paddingBottom: 0 }}
+        >
+          {favorites.map(fav => {
+            if (fav.favorite === 1) {
+              return (
+                <p key={fav.favorite}>
+                  x
+                  <img
+                    onClick={() => submit(fav)}
+                    src={getLogo(fav.abbreviation)}
+                    width="180px"
+                  />
+                </p>
+              );
+            }
+          })}
+        </Grid>
       </Grid>
       <Grid item xs={6} style={{ paddingBottom: 0 }}>
         <Paper className={classes.paper}>
           <h3>Teams You Are Following</h3>
-        </Paper>      
-      <Grid
-        container
-        justify="center"
-        item
-        xs={12}
-        style={{ paddingBottom: 0 }}
-      >
-        {favorites.map(abv => {
-          return (
-            <p>
-              x<img style={{margin: 10}} onClick={() => submit(abv)} src={getLogo(abv.abbreviation)} width="70px" />
-            </p>
-          );
-        })}
+        </Paper>
+        <Grid
+          container
+          justify="center"
+          item
+          xs={12}
+          style={{ paddingBottom: 0 }}
+        >
+          {favorites.map(abv => {
+            return (
+              <p key={`${abv.abbreviation}xclosebutton`}>
+                x
+                <img
+                  style={{ margin: 10 }}
+                  onClick={() => submit(abv)}
+                  src={getLogo(abv.abbreviation)}
+                  width="70px"
+                />
+              </p>
+            );
+          })}
         </Grid>
       </Grid>
-      <Grid container justify = "center">
+      <Grid container justify="center">
         {favorites.map(fav => {
-          if(fav.favorite === 1) {
-            return <img src={getWallpaper(fav.abbreviation)}/> 
+          if (fav.favorite === 1) {
+            return (
+              <img
+                src={getWallpaper(fav.abbreviation)}
+                key={`${fav.favorite}hasdh`}
+              />
+            );
           }
         })}
-          </Grid>           
-      <Link to='/favoriteTeam'>
-        <Button style={{margin: 6}} variant="contained" color="primary" className={classes.button}>
+      </Grid>
+      <Link to="/favoriteTeam">
+        <Button
+          style={{ margin: 6 }}
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
           Add A Favorite Team
         </Button>
-      </Link> 
+      </Link>
       <Link to="/addTeam">
-        <Button style={{margin: 6}} variant="contained" color="primary" className={classes.button}>
+        <Button
+          style={{ margin: 6 }}
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
           Add Teams To Follow
         </Button>
-      </Link>      
-        <Button style={{margin: 6}} onClick={() => remove()} variant="contained" color="secondary" className={classes.button}>
-          Delete Your Account
-        </Button>
-        <br/>
-                      
-    </Grid>   
+      </Link>
+      <Button
+        style={{ margin: 6 }}
+        onClick={() => remove()}
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+      >
+        Delete Your Account
+      </Button>
+      <br />
+    </Grid>
   );
 };
 
@@ -145,5 +182,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB}
+  { getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB }
 )(Profile);

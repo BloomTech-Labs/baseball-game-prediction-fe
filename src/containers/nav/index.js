@@ -19,13 +19,11 @@ import AddTeam from "../profile/TeamList.js";
 import Schedules from "../schedules/views/DivisionListView";
 import TeamSchedule from "../schedules/views/TeamScheduleView";
 import GameData from "../gamedata";
-import AddFavoriteTeam from "../profile/addFavorite";
 import addFavorite from "../profile/addFavorite";
-
 
 const useStyles = makeStyles(theme => ({
   link: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
   },
   grow: {
     flexGrow: 1
@@ -86,8 +84,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     paddingLeft: 80
-  }  
-  
+  }
 }));
 
 const PrimarySearchAppBar = ({ logout, profile_id }) => {
@@ -206,46 +203,67 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
             </Typography>
           </Link>
           {profile_id ? (
-            <div style={{display: "flex"}}>
-            <Link to="/" className={classes.link} style={{color: "white"}}>
-              <Typography className={classes.title} variant="h6" noWrap>
-                Home
-              </Typography>
-            </Link>
-            <Link to="/profile" className={classes.link} style={{color: "white"}}>
-              <Typography className={classes.title} variant="h6" noWrap>
-                Profile
-              </Typography>
-            </Link>
-            <Link to="/schedules" className={classes.link} style={{color: "white"}}>
-              <Typography className={classes.title} variant="h6" noWrap>
-                Schedules
-              </Typography>
-            </Link>
-            <Link to="/" className={classes.link}>
-              <Typography onClick={handleLogOut} className={classes.title} variant="h6" style={{color: "red"}} noWrap>
-                Logout
-              </Typography>
-            </Link>
-        
-        </div>
-          ): (
-            <div style={{display: "flex"}}>
-              <Link to="/" className={classes.link} style={{color: "white"}}>
-              <Typography className={classes.title} variant="h6"noWrap>
-                Home
-              </Typography>
-            </Link>
-            <Link to="/login" className={classes.link} style={{color: "white"}}>
-            <Typography className={classes.title} variant="h6" noWrap>
-              Login
-            </Typography>
-          </Link>
-          <Link to="/register" className={classes.link} style={{color: "white"}}>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Register
-          </Typography>
-        </Link>
+            <div style={{ display: "flex" }}>
+              <Link to="/" className={classes.link} style={{ color: "white" }}>
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Home
+                </Typography>
+              </Link>
+              <Link
+                to="/profile"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Profile
+                </Typography>
+              </Link>
+              <Link
+                to="/schedules"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Schedules
+                </Typography>
+              </Link>
+              <Link to="/" className={classes.link}>
+                <Typography
+                  onClick={handleLogOut}
+                  className={classes.title}
+                  variant="h6"
+                  style={{ color: "red" }}
+                  noWrap
+                >
+                  Logout
+                </Typography>
+              </Link>
+            </div>
+          ) : (
+            <div style={{ display: "flex" }}>
+              <Link to="/" className={classes.link} style={{ color: "white" }}>
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Home
+                </Typography>
+              </Link>
+              <Link
+                to="/login"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Login
+                </Typography>
+              </Link>
+              <Link
+                to="/register"
+                className={classes.link}
+                style={{ color: "white" }}
+              >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Register
+                </Typography>
+              </Link>
             </div>
           )}
 
@@ -263,11 +281,8 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
             </IconButton>
           </div>*/}
         </Toolbar>
-      </AppBar>    
-     
-  );
-}
-
+      </AppBar>
+      ); }
       <main>
         <Route exact path="/" component={Home} />
         <Route
