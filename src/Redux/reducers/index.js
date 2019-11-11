@@ -24,12 +24,6 @@ import {
   DELETE_FAVORITE_START,
   DELETE_FAVORITE_SUCCESS,
   POST_FAVORITE_START,
-  GET_LINEUP_START,
-  GET_LINEUP_SUCCESS,
-  GET_LINEUP_FAIL,
-  GET_PREDICTION_START,
-  GET_PREDICTION_SUCCESS,
-  GET_PREDICTION_FAIL,
   GET_HOMEPAGE_GAMEDATA_LOADING,
   GET_HOMEPAGE_GAMEDATA_SUCCESS,
   GET_HOMEPAGE_GAMEDATA_FAILED,
@@ -48,8 +42,6 @@ const initialState = {
   teams: [],
   profile: [],
   username: "",
-  lineup: {},
-  prediction: {},
   homepageGamedataLoading: false,
   homepageGamedata: [],
   homepageGamedataError: false,
@@ -233,41 +225,6 @@ const reducer = (state = initialState, action) => {
         teamscheduleError: true,
         teamscheduledataLoading: false
       }
-      case GET_LINEUP_START:
-        return {
-          ...state,
-          fetchingData: true
-        }
-      case GET_LINEUP_SUCCESS:
-        return {
-          ...state,
-          fetchingData: false,
-          lineup: action.payload,       
-        }
-      case GET_LINEUP_FAIL:
-        return {
-          ...state,
-          fetchingData: false,
-          error: action.payload
-        }
-      case GET_PREDICTION_START:
-        return {
-          ...state,
-          fetchingData: true
-        }
-      case GET_PREDICTION_SUCCESS:
-        return {
-          ...state,
-          fetchingData: false,
-          prediction: action.payload,       
-        }
-      case GET_PREDICTION_FAIL:
-        return {
-          ...state,
-          fetchingData: false,
-          error: action.payload
-        }
-
     default:
       return state;
   }
