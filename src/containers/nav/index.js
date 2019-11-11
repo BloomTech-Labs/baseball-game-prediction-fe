@@ -122,7 +122,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
   
 
   const menuId = "primary-search-account-menu";
-  /*const renderMenu = (
+  const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -166,7 +166,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
       )}
       
     </Menu>
-  );*/
+  );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -202,7 +202,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
               Baseball Game Prediction
             </Typography>
           </Link>
-          {profile_id ? (
+         {/*} {profile_id ? (
             <div style={{ display: "flex" }}>
               <Link to="/" className={classes.link} style={{ color: "white" }}>
                 <Typography className={classes.title} variant="h6" noWrap>
@@ -265,9 +265,9 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
                 </Typography>
               </Link>
             </div>
-          )}
+          )}*/}
 
-          {/*<div className={classes.grow} />
+          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton
               edge="end"
@@ -279,7 +279,9 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
             >
               <AccountCircle />
             </IconButton>
-          </div>*/}
+          </div>
+          {renderMobileMenu}
+          {renderMenu}
         </Toolbar>
       </AppBar>
       ); }
