@@ -168,11 +168,35 @@ export const postFavoriteTeam = team => dispatch => {
   axiosWithAuth().post(`/api/favoriteTeams`, team);
 };
 
+export const GET_FOLLOWING_TEAMS_START = "GET_FOLLOWING_TEAMS_START"
+export const GET_FOLLOWING_TEAMS_SUCCESS = "GET_FOLLOWING_TEAMS_SUCCESS"
+export const GET_FOLLOWING_TEAMS_FAIL = "GET_FOLLOWING_TEAMS_FAIL"
+
+export const getFollowingTeams = profile_id => dispatch => {
+  dispatch({ type: GET_FOLLOWING_TEAMS_START });
+  axiosWithAuth()
+    .get(`/api/following/${profile_id}`)
+    .then(res => {
+      dispatch({ type: GET_FOLLOWING_TEAMS_SUCCESS, payload: res.data});
+    })
+    .catch(error => {
+      dispatch({ type: GET_FOLLOWING_TEAMS_FAIL, payload: error });
+    });
+};
+
 export const POST_FOLLOWING_START = "POST_FOLLOWING_START"
 
 export const postFollowingTeam = team => dispatch => {
   dispatch({type: POST_FOLLOWING_START})
   axiosWithAuth().post('/api/following', team)
+}
+
+export const DELETE_FOLLOWING_START = "DELETE_FOLLOWING_START"
+export const DELETE_FOLLOWING_SUCCESS = "DELETE_FOLLOWING_SUCCESS"
+
+export const deleteFollowing = following_id => dispatch => {
+  dispatch({type: DELETE_FOLLOWING_START})
+  axiosWithAuth().delete(`/api/following/${following_id}`)
 }
 
 export const GET_HOMEPAGE_GAMEDATA_LOADING = "GET_HOMEPAGE_GAMEDATA_LOADING";

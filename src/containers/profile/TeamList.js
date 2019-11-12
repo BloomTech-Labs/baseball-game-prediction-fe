@@ -4,6 +4,7 @@ import { getTeamsDB } from "../../Redux/actions/index";
 import { connect } from "react-redux";
 import { postFavoriteTeam } from "../../Redux/actions/index";
 import { postFollowingTeam } from "../../Redux/actions/index";
+import { getFollowingTeams } from "../../Redux/actions/index";
 import { Link } from "react-router-dom";
 
 const TeamList = props => {
@@ -11,14 +12,26 @@ const TeamList = props => {
     props.getTeamsDB();
   }, []);
 
+  useEffect(() => {
+    props.getFollowingTeams(props.profile_id)
+  }, [])
+
+  console.log("following", props.following)
+  
   const submit = team => {
     const teams = {
       profile_id: props.profile_id,
       team_id: team.team_id,
       abbreviation: team.abbreviation,      
     };
+    props.following.map(f => {
+      if(f.team_id == team.team_id) {
+        window.alert("You've already added this team")
+      }             
+    })
     props.postFollowingTeam(teams);
   };
+
 
   return (
     <div style={{ paddingTop: 100, margin: "auto", maxWidth: 1000 }}>
@@ -58,5 +71,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { postFavoriteTeam, getTeamsDB, postFollowingTeam }
+  { postFavoriteTeam, getTeamsDB, postFollowingTeam, getFollowingTeams  }
 )(TeamList);
