@@ -16,6 +16,8 @@ const TeamList = props => {
     props.getFollowingTeams(props.profile_id)
   }, [])
 
+ 
+
   console.log("following", props.following)
   
   const submit = team => {
@@ -23,14 +25,11 @@ const TeamList = props => {
       profile_id: props.profile_id,
       team_id: team.team_id,
       abbreviation: team.abbreviation,      
-    };
-    props.following.map(f => {
-      if(f.team_id == team.team_id) {
-        window.alert("You've already added this team")
-      }             
-    })
-    props.postFollowingTeam(teams);
-  };
+    };     
+      props.postFollowingTeam(teams)
+    }     
+                 
+  
 
 
   return (
@@ -39,7 +38,7 @@ const TeamList = props => {
         Pick Your Favorite Teams To Follow
       </h1>
       <div style={{ textAlign: "center" }}>
-        {props.teams.map(team => {
+        {props.teams.map(team => { 
           return (
             <button
               onClick={() => submit(team)}
@@ -52,8 +51,8 @@ const TeamList = props => {
               </Link>
             </button>
           );
-        })}
-      </div>
+        })}})
+      </div>      
     </div>
   );
 };
