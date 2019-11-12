@@ -160,7 +160,8 @@ const reducer = (state = initialState, action) => {
     case GET_TEAMSDB_SUCCESS:
       return {
         ...state,
-        teams: action.payload
+        teams: action.payload,
+        fetchingData: false
       };
     case GET_PROFILE_START:
       return {
@@ -191,7 +192,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         homepageGamedataLoading: true,
-        homepageGameDataError: null
+        homepageGameDataError: false
       };
     case GET_HOMEPAGE_GAMEDATA_SUCCESS:
       return {

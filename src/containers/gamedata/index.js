@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Typography, Tabs, Tab, Box } from "@material-ui/core";
+import { Grid, Typography, Tabs, Tab, Box, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getLineup } from "../../utils/getLineup";
 import { getPrediction } from "../../utils/getPrediction";
@@ -50,6 +50,13 @@ const useStyles = makeStyles(theme => ({
 
   dateTime: {
     marginTop: 20
+  },
+
+  circleProgress: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2)
+    }
   }
 }));
 
@@ -58,7 +65,7 @@ export default function GameData(props) {
   const [lineup, setLineup] = useState({});
   const [prediction, setPrediction] = useState({});
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -83,7 +90,17 @@ export default function GameData(props) {
 
   let gameDisplay;
 
-  console.log(lineup);
+  while(!lineup.game){
+    return (
+      <div className={classes.circleProgress}>
+            <CircularProgress
+              size={50}
+              thickness={2}
+              style={{ margin: "200px auto" }}
+            />
+      </div>
+    )
+  }
 
   if (lineup.teams && prediction.data) {
     gameDisplay = (
@@ -204,7 +221,7 @@ export default function GameData(props) {
                 if (obj.player) {
                   return (
                     <Grid item xs={12} key={obj.player.id}>
-                      <Typography variant="h6" align="center">
+                      <Typography align="center">
                         {obj.position} {obj.player.firstName}{" "}
                         {obj.player.lastName} #{obj.player.jerseyNumber}
                       </Typography>
@@ -218,7 +235,7 @@ export default function GameData(props) {
                 if (obj.player) {
                   return (
                     <Grid item xs={12} key={obj.player.id}>
-                      <Typography variant="h6" align="center">
+                      <Typography align="center">
                         {obj.position.charAt(2)}. {obj.player.firstName}{" "}
                         {obj.player.lastName}
                       </Typography>
@@ -234,7 +251,7 @@ export default function GameData(props) {
                 if (obj.player) {
                   return (
                     <Grid item xs={12} key={obj.player.id}>
-                      <Typography variant="h6" align="center">
+                      <Typography align="center">
                         {obj.position} {obj.player.firstName}{" "}
                         {obj.player.lastName} #{obj.player.jerseyNumber}
                       </Typography>
@@ -248,7 +265,7 @@ export default function GameData(props) {
                 if (obj.player) {
                   return (
                     <Grid item xs={12} key={obj.player.id}>
-                      <Typography variant="h6" align="center">
+                      <Typography align="center">
                         {obj.position.charAt(2)}. {obj.player.firstName}{" "}
                         {obj.player.lastName}
                       </Typography>

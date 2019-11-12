@@ -212,12 +212,13 @@ export const GET_TEAMSCHEDULE_FAILED = "GET_TEAMSCHEDULE_FAILED";
 
 export const fetchCurrentTeamSchedule = (
   team_id,
-  endDate,
-  startDate
+  startDate,
+  endDate
 ) => dispatch => {
   dispatch({
     type: GET_TEAMSCHEDULE_LOADING
   });
+  
   axiosWithAuth()
     .get(`/api/teams/${team_id}`)
     .then(res => {
