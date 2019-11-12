@@ -131,7 +131,6 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-    
       {profile_id ? (
         <div>
           <Link to="/" className={classes.link}>
@@ -163,7 +162,6 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
           </Link>
         </div>
       )}
-      
     </Menu>
   );
 
@@ -201,7 +199,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
               Baseball Game Prediction
             </Typography>
           </Link>
-         {/*} {profile_id ? (
+          {/* {profile_id ? (
             <div style={{ display: "flex" }}>
               <Link to="/" className={classes.link} style={{ color: "white" }}>
                 <Typography className={classes.title} variant="h6" noWrap>
@@ -264,7 +262,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
                 </Typography>
               </Link>
             </div>
-          )}*/}
+          )} */}
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
@@ -279,8 +277,8 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
               <AccountCircle />
             </IconButton>
           </div>
-          {renderMobileMenu}
           {renderMenu}
+          {renderMobileMenu}
         </Toolbar>
       </AppBar>
       <main>
