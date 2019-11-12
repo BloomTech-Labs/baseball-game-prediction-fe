@@ -101,7 +101,7 @@ const Home = ({
   } else if (followingTeams.length == 0 && checked) {
     filteredSchedule = (
       <Typography variant="body1">
-        To add favorite teams to track,{" "}
+        To add teams to follow,{" "}
         <Link to="/profile" className={classes.link}>
           go to the Profile Page
         </Link>
@@ -140,7 +140,7 @@ const Home = ({
                   inputProps={{ "aria-label": "secondary checkbox" }}
                 />
               }
-              label="Toggle View"
+              label="Teams You Follow"
             />
           </FormGroup>
         </Grid>
