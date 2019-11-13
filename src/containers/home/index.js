@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   getFavoriteTeams,
-  getHomepageGamedata
+  getHomepageGamedata,
+  getFollowingTeams
 } from "../../Redux/actions/index";
 import {
   Typography,
@@ -51,6 +52,8 @@ const useStyles = makeStyles(theme => ({
 const Home = ({
   id,
   getFavoriteTeams,
+  getFollowingTeams,
+  followingTeams,
   favoriteTeams,
   homepageGamedataLoading,
   getHomepageGamedata,
@@ -67,7 +70,7 @@ const Home = ({
   }, [date]);
 
   useEffect(() => {
-    getFavoriteTeams(profile_id);
+    getFollowingTeams(profile_id);
   }, [profile_id, checked]);
 
   useEffect(() => {
@@ -80,13 +83,13 @@ const Home = ({
 
   let filteredSchedule;
 
-  if (favoriteTeams.length > 0 && checked) {
+  if (followingTeams.length > 0 && checked) {
     let container = [];
     for (let i = 0; i < homepageGamedata.length; i++) {
-      for (let y = 0; y < favoriteTeams.length; y++) {
+      for (let y = 0; y < followingTeams.length; y++) {
         if (
-          homepageGamedata[i].awayTeam === favoriteTeams[y].abbreviation ||
-          homepageGamedata[i].homeTeam === favoriteTeams[y].abbreviation
+          homepageGamedata[i].awayTeam === followingTeams[y].abbreviation ||
+          homepageGamedata[i].homeTeam === followingTeams[y].abbreviation
         ) {
           container.push(homepageGamedata[i]);
         }
@@ -95,10 +98,10 @@ const Home = ({
     filteredSchedule = container.map((game, i) => (
       <FavoriteGame game={game} key={`scheduleGame#${i}`} />
     ));
-  } else if (favoriteTeams.length == 0 && checked) {
+  } else if (followingTeams.length == 0 && checked) {
     filteredSchedule = (
       <Typography variant="body1">
-        To add favorite teams to track,{" "}
+        To add teams to follow,{" "}
         <Link to="/profile" className={classes.link}>
           go to the Profile Page
         </Link>
@@ -137,7 +140,7 @@ const Home = ({
                   inputProps={{ "aria-label": "secondary checkbox" }}
                 />
               }
-              label="Toggle View"
+              label="Teams You Follow"
             />
           </FormGroup>
         </Grid>
@@ -168,10 +171,11 @@ const mapStateToProps = state => ({
   favoriteTeams: state.favoriteTeams,
   homepageGamedataLoading: state.homepageGamedataLoading,
   homepageGamedata: state.homepageGamedata,
-  homepageGamedataError: state.homepageGamedataError
+  homepageGamedataError: state.homepageGamedataError,
+  followingTeams: state.followingTeams
 });
 
 export default connect(
   mapStateToProps,
-  { getFavoriteTeams, getHomepageGamedata }
+  { getFavoriteTeams, getHomepageGamedata, getFollowingTeams }
 )(Home);

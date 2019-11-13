@@ -12,6 +12,8 @@ import { getProfile } from "../../Redux/actions/index";
 import { deleteFavorite } from "../../Redux/actions/index";
 import { deleteProfile } from "../../Redux/actions/index";
 import { getTeamsDB } from "../../Redux/actions/index";
+import { getFollowingTeams } from "../../Redux/actions/index.js";
+import { deleteFollowing } from "../../Redux/actions/index.js"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,18 +31,31 @@ const useStyles = makeStyles(theme => ({
 const Profile = props => {
   const classes = useStyles();
   const [favorites, setFavorites] = useState([]);
+  const [followings, setFollowings] = useState([])
 
   useEffect(() => {
     props.getTeamsDB();
   }, []);
 
   useEffect(() => {
+    props.getFollowingTeams(props.profile_id)
+  }, [])
+
+  console.log('following', props.following)
+
+  useEffect(() => {
     props.getFavoriteTeams(props.profile_id);
   }, [props.profile_id]);
+
+  console.log("favorite", props.favorite)
 
   useEffect(() => {
     setFavorites(props.favorite);
   }, [props.favorite]);
+
+  useEffect(() => {
+    setFollowings(props.following)
+  }, [props.following])
 
   useEffect(() => {
     props.getProfile(props.profile_id);
@@ -51,6 +66,12 @@ const Profile = props => {
     const newArr = favorites.filter(fav => fav.team_id != abv.team_id);
     return setFavorites(newArr);
   };
+
+  const removeFollowing = team => {
+    props.deleteFollowing(team.following_id)
+    const newArray = followings.filter(f => f.team_id != team.team_id)
+    return setFollowings(newArray)
+  }
 
   const remove = () => {
     const redirect = () => props.history.push("/register");
@@ -85,10 +106,11 @@ const Profile = props => {
           {favorites.map(fav => {
             if (fav.favorite === 1) {
               return (
-                <p key={fav.favorite}>
+                <p onClick={() => submit(fav)}
+                   key={fav.favorite}>
                   x
                   <img
-                    onClick={() => submit(fav)}
+                    
                     src={getLogo(fav.abbreviation)}
                     width="180px"
                   />
@@ -109,14 +131,14 @@ const Profile = props => {
           xs={12}
           style={{ paddingBottom: 0 }}
         >
-          {favorites.map(abv => {
+          {followings.map(team => {
             return (
-              <p key={`${abv.abbreviation}xclosebutton`}>
+              <p onClick={() => removeFollowing(team)} 
+                 key={`${team.abbreviation}xclosebutton`}>
                 x
                 <img
-                  style={{ margin: 10 }}
-                  onClick={() => submit(abv)}
-                  src={getLogo(abv.abbreviation)}
+                  style={{ margin: 10 }}                  
+                  src={getLogo(team.abbreviation)}
                   width="70px"
                 />
               </p>
@@ -176,11 +198,12 @@ const mapStateToProps = state => {
     favorite: state.favoriteTeams,
     profile: state.profile,
     username: state.username,
-    teams: state.teams
+    teams: state.teams,
+    following: state.followingTeams
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB }
+  { getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB, getFollowingTeams, deleteFollowing }
 )(Profile);

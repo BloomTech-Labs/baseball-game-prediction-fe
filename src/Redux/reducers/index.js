@@ -29,7 +29,12 @@ import {
   GET_HOMEPAGE_GAMEDATA_FAILED,
   GET_TEAMSCHEDULE_LOADING,
   GET_TEAMSCHEDULE_SUCCESS,
-  GET_TEAMSCHEDULE_FAILED
+  GET_TEAMSCHEDULE_FAILED,
+  POST_FOLLOWING_START,
+  GET_FOLLOWING_TEAMS_START,
+  GET_FOLLOWING_TEAMS_SUCCESS,
+  GET_FOLLOWING_TEAMS_FAIL,
+  DELETE_FOLLOWING_SUCCESS
 } from "../actions";
 
 const initialState = {
@@ -47,7 +52,8 @@ const initialState = {
   homepageGamedataError: false,
   teamscheduledataLoading: false,
   teamscheduleData: [],
-  teamscheduleError: false
+  teamscheduleError: false,
+  followingTeams: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -184,10 +190,34 @@ const reducer = (state = initialState, action) => {
       return {
         ...state
       };
+    case DELETE_FOLLOWING_SUCCESS:
+      return {
+        ...state
+      }
     case POST_FAVORITE_START:
       return {
         ...state
       };
+    case POST_FOLLOWING_START:
+      return {
+        ...state
+      }
+    case GET_FOLLOWING_TEAMS_START:
+      return {
+        ...state,
+        fetchingData: true
+      }
+    case GET_FOLLOWING_TEAMS_SUCCESS:
+      return {
+        ...state,
+        fetchingData: false,
+        followingTeams: action.payload
+      }
+    case GET_FOLLOWING_TEAMS_FAIL: 
+      return {
+        ...state,
+        error: action.payload
+      }
     case GET_HOMEPAGE_GAMEDATA_LOADING:
       return {
         ...state,
