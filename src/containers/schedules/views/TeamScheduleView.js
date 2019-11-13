@@ -38,8 +38,8 @@ const TeamScheduleView = props => {
   useEffect(() => {
     props.fetchCurrentTeamSchedule(
       props.match.params.team_id,
-      endDate,
-      startDate
+      startDate,
+      endDate
     );
   }, [startDate, endDate]);
 
