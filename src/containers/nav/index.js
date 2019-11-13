@@ -5,10 +5,10 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import Home from "../home";
 import Login from "../login/index";
 import Register from "../register/index";
@@ -183,7 +183,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <MenuIcon />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -274,7 +274,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
           </div>
           {renderMenu}

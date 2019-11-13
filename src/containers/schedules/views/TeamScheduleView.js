@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 //CSS
 import "../../../App.css";
+import { width } from "dom-helpers";
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -26,6 +27,12 @@ const useStyles = makeStyles(theme => ({
     "& > * + *": {
       marginLeft: theme.spacing(2)
     }
+  },
+  tsvContainer: {
+    maxWidth: "800px",
+    width: "100%",
+    margin: "auto",
+    justifyContent: "center"
   }
 }));
 
@@ -85,7 +92,7 @@ const TeamScheduleView = props => {
   };
 
   return (
-    <>
+    <div className={classes.tsvContainer}>
       <div className="datepicker-container" style={{ marginTop: "75px" }}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <Grid container justify="space-around">
@@ -146,7 +153,7 @@ const TeamScheduleView = props => {
           </Grid>
         )}
       </Grid>
-    </>
+    </div>
   );
 };
 
