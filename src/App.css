@@ -40,11 +40,14 @@ a {
 
 @media screen and (max-width: 500px) {
   .schedule-list-container {
+    max-width: 500px;
+    width: 100%;
+    display: flex;
     flex-flow: column nowrap;
     align-content: center;
     justify-content: center;
     text-align: center;
-    margin: 0 auto;
+    margin: auto;
   }
   .makeStyles-root-154 {
     display: flex;
@@ -55,12 +58,14 @@ a {
     margin: 0 auto;
   }
   .division-list {
+    max-width: 500px;
     width: 100%;
     align-content: center;
     justify-content: center;
     text-align: center;
-    margin: 0 auto;
+    margin: auto;
   }
+
   #list-subheader {
     position: relative;
     margin: 0 auto;

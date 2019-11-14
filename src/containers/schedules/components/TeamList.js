@@ -9,8 +9,20 @@ import ListItemText from "@material-ui/core/ListItemText";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
+    maxWidth: 500,
+    backgroundColor: theme.palette.background.paper,
+    alignSelf: "center",
+    marginBottom: "30px"
+  },
+  division: {
+    fontSize: "1.5rem",
+    textAlign: "center"
+  },
+  team: {
+    paddingLeft: "20px"
+  },
+  text: {
+    textAlign: "center"
   }
 }));
 
@@ -28,7 +40,7 @@ export default function TeamList(props) {
         aria-label="list"
         className="division-list"
         subheader={
-          <ListSubheader component="div" id="list-subheader">
+          <ListSubheader component="div" className={classes.division} id="list-subheader">
             {`${props.division[0].league} ${props.division[0].division}`}
           </ListSubheader>
         }
@@ -36,8 +48,8 @@ export default function TeamList(props) {
         {props.division.map(team => {
           return (
             <Link to={`/schedules/${team.team_id}`} key={`${team.team_id}`}>
-              <ListItem button key={`${team.team_id}`}>
-                <ListItemText primary={`${team.team_name}`} />
+              <ListItem button className={classes.team} key={`${team.team_id}`}>
+                <ListItemText className={classes.text} primary={`${team.team_name}`} />
               </ListItem>
             </Link>
           );
