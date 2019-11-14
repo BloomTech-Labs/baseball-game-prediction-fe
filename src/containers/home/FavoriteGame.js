@@ -9,7 +9,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    height: 125
   }
 }));
 
@@ -31,11 +32,6 @@ const FavoriteGame = ({ game, i }) => {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
-          {hover && (
-            <Typography variant="body2" style={{ marginBottom: 15 }}>
-              Click To View Prediction
-            </Typography>
-          )}
           <Grid container>
             <Grid item xs={4}>
               <h6 style={{ margin: "5px" }}>Home</h6>
@@ -51,6 +47,9 @@ const FavoriteGame = ({ game, i }) => {
               <img src={getLogo(game.awayTeam)} width="50px" />
             </Grid>
           </Grid>
+          {hover && (
+            <Typography variant="body2">Click To View Prediction</Typography>
+          )}
         </Paper>
       </Link>
     </Grid>
