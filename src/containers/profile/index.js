@@ -39,15 +39,11 @@ const Profile = props => {
 
   useEffect(() => {
     props.getFollowingTeams(props.profile_id)
-  }, [])
-
-  console.log('following', props.following)
+  }, [])  
 
   useEffect(() => {
     props.getFavoriteTeams(props.profile_id);
-  }, [props.profile_id]);
-
-  console.log("favorite", props.favorite)
+  }, []);  
 
   useEffect(() => {
     setFavorites(props.favorite);
@@ -55,15 +51,15 @@ const Profile = props => {
 
   useEffect(() => {
     setFollowings(props.following)
-  }, [props.following])
+  }, [props.following]);
 
   useEffect(() => {
     props.getProfile(props.profile_id);
   }, [props.profile_id]);
 
   const submit = abv => {
-    props.deleteFavorite(abv.favorite_id);
-    const newArr = favorites.filter(fav => fav.team_id != abv.team_id);
+    props.deleteFavorite(abv.favorite_id);    
+    const newArr = favorites.filter(fav => fav.team_id != abv.team_id);      
     return setFavorites(newArr);
   };
 

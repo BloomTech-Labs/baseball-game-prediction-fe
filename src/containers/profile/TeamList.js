@@ -10,11 +10,11 @@ import { Link } from "react-router-dom";
 const TeamList = props => {
   useEffect(() => {
     props.getTeamsDB();
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     props.getFollowingTeams(props.profile_id)
-  }, [])
+  }, [props])
 
  
 
