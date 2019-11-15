@@ -10,7 +10,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    width: "100%"
+    width: "100%",
+    height: 125
   }
 }));
 
@@ -25,11 +26,6 @@ export default function GameCard(props) {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        {hover && (
-          <Typography variant="body2" style={{ marginBottom: 15 }}>
-            Click To View Prediction
-          </Typography>
-        )}
         <Grid container>
           <Grid item xs={4}>
             <h6 style={{ margin: "5px" }}>Home</h6>
@@ -45,6 +41,9 @@ export default function GameCard(props) {
             <img src={getLogo(props.away_team)} width="50px" />
           </Grid>
         </Grid>
+        {hover && (
+          <Typography variant="body2">Click To View Prediction</Typography>
+        )}
       </Paper>
     </>
   );

@@ -195,7 +195,12 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
       <AppBar position="fixed">
         <Toolbar>
           <Link to="/" className={classes.link} style={{ color: "white" }}>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              noWrap
+              style={{ padding: 0 }}
+            >
               Baseball Game Prediction
             </Typography>
           </Link>
