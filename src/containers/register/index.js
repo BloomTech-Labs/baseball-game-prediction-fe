@@ -76,7 +76,7 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
   };
 
   return (
-    <div className="RegisterForm">
+    <div style={{height: 910}} className="RegisterForm">
       <div className={classes.text}>
         <Typography variant="h4" gutterBottom align="center">
           Create Account

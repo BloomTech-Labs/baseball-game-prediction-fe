@@ -82,8 +82,7 @@ a {
 }
 .main-container {
   background-image: url("http://getwallpapers.com/wallpaper/full/0/3/d/664458.jpg");
-  background-attachment: fixed;
-  
+  background-attachment: fixed;  
   background-size: cover;
 }
 
@@ -104,7 +103,7 @@ a {
 
 .welcome_container {
   margin: auto;
-  margin-top: 4rem;
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

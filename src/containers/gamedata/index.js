@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   fullContainer: {
-    flexFlow: "row nowrap"
+    flexFlow: "row nowrap",  
   },
 
   dateTime: {
@@ -106,7 +106,7 @@ export default function GameData(props) {
     gameDisplay = (
       <div className={classes.fullContainer}>
         <Grid container spacing={3} direction="row" alignItems="center">
-          <Grid item xs={5}>
+          <Grid style={{backgroundColor: "green"}} item xs={5}>
             <Typography align="center">HOME</Typography>
             <img
               src={getLogo(lineup.teams[1].data[0].abbreviation)}
@@ -123,7 +123,7 @@ export default function GameData(props) {
           <Grid item xs={2}>
             <Typography align="center">VS</Typography>
           </Grid>
-          <Grid item xs={5}>
+          <Grid style={{backgroundColor: "red"}} item xs={5}>
             <Typography align="center">AWAY</Typography>
             <img
               src={getLogo(lineup.teams[0].data[0].abbreviation)}
@@ -145,7 +145,7 @@ export default function GameData(props) {
           alignItems="center"
         >
           <Grid item xs={12}>
-            <Typography align="center">
+            <Typography align="center" style={{color: "white"}}>
               {moment(lineup.game.startTime).format("LLL")} @{" "}
               {lineup.references.venueReferences[0].name} in{" "}
               {lineup.references.venueReferences[0].city}
@@ -201,7 +201,7 @@ export default function GameData(props) {
       homeSortedFieldingLineup
     ) {
       return (
-        <div style={{ width: "75%", margin: "150px auto" }}>
+        <div style={{ width: "65%", margin: "100px auto", height: 910 }}>
           {gameDisplay}
           <div className={classes.tabs}>
             <Tabs
