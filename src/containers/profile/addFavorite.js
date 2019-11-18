@@ -32,9 +32,9 @@ const AddFavorite = props => {
   };
 
   return (
-    <div style={{ paddingTop: 100, margin: "auto", maxWidth: 1000 }}>
+    <div style={{ paddingTop: 70, margin: "auto", maxWidth: 1000 }}>
       <h1 style={{ textAlign: "center" }}>
-        Pick Your Favorite Teams To Follow
+        Pick Your Favorite Team
       </h1>
       <div style={{ textAlign: "center" }}>
         {props.teams.map(team => {

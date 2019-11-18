@@ -33,7 +33,7 @@ const TeamList = props => {
 
 
   return (
-    <div style={{ paddingTop: 100, margin: "auto", maxWidth: 1000 }}>
+    <div style={{ paddingTop: 70, margin: "auto", maxWidth: 1000 }}>
       <h1 style={{ textAlign: "center" }}>
         Pick Your Favorite Teams To Follow
       </h1>
