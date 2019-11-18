@@ -18,7 +18,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexWrap: "wrap",
     maxWidth: 350,
-    margin: "auto"
+    margin: "auto",
+    backgroundColor: "white",
+    color: "red"
   },
   textField: {
     marginLeft: theme.spacing(1),

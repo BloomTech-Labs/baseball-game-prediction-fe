@@ -11,6 +11,7 @@ import reducer from './Redux/reducers/index'
 import "sanitize.css/sanitize.css";
 import "./index.css";
 import dotenv from 'dotenv';
+import './App.css'
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ render(
   <Provider store={store}>
     
     <ConnectedRouter history={history}>
-      <div>
+      <div className="main-container">
         <App />
       </div>
     </ConnectedRouter>

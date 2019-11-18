@@ -80,11 +80,11 @@ a {
     flex-direction: column;
   }
 }
-
-.background {
+.main-container {
   background-image: url("http://getwallpapers.com/wallpaper/full/0/3/d/664458.jpg");
-  height: 70rem;  
-  background-repeat: repeat;
+  background-attachment: fixed;
+  
+  background-size: cover;
 }
 
 .container {  
@@ -115,8 +115,8 @@ a {
   width: 100%
 }
 
-.heading {
-  position: fixed;
+.heading {  
+  position: absolute;
   align-self: flex-start; 
   color: white;
   text-shadow: 2px 2px 3px black, -2px -2px black, 2px 2px black;
@@ -128,8 +128,8 @@ a {
 
 .button_container {
   display: flex;
-  justify-content: space-around;
-  padding-top: 2rem
+  justify-content: center;
+  padding-top: 2rem; 
 }
 @media only screen and (max-width: 768px) {
   .button_container {
@@ -148,7 +148,9 @@ a {
 
 .logos {
  display: flex;
- justify-content: space-around; 
+ justify-content: space-around;
+ flex-wrap: wrap;
+  
 }
 
 @media only screen and (max-width: 768px) {
