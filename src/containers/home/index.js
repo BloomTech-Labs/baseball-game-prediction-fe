@@ -119,37 +119,39 @@ const Home = ({
 
   return (
     <div className={classes.root}>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <Grid container justify="space-around">
-          <KeyboardDatePicker
-            className={classes.picker}
-            disableToolbar
-            variant="inline"
-            format="MM/DD/YYYY"
-            margin="normal"
-            id="date-picker-inline"
-            label="Game Date"
-            value={date}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change date"
-            }}
-          />
-          <FormGroup row>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={checked}
-                  onChange={() => setChecked(!checked)}
-                  value="checked"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
-                />
-              }
-              label="Teams You Follow"
+      <div style={{ backgroundColor: "lightgrey", padding: 15 }}>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              className={classes.picker}
+              disableToolbar
+              variant="inline"
+              format="MM/DD/YYYY"
+              margin="normal"
+              id="date-picker-inline"
+              label="Game Date"
+              value={date}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date"
+              }}
             />
-          </FormGroup>
-        </Grid>
-      </MuiPickersUtilsProvider>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={checked}
+                    onChange={() => setChecked(!checked)}
+                    value="checked"
+                    inputProps={{ "aria-label": "secondary checkbox" }}
+                  />
+                }
+                label="Teams You Follow"
+              />
+            </FormGroup>
+          </Grid>
+        </MuiPickersUtilsProvider>
+      </div>
       {homepageGamedataLoading ? (
         <div className={classes.circleProgress}>
           <CircularProgress

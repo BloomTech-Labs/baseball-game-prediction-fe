@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Typography, Tabs, Tab, Box, CircularProgress } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Tabs,
+  Tab,
+  Box,
+  CircularProgress
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getLineup } from "../../utils/getLineup";
 import { getPrediction } from "../../utils/getPrediction";
@@ -45,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   fullContainer: {
-    flexFlow: "row nowrap",  
+    flexFlow: "row nowrap"
   },
 
   dateTime: {
@@ -90,23 +97,30 @@ export default function GameData(props) {
 
   let gameDisplay;
 
-  while(!lineup.game){
+  while (!lineup.game) {
     return (
       <div className={classes.circleProgress}>
-            <CircularProgress
-              size={50}
-              thickness={2}
-              style={{ margin: "200px auto" }}
-            />
+        <CircularProgress
+          size={50}
+          thickness={2}
+          style={{ margin: "200px auto" }}
+        />
       </div>
-    )
+    );
   }
 
   if (lineup.teams && prediction.data) {
     gameDisplay = (
       <div className={classes.fullContainer}>
         <Grid container spacing={3} direction="row" alignItems="center">
-          <Grid style={{backgroundColor: "green"}} item xs={5}>
+          <Grid
+            style={{
+              background: "rgba(76, 175, 80, 0.45)",
+              color: "white"
+            }}
+            item
+            xs={5}
+          >
             <Typography align="center">HOME</Typography>
             <img
               src={getLogo(lineup.teams[1].data[0].abbreviation)}
@@ -123,7 +137,11 @@ export default function GameData(props) {
           <Grid item xs={2}>
             <Typography align="center">VS</Typography>
           </Grid>
-          <Grid style={{backgroundColor: "red"}} item xs={5}>
+          <Grid
+            style={{ background: "rgba(255, 0, 0, 0.45)", color: "white" }}
+            item
+            xs={5}
+          >
             <Typography align="center">AWAY</Typography>
             <img
               src={getLogo(lineup.teams[0].data[0].abbreviation)}
@@ -143,15 +161,7 @@ export default function GameData(props) {
           className={classes.dateTime}
           justify="center"
           alignItems="center"
-        >
-          <Grid item xs={12}>
-            <Typography align="center" style={{color: "white"}}>
-              {moment(lineup.game.startTime).format("LLL")} @{" "}
-              {lineup.references.venueReferences[0].name} in{" "}
-              {lineup.references.venueReferences[0].city}
-            </Typography>
-          </Grid>
-        </Grid>
+        ></Grid>
       </div>
     );
   }
@@ -201,9 +211,17 @@ export default function GameData(props) {
       homeSortedFieldingLineup
     ) {
       return (
-        <div style={{ width: "65%", margin: "100px auto", height: 910 }}>
+        <div
+          style={{ width: "65%", margin: "100px auto auto", height: "auto" }}
+        >
           {gameDisplay}
           <div className={classes.tabs}>
+            <Typography align="center" style={{ color: "black", padding: 15 }}>
+              {moment(lineup.game.startTime).format("LLL")} @{" "}
+              {lineup.references.venueReferences[0].name} in{" "}
+              {lineup.references.venueReferences[0].city}
+            </Typography>
+
             <Tabs
               value={value}
               onChange={handleChange}
