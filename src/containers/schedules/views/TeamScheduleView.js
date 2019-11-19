@@ -93,7 +93,7 @@ const TeamScheduleView = props => {
 
   return (
     <div className={classes.tsvContainer}>
-      <div className="datepicker-container" style={{ marginTop: "75px" }}>
+      <div className="datepicker-container" style={{ marginTop: "62px" }}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <Grid container justify="space-around">
             <KeyboardDatePicker

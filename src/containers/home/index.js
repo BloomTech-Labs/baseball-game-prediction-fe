@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     maxWidth: 500,
-    margin: "75px auto 25px"
+    margin: "62px auto 25px"
   },
   paper: {
     padding: theme.spacing(2),

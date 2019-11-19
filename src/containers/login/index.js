@@ -13,7 +13,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexWrap: "wrap",
     maxWidth: 350,
-    margin: "auto"
+    margin: "auto",
+    color: "red",
+    backgroundColor: "white"
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -35,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     maxWidth: 500,
     margin: "auto"
-  }
+  }  
 }));
 
 const LoginForm = ({ login, history }) => {
@@ -56,7 +58,7 @@ const LoginForm = ({ login, history }) => {
   };
 
   return (
-    <div className="RegisterForm">
+    <div style={{height: 910}} className="RegisterForm">
       <div className={classes.text}>
         <Typography variant="h4" gutterBottom align="center">
           Login

@@ -18,7 +18,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexWrap: "wrap",
     maxWidth: 350,
-    margin: "auto"
+    margin: "auto",
+    backgroundColor: "white",
+    color: "red"
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -74,7 +76,7 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
   };
 
   return (
-    <div className="RegisterForm">
+    <div style={{height: 910}} className="RegisterForm">
       <div className={classes.text}>
         <Typography variant="h4" gutterBottom align="center">
           Create Account

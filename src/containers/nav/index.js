@@ -24,7 +24,7 @@ import addFavorite from "../profile/addFavorite";
 const useStyles = makeStyles(theme => ({
   link: {
     margin: theme.spacing(1)
-  },
+  }, 
   grow: {
     flexGrow: 1
   },
@@ -192,7 +192,7 @@ const PrimarySearchAppBar = ({ logout, profile_id }) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed">
+      <AppBar position="relative">
         <Toolbar>
           <Link to="/" className={classes.link} style={{ color: "white" }}>
             <Typography

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box'
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -14,17 +16,22 @@ import { deleteProfile } from "../../Redux/actions/index";
 import { getTeamsDB } from "../../Redux/actions/index";
 import { getFollowingTeams } from "../../Redux/actions/index.js";
 import { deleteFollowing } from "../../Redux/actions/index.js"
+import "../../App.css"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    marginTop: 40
-  },
+    flexGrow: 1
+  },  
+  
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
     marginTop: 40
+  },
+  welcome: {
+    marginTop: 100,
+    marginLeft: 200
   }
 }));
 
@@ -39,15 +46,11 @@ const Profile = props => {
 
   useEffect(() => {
     props.getFollowingTeams(props.profile_id)
-  }, [])
-
-  console.log('following', props.following)
+  }, [])  
 
   useEffect(() => {
     props.getFavoriteTeams(props.profile_id);
-  }, [props.profile_id]);
-
-  console.log("favorite", props.favorite)
+  }, []);  
 
   useEffect(() => {
     setFavorites(props.favorite);
@@ -55,15 +58,15 @@ const Profile = props => {
 
   useEffect(() => {
     setFollowings(props.following)
-  }, [props.following])
+  }, [props.following]);
 
   useEffect(() => {
     props.getProfile(props.profile_id);
   }, [props.profile_id]);
 
   const submit = abv => {
-    props.deleteFavorite(abv.favorite_id);
-    const newArr = favorites.filter(fav => fav.team_id != abv.team_id);
+    props.deleteFavorite(abv.favorite_id);    
+    const newArr = favorites.filter(fav => fav.team_id != abv.team_id);      
     return setFavorites(newArr);
   };
 
@@ -79,23 +82,107 @@ const Profile = props => {
   };
 
   return (
-    <Grid container justify="center">
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <h1
-            style={{
-              fontFamily: "Times New Roman, Times, serif",
-              color: "maroon"
-            }}
+    <div className="background">
+      <div className="container">
+        <div className="welcome_container">        
+          <h1 className="heading">Welcome {props.username}</h1>          
+          {favorites.map(fav => {
+            if (fav.favorite ===1) {
+            return (
+              <p style={{color: 'red'}} onClick={() => submit(fav)}>x
+              <img
+              className="banner"
+              
+              src={getWallpaper(fav.abbreviation)}
+              key={`$fav.favorite`}
+              />
+              </p>
+            )
+            } 
+            })}
+          </div>
+            <div className="button_container">
+            <Link to="/favoriteTeam">
+              <Button style={{ margin: 6 }}
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              >
+              Add A Favorite Team              
+              </Button>
+            </Link>
+            <Link to="/addTeam">
+                <Button
+                style={{ margin: 6 }}
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                >
+                Add Teams To Follow
+                </Button>
+            </Link>
+            </div>
+            <div className="following">
+              <h1 className="following_header">Teams You Are Following</h1>
+              <div className="logos">
+              {followings.map(team => {
+                return (
+                  
+                  <p onClick={() => removeFollowing(team) } 
+                  style={{color: "red"}}
+                  key={`${team.abbreviation}xclosebutton`}>
+                  x
+                  <img className="logo"
+                  style={{ margin: 10 }}                  
+                  src={getLogo(team.abbreviation)}
+                  width="90px"
+                  />
+                  </p>                  
+            );
+          })}
+            </div>
+            </div>       
+      </div>
+      <p className="delete" onClick={() => remove()} style={{color: "red"}}>Delete Profile</p>     
+    </div>
+  )
+}
+    {/*<Grid direction="row" className={classes.container}>    
+      
+        <Box className={classes.welcome}
+          fontSize="h4.fontSize"
+          fontStyle="italic"
+          textAlign="left"
           >
-            Welcome {props.username}!
-          </h1>
-        </Paper>
-      </Grid>
+          Welcome<br/> {props.username}!
+        </Box>       
+        
+        <Box
+          textAlign="right"
+        >
+        {favorites.map(fav => {
+          if (fav.favorite === 1) {
+            return (              
+              <img
+              style={{width: 300}}
+                src={getWallpaper(fav.abbreviation)}
+                key={`${fav.favorite}hasdh`}
+              />              
+            );
+          }
+        })}
+        </Box>     
+      
+     
+      
+      
+    
+            
+         
       <Grid item xs={6} style={{ paddingBottom: 0 }}>
-        <Paper className={classes.paper}>
+       
           <h3>Your Favorite Team</h3>
-        </Paper>
+        
         <Grid
           container
           justify="center"
@@ -147,16 +234,7 @@ const Profile = props => {
         </Grid>
       </Grid>
       <Grid container justify="center">
-        {favorites.map(fav => {
-          if (fav.favorite === 1) {
-            return (
-              <img
-                src={getWallpaper(fav.abbreviation)}
-                key={`${fav.favorite}hasdh`}
-              />
-            );
-          }
-        })}
+       
       </Grid>
       <Link to="/favoriteTeam">
         <Button
@@ -187,10 +265,10 @@ const Profile = props => {
       >
         Delete Your Account
       </Button>
-      <br />
-    </Grid>
+        <br />
+      </Grid>
   );
-};
+};*/}
 
 const mapStateToProps = state => {
   return {
