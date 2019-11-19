@@ -82,22 +82,23 @@ a {
 }
 .main-container {
   background-image: url("http://getwallpapers.com/wallpaper/full/0/3/d/664458.jpg");
-  background-attachment: fixed;  
+  background-attachment: fixed;
   background-size: cover;
+  min-height: 100vh;
 }
 
-.container {  
+.container {
   width: 60%;
   background-color: beige;
   margin: auto;
-  padding-top: 40px
+  padding-top: 40px;
 }
 
 @media only screen and (max-width: 768px) {
   .container {
     display: flex;
-    flex-direction: column;   
-    width: 80% 
+    flex-direction: column;
+    width: 80%;
   }
 }
 
@@ -111,58 +112,57 @@ a {
 }
 
 .banner {
-  width: 100%
+  width: 100%;
 }
 
-.heading {  
+.heading {
   position: absolute;
-  align-self: flex-start; 
+  align-self: flex-start;
   color: white;
   text-shadow: 2px 2px 3px black, -2px -2px black, 2px 2px black;
   font-weight: bold;
   font-size: 2.9rem;
-  font-style: italic;  
+  font-style: italic;
   font-family: "Times New Roman";
 }
 
 .button_container {
   display: flex;
   justify-content: center;
-  padding-top: 2rem; 
+  padding-top: 2rem;
 }
 @media only screen and (max-width: 768px) {
   .button_container {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     width: 10rem;
-    margin: auto
+    margin: auto;
   }
 }
 
 .following_header {
   display: flex;
   justify-content: center;
-  padding-top: 2rem
+  padding-top: 2rem;
 }
 
 .logos {
- display: flex;
- justify-content: space-around;
- flex-wrap: wrap;
-  
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 @media only screen and (max-width: 768px) {
-  .logos {   
+  .logos {
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
     flex-wrap: wrap;
   }
 }
 
 @media only screen and (max-width: 768px) {
   .logo {
-    width: 80%;    
+    width: 80%;
   }
 }
 
@@ -170,6 +170,3 @@ a {
   padding-top: 3rem;
   text-align: right;
 }
-
-
-

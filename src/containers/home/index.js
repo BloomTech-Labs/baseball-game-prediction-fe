@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     maxWidth: 500,
-    margin: "62px auto 25px"
+    margin: "62px auto auto",
+    paddingBottom: 25
   },
   paper: {
     padding: theme.spacing(2),
@@ -46,6 +47,9 @@ const useStyles = makeStyles(theme => ({
     "& > * + *": {
       marginLeft: theme.spacing(2)
     }
+  },
+  picker: {
+    color: "white"
   }
 }));
 
@@ -118,6 +122,7 @@ const Home = ({
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <Grid container justify="space-around">
           <KeyboardDatePicker
+            className={classes.picker}
             disableToolbar
             variant="inline"
             format="MM/DD/YYYY"

@@ -11,13 +11,11 @@ import reducer from "./Redux/reducers/index";
 import "sanitize.css/sanitize.css";
 import "./index.css";
 
-import dotenv from 'dotenv';
-import './App.css'
-
+import dotenv from "dotenv";
+import "./App.css";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import { green, blueGrey, blue } from "@material-ui/core/colors";
-
 
 dotenv.config();
 
@@ -39,12 +37,10 @@ const theme = createMuiTheme({
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-
       <div className="main-container">
         <MuiThemeProvider theme={theme}>
           <App />
         </MuiThemeProvider>
-
       </div>
     </ConnectedRouter>
   </Provider>,
