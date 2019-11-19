@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box'
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -15,14 +15,14 @@ import { deleteFavorite } from "../../Redux/actions/index";
 import { deleteProfile } from "../../Redux/actions/index";
 import { getTeamsDB } from "../../Redux/actions/index";
 import { getFollowingTeams } from "../../Redux/actions/index.js";
-import { deleteFollowing } from "../../Redux/actions/index.js"
-import "../../App.css"
+import { deleteFollowing } from "../../Redux/actions/index.js";
+import "../../App.css";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
-  },  
-  
+  },
+
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
@@ -38,26 +38,28 @@ const useStyles = makeStyles(theme => ({
 const Profile = props => {
   const classes = useStyles();
   const [favorites, setFavorites] = useState([]);
-  const [followings, setFollowings] = useState([])
+  const [followings, setFollowings] = useState([]);
 
   useEffect(() => {
     props.getTeamsDB();
   }, []);
 
   useEffect(() => {
-    props.getFollowingTeams(props.profile_id)
-  }, [])  
+    props.getFollowingTeams(props.profile_id);
+  }, []);
 
   useEffect(() => {
     props.getFavoriteTeams(props.profile_id);
-  }, []);  
+  }, [props.favorites]);
+
+  console.log("is this a loop");
 
   useEffect(() => {
     setFavorites(props.favorite);
   }, [props.favorite]);
 
   useEffect(() => {
-    setFollowings(props.following)
+    setFollowings(props.following);
   }, [props.following]);
 
   useEffect(() => {
@@ -65,16 +67,16 @@ const Profile = props => {
   }, [props.profile_id]);
 
   const submit = abv => {
-    props.deleteFavorite(abv.favorite_id);    
-    const newArr = favorites.filter(fav => fav.team_id != abv.team_id);      
+    props.deleteFavorite(abv.favorite_id);
+    const newArr = favorites.filter(fav => fav.team_id != abv.team_id);
     return setFavorites(newArr);
   };
 
   const removeFollowing = team => {
-    props.deleteFollowing(team.following_id)
-    const newArray = followings.filter(f => f.team_id != team.team_id)
-    return setFollowings(newArray)
-  }
+    props.deleteFollowing(team.following_id);
+    const newArray = followings.filter(f => f.team_id != team.team_id);
+    return setFollowings(newArray);
+  };
 
   const remove = () => {
     const redirect = () => props.history.push("/register");
@@ -84,70 +86,86 @@ const Profile = props => {
   return (
     <div className="background">
       <div className="container">
-        <div className="welcome_container">        
-          <h1 className="heading">Welcome {props.username}</h1>          
+        <div className="welcome_container">
+          {favorites.length < 1 ? null : (
+            <h1 className="heading">Welcome {props.username}</h1>
+          )}
+
           {favorites.map(fav => {
-            if (fav.favorite ===1) {
-            return (
-              <p style={{color: 'red'}} onClick={() => submit(fav)}>x
-              <img
-              className="banner"
-              
-              src={getWallpaper(fav.abbreviation)}
-              key={`$fav.favorite`}
-              />
-              </p>
-            )
-            } 
-            })}
-          </div>
-            <div className="button_container">
-            <Link to="/favoriteTeam">
-              <Button style={{ margin: 6 }}
+            if (fav.favorite === 1) {
+              return (
+                <p style={{ color: "red" }} onClick={() => submit(fav)}>
+                  x
+                  <img
+                    className="banner"
+                    src={getWallpaper(fav.abbreviation)}
+                    key={`$fav.favorite`}
+                  />
+                </p>
+              );
+            }
+          })}
+        </div>
+        <div
+          className="button_container"
+          // style={props.favorite.length === 0 ? { marginTop: 75 } : null}
+        >
+          <Link to="/favoriteTeam">
+            <Button
+              style={{ margin: 6 }}
               variant="contained"
               color="primary"
               className={classes.button}
-              >
-              Add A Favorite Team              
-              </Button>
-            </Link>
-            <Link to="/addTeam">
-                <Button
-                style={{ margin: 6 }}
-                variant="contained"
-                color="primary"
-                className={classes.button}
+            >
+              Add A Favorite Team
+            </Button>
+          </Link>
+          <Link to="/addTeam">
+            <Button
+              style={{ margin: 6 }}
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              Add Teams To Follow
+            </Button>
+          </Link>
+        </div>
+        <div className="following">
+          <h1 className="following_header">Teams You Are Following</h1>
+          <div className="logos">
+            {followings.map(team => {
+              return (
+                <p
+                  onClick={() => removeFollowing(team)}
+                  style={{ color: "red" }}
+                  key={`${team.abbreviation}xclosebutton`}
                 >
-                Add Teams To Follow
-                </Button>
-            </Link>
-            </div>
-            <div className="following">
-              <h1 className="following_header">Teams You Are Following</h1>
-              <div className="logos">
-              {followings.map(team => {
-                return (
-                  
-                  <p onClick={() => removeFollowing(team) } 
-                  style={{color: "red"}}
-                  key={`${team.abbreviation}xclosebutton`}>
                   x
-                  <img className="logo"
-                  style={{ margin: 10 }}                  
-                  src={getLogo(team.abbreviation)}
-                  width="90px"
+                  <img
+                    className="logo"
+                    style={{ margin: 10 }}
+                    src={getLogo(team.abbreviation)}
+                    width="90px"
                   />
-                  </p>                  
-            );
-          })}
-            </div>
-            </div>       
+                </p>
+              );
+            })}
+          </div>
+        </div>
       </div>
-      <p className="delete" onClick={() => remove()} style={{color: "red"}}>Delete Profile</p>     
+      <p
+        className="delete"
+        onClick={() => remove()}
+        style={{ color: "red", marginBottom: 0 }}
+      >
+        Delete Profile
+      </p>
     </div>
-  )
-}
-    {/*<Grid direction="row" className={classes.container}>    
+  );
+};
+{
+  /*<Grid direction="row" className={classes.container}>    
       
         <Box className={classes.welcome}
           fontSize="h4.fontSize"
@@ -268,7 +286,8 @@ const Profile = props => {
         <br />
       </Grid>
   );
-};*/}
+};*/
+}
 
 const mapStateToProps = state => {
   return {
@@ -283,5 +302,13 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getFavoriteTeams, getProfile, deleteFavorite, deleteProfile, getTeamsDB, getFollowingTeams, deleteFollowing }
+  {
+    getFavoriteTeams,
+    getProfile,
+    deleteFavorite,
+    deleteProfile,
+    getTeamsDB,
+    getFollowingTeams,
+    deleteFollowing
+  }
 )(Profile);

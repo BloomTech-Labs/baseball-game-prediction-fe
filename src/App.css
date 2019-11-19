@@ -89,9 +89,10 @@ a {
 
 .container {
   width: 60%;
-  background-color: beige;
+  /* background-color: beige; */
+  background: rgba(255, 255, 255, 0.55);
   margin: auto;
-  padding-top: 40px;
+  margin-top: 40px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -120,10 +121,11 @@ a {
   align-self: flex-start;
   color: white;
   text-shadow: 2px 2px 3px black, -2px -2px black, 2px 2px black;
-  font-weight: bold;
-  font-size: 2.9rem;
-  font-style: italic;
-  font-family: "Times New Roman";
+  font-weight: 400;
+  font-size: 2.5rem;
+  padding-top: 25px;
+  /* font-style: italic; */
+  font-family: "Roboto";
 }
 
 .button_container {

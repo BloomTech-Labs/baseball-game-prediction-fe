@@ -76,66 +76,68 @@ const RegisterForm = ({ register, clearErrors, passwordMismatch, history }) => {
   };
 
   return (
-    <div style={{height: 910}} className="RegisterForm">
-      <div className={classes.text}>
-        <Typography variant="h4" gutterBottom align="center">
-          Create Account
-        </Typography>
-      </div>
-      <form
-        onSubmit={e => this.handleSubmit(e)}
-        className={classes.container}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          id="username"
-          label="Username"
-          className={classes.textField}
-          value={values.username}
-          onChange={handleChange("username")}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          id="password"
-          label="Password"
-          type="password"
-          className={classes.textField}
-          value={values.password}
-          onChange={handleChange("password")}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          id="confPassword"
-          label="Confirm Password"
-          type="password"
-          className={classes.textField}
-          value={values.confPassword}
-          onChange={handleChange("confPassword")}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          className={classes.button}
-          onClick={e => handleSubmit(e)}
-        >
-          Create Account
-        </Button>
-        <br />
+    <div style={{ height: 910 }} className="RegisterForm">
+      <div style={{ backgroundColor: "white", padding: 25 }}>
         <div className={classes.text}>
-          <Typography variant="body1" gutterBottom align="center">
-            Already have a account? <Link to="/login">Login</Link>
+          <Typography variant="h4" gutterBottom align="center">
+            Create Account
           </Typography>
         </div>
-      </form>
+        <form
+          onSubmit={e => this.handleSubmit(e)}
+          className={classes.container}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            id="username"
+            label="Username"
+            className={classes.textField}
+            value={values.username}
+            onChange={handleChange("username")}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            className={classes.textField}
+            value={values.password}
+            onChange={handleChange("password")}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            id="confPassword"
+            label="Confirm Password"
+            type="password"
+            className={classes.textField}
+            value={values.confPassword}
+            onChange={handleChange("confPassword")}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            className={classes.button}
+            onClick={e => handleSubmit(e)}
+          >
+            Create Account
+          </Button>
+          <br />
+          <div className={classes.text}>
+            <Typography variant="body1" gutterBottom align="center">
+              Already have a account? <Link to="/login">Login</Link>
+            </Typography>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

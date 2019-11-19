@@ -103,7 +103,7 @@ export default function GameData(props) {
         <CircularProgress
           size={50}
           thickness={2}
-          style={{ margin: "200px auto" }}
+          style={{ margin: "200px auto", color: "white" }}
         />
       </div>
     );

@@ -157,7 +157,7 @@ const Home = ({
           <CircularProgress
             size={50}
             thickness={2}
-            style={{ margin: "75px auto" }}
+            style={{ margin: "75px auto", color: "white" }}
           />
         </div>
       ) : homepageGamedataError ? (

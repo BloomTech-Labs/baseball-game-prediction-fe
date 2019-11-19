@@ -62,7 +62,10 @@ const DivisionListView = ({ getTeamsDB, teams }) => {
 
   if (teams.length > 1) {
     return (
-      <div className="schedule-list-container" style={{ marginTop: "64px", height: 850 }}>
+      <div
+        className="schedule-list-container"
+        style={{ marginTop: "64px", height: "auto" }}
+      >
         <TeamList division={nlWTeams(<img src={teamImg()} width="25px" />)} />
         <TeamList division={nlETeams()} />
         <TeamList division={nlCTeams()} />

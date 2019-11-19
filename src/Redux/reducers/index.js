@@ -34,7 +34,8 @@ import {
   GET_FOLLOWING_TEAMS_START,
   GET_FOLLOWING_TEAMS_SUCCESS,
   GET_FOLLOWING_TEAMS_FAIL,
-  DELETE_FOLLOWING_SUCCESS
+  DELETE_FOLLOWING_SUCCESS,
+  POST_FAVORITE_SUCCESS
 } from "../actions";
 
 const initialState = {
@@ -193,31 +194,36 @@ const reducer = (state = initialState, action) => {
     case DELETE_FOLLOWING_SUCCESS:
       return {
         ...state
-      }
+      };
     case POST_FAVORITE_START:
       return {
         ...state
       };
+    case POST_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        favoriteTeams: action.payload
+      };
     case POST_FOLLOWING_START:
       return {
         ...state
-      }
+      };
     case GET_FOLLOWING_TEAMS_START:
       return {
         ...state,
         fetchingData: true
-      }
+      };
     case GET_FOLLOWING_TEAMS_SUCCESS:
       return {
         ...state,
         fetchingData: false,
         followingTeams: action.payload
-      }
-    case GET_FOLLOWING_TEAMS_FAIL: 
+      };
+    case GET_FOLLOWING_TEAMS_FAIL:
       return {
         ...state,
         error: action.payload
-      }
+      };
     case GET_HOMEPAGE_GAMEDATA_LOADING:
       return {
         ...state,
@@ -237,25 +243,25 @@ const reducer = (state = initialState, action) => {
         homepageGamedataLoading: false,
         homepageGamedataError: true
       };
-    case GET_TEAMSCHEDULE_LOADING: 
-    return {
-      ...state,
-      teamscheduledataLoading: true,
-      teamscheduleError: false
-    }
+    case GET_TEAMSCHEDULE_LOADING:
+      return {
+        ...state,
+        teamscheduledataLoading: true,
+        teamscheduleError: false
+      };
     case GET_TEAMSCHEDULE_SUCCESS:
       return {
         ...state,
         teamscheduledataLoading: false,
         teamscheduleData: action.payload,
         teamscheduleError: false
-      }
+      };
     case GET_TEAMSCHEDULE_FAILED:
       return {
         ...state,
         teamscheduleError: true,
         teamscheduledataLoading: false
-      }
+      };
     default:
       return state;
   }

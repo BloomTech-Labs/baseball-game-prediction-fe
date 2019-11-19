@@ -46,6 +46,7 @@ export const login = (creds, redirect) => dispatch => {
     .post("/api/profiles/login", creds)
     .then(res => {
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user_id", res.data.id);
       redirect();
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
     })
@@ -162,42 +163,50 @@ export const deleteProfile = (profile_id, redirect) => {
   }
 };
 export const POST_FAVORITE_START = "POST_FAVORITE_START";
+export const POST_FAVORITE_SUCCESS = "POST_FAVORITE_SUCCESS";
 
 export const postFavoriteTeam = team => dispatch => {
   dispatch({ type: POST_FAVORITE_START });
-  axiosWithAuth().post(`/api/favoriteTeams`, team);
+  axiosWithAuth()
+    .post(`/api/favoriteTeams`, team)
+    .then(res => {
+      dispatch({
+        type: POST_FAVORITE_SUCCESS,
+        payload: res.data
+      });
+    });
 };
 
-export const GET_FOLLOWING_TEAMS_START = "GET_FOLLOWING_TEAMS_START"
-export const GET_FOLLOWING_TEAMS_SUCCESS = "GET_FOLLOWING_TEAMS_SUCCESS"
-export const GET_FOLLOWING_TEAMS_FAIL = "GET_FOLLOWING_TEAMS_FAIL"
+export const GET_FOLLOWING_TEAMS_START = "GET_FOLLOWING_TEAMS_START";
+export const GET_FOLLOWING_TEAMS_SUCCESS = "GET_FOLLOWING_TEAMS_SUCCESS";
+export const GET_FOLLOWING_TEAMS_FAIL = "GET_FOLLOWING_TEAMS_FAIL";
 
 export const getFollowingTeams = profile_id => dispatch => {
   dispatch({ type: GET_FOLLOWING_TEAMS_START });
   axiosWithAuth()
     .get(`/api/following/${profile_id}`)
     .then(res => {
-      dispatch({ type: GET_FOLLOWING_TEAMS_SUCCESS, payload: res.data});
+      dispatch({ type: GET_FOLLOWING_TEAMS_SUCCESS, payload: res.data });
     })
     .catch(error => {
       dispatch({ type: GET_FOLLOWING_TEAMS_FAIL, payload: error });
     });
 };
 
-export const POST_FOLLOWING_START = "POST_FOLLOWING_START"
+export const POST_FOLLOWING_START = "POST_FOLLOWING_START";
 
 export const postFollowingTeam = team => dispatch => {
-  dispatch({type: POST_FOLLOWING_START})
-  axiosWithAuth().post('/api/following', team)
-}
+  dispatch({ type: POST_FOLLOWING_START });
+  axiosWithAuth().post("/api/following", team);
+};
 
-export const DELETE_FOLLOWING_START = "DELETE_FOLLOWING_START"
-export const DELETE_FOLLOWING_SUCCESS = "DELETE_FOLLOWING_SUCCESS"
+export const DELETE_FOLLOWING_START = "DELETE_FOLLOWING_START";
+export const DELETE_FOLLOWING_SUCCESS = "DELETE_FOLLOWING_SUCCESS";
 
 export const deleteFollowing = following_id => dispatch => {
-  dispatch({type: DELETE_FOLLOWING_START})
-  axiosWithAuth().delete(`/api/following/${following_id}`)
-}
+  dispatch({ type: DELETE_FOLLOWING_START });
+  axiosWithAuth().delete(`/api/following/${following_id}`);
+};
 
 export const GET_HOMEPAGE_GAMEDATA_LOADING = "GET_HOMEPAGE_GAMEDATA_LOADING";
 export const GET_HOMEPAGE_GAMEDATA_SUCCESS = "GET_HOMEPAGE_GAMEDATA_SUCCESS";
@@ -249,7 +258,7 @@ export const fetchCurrentTeamSchedule = (
   dispatch({
     type: GET_TEAMSCHEDULE_LOADING
   });
-  
+
   axiosWithAuth()
     .get(`/api/teams/${team_id}`)
     .then(res => {

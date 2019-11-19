@@ -14,8 +14,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: "wrap",
     maxWidth: 350,
     margin: "auto",
-    color: "red",
-    backgroundColor: "white"
+    color: "red"
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -37,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     maxWidth: 500,
     margin: "auto"
-  }  
+  }
 }));
 
 const LoginForm = ({ login, history }) => {
@@ -58,59 +57,61 @@ const LoginForm = ({ login, history }) => {
   };
 
   return (
-    <div style={{height: 910}} className="RegisterForm">
-      <div className={classes.text}>
-        <Typography variant="h4" gutterBottom align="center">
-          Login
-        </Typography>
-      </div>
-      <form
-        onSubmit={e => this.handleSubmit(e)}
-        className={classes.container}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          id="username"
-          label="Username"
-          className={classes.textField}
-          value={values.username}
-          onChange={handleChange("username")}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          id="password"
-          label="Password"
-          type="password"
-          className={classes.textField}
-          value={values.password}
-          onChange={handleChange("password")}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-        />
-
-        <Button
-          className="submit"
-          id="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          className={classes.button}
-          onClick={e => handleSubmit(e)}
-        >
-          Login
-        </Button>
-        <br />
-
-        <div className={classes.text}>
-          <Typography variant="body1" gutterBottom align="center">
-            Don't have an account yet? <Link to="/register">Register</Link>
+    <div style={{ height: "auto" }} className="RegisterForm">
+      <div style={{ backgroundColor: "white", padding: 25 }}>
+        <div className={classes.text} style={{}}>
+          <Typography variant="h4" gutterBottom align="center">
+            Login
           </Typography>
         </div>
-      </form>
+        <form
+          onSubmit={e => this.handleSubmit(e)}
+          className={classes.container}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            id="username"
+            label="Username"
+            className={classes.textField}
+            value={values.username}
+            onChange={handleChange("username")}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            className={classes.textField}
+            value={values.password}
+            onChange={handleChange("password")}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
+
+          <Button
+            className="submit"
+            id="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            className={classes.button}
+            onClick={e => handleSubmit(e)}
+          >
+            Login
+          </Button>
+          <br />
+
+          <div className={classes.text}>
+            <Typography variant="body1" gutterBottom align="center">
+              Don't have an account yet? <Link to="/register">Register</Link>
+            </Typography>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
