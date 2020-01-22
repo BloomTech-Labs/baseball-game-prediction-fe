@@ -52,8 +52,6 @@ const Profile = props => {
     props.getFavoriteTeams(props.profile_id);
   }, [props.favorites]);
 
-  console.log("is this a loop");
-
   useEffect(() => {
     setFavorites(props.favorite);
   }, [props.favorite]);
